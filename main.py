@@ -61,9 +61,16 @@ app.add_middleware(
 from dashboard.historical_aqi import router as dashboard_router
 from dashboard.fusion import router as fusion_router
 from dashboard.forecasting import router as forecasting_router
+from dashboard.traffic import router as traffic_router
+from analytics.dashboard import router as relationships_dashboard_router
+from analytics.api import api_router as relationships_api_router
+
 app.include_router(dashboard_router)
 app.include_router(fusion_router)
 app.include_router(forecasting_router)
+app.include_router(traffic_router)
+app.include_router(relationships_dashboard_router)
+app.include_router(relationships_api_router)
 
 
 @app.get("/", tags=["General"])

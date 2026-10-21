@@ -25,8 +25,6 @@ def test_collector_interfaces_raise_not_implemented() -> None:
 
     tomtom = TomTomCollector()
     assert tomtom.source_name == "tomtom"
-    with pytest.raises(NotImplementedError):
-        tomtom.fetch_raw(now, now)
 
     openmeteo = OpenMeteoCollector()
     assert openmeteo.source_name == "openmeteo"

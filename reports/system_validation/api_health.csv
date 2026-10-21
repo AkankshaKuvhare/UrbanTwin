@@ -1,0 +1,2 @@
+api_name,endpoint_tested,status,latency_seconds,coverage_percentage,records_retrieved,failures
+TomTom Traffic API,Flow Segment Data (v4),PASS,0.2714,100.0,40,0

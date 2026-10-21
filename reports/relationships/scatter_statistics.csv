@@ -1,0 +1,7 @@
+x_variable,y_variable,x_label,y_label,category,n_observations,pearson_r,r_squared,slope,intercept,p_value,std_err
+pm25,aqi,PM2.5,AQI,Pollutant,2012,0.6892,0.475,0.3848,76.6253,1.39e-283,0.00902
+no2,aqi,NO2,AQI,Pollutant,1931,0.6261,0.392,0.7351,74.6637,1.14e-210,0.02085
+pm10,aqi,PM10,AQI,Pollutant,1339,0.4072,0.1658,0.0943,88.7461,1.27e-54,0.00579
+relative_humidity_2m,aqi,Rel. Humidity,AQI,Weather,2407,-0.2366,0.056,-0.873,165.7167,5.76e-32,0.07311
+wind_speed_10m,aqi,Wind Speed (10m),AQI,Weather,2407,-0.1129,0.0127,-1.9388,117.8569,2.81e-08,0.34802
+temperature_2m,aqi,Temperature (2m),AQI,Weather,2407,-0.107,0.0114,-3.2421,173.8216,1.43e-07,0.61433

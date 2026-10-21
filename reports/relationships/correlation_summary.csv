@@ -1,0 +1,14 @@
+variable,label,category,observations,pearson_r,pearson_p_value,spearman_rho,kendall_tau,relationship_strength,direction,abs_pearson_r
+pm25,PM2.5,Pollutant,2012,0.6892,1.39e-283,0.8539,0.7197,Strong,Positive,0.6892
+no2,NO2,Pollutant,1931,0.6261,1.14e-210,0.5983,0.4313,Strong,Positive,0.6261
+o3,O3,Pollutant,1195,0.4659,1.93e-65,0.5583,0.4109,Moderate,Positive,0.4659
+co,CO,Pollutant,1195,0.4597,1.56e-63,0.6906,0.5128,Moderate,Positive,0.4597
+pm10,PM10,Pollutant,1339,0.4072,1.27e-54,0.9035,0.7727,Moderate,Positive,0.4072
+surface_pressure,Surface Pressure,Weather,2407,0.2644,8.56e-40,0.4598,0.3153,Weak,Positive,0.2644
+relative_humidity_2m,Rel. Humidity,Weather,2407,-0.2366,5.76e-32,-0.4452,-0.2944,Weak,Negative,0.2366
+so2,SO2,Pollutant,1293,0.2314,3.54e-17,0.3182,0.216,Weak,Positive,0.2314
+boundary_layer_height,Boundary Layer Ht,Weather,2407,-0.2227,2.02e-28,-0.379,-0.2602,Weak,Negative,0.2227
+wind_direction_10m,Wind Direction,Weather,2407,-0.1534,3.79e-14,-0.1987,-0.1361,Weak,Negative,0.1534
+wind_speed_10m,Wind Speed (10m),Weather,2407,-0.1129,2.81e-08,-0.3003,-0.2056,Weak,Negative,0.1129
+temperature_2m,Temperature (2m),Weather,2407,-0.107,1.43e-07,-0.0863,-0.0519,Weak,Negative,0.107
+precipitation,Precipitation,Weather,2407,-0.0915,6.99e-06,-0.3014,-0.2403,Weak,Negative,0.0915

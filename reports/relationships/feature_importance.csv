@@ -1,0 +1,28 @@
+feature,label,category,importance,importance_pct
+aqi_lag_1,Aqi Lag 1,AQI Lag,0.3346,33.46
+aqi_rolling_mean_3,Aqi Rolling Mean 3,AQI Lag,0.1502,15.02
+aqi_rolling_mean_30,Aqi Rolling Mean 30,AQI Lag,0.0625,6.25
+aqi_rolling_mean_7,Aqi Rolling Mean 7,AQI Lag,0.0596,5.96
+aqi_rolling_std_30,Aqi Rolling Std 30,AQI Lag,0.0504,5.04
+aqi_rolling_mean_14,Aqi Rolling Mean 14,AQI Lag,0.0387,3.87
+wind_speed_10m,Wind Speed (10m),Weather,0.0309,3.09
+aqi_lag_2,Aqi Lag 2,AQI Lag,0.0309,3.09
+relative_humidity_2m,Rel. Humidity,Weather,0.0304,3.04
+surface_pressure,Surface Pressure,Weather,0.0303,3.03
+temperature_2m,Temperature (2m),Weather,0.0272,2.72
+aqi_rolling_std_3,Aqi Rolling Std 3,AQI Lag,0.0233,2.33
+boundary_layer_height,Boundary Layer Ht,Weather,0.0225,2.25
+aqi_rolling_std_7,Aqi Rolling Std 7,AQI Lag,0.0164,1.64
+day_of_month,Day Of Month,Calendar,0.0138,1.38
+aqi_rolling_std_14,Aqi Rolling Std 14,AQI Lag,0.0137,1.37
+aqi_lag_14,Aqi Lag 14,AQI Lag,0.0123,1.23
+aqi_lag_7,Aqi Lag 7,AQI Lag,0.0119,1.19
+aqi_lag_3,Aqi Lag 3,AQI Lag,0.0095,0.95
+aqi_lag_30,Aqi Lag 30,AQI Lag,0.0093,0.93
+month,Month,Calendar,0.0075,0.75
+day_of_week,Day Of Week,Calendar,0.0068,0.68
+season,Season,Calendar,0.0025,0.25
+precipitation,Precipitation,Weather,0.002,0.2
+quarter,Quarter,Calendar,0.0016,0.16
+is_weekend,Is Weekend,Calendar,0.0012,0.12
+hour,Hour,Calendar,0.0,0.0

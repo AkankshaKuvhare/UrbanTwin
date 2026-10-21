@@ -17,12 +17,24 @@ from dashboard.forecasting import (
     build_forecasting_dashboard_html,
     export_forecasting_dashboard_html,
 )
+from dashboard.traffic import (
+    router as traffic_router,
+    build_traffic_dashboard_html,
+    export_traffic_dashboard_html,
+)
+from analytics.dashboard import (
+    router as relationships_router,
+    build_relationships_dashboard_html,
+    export_relationships_dashboard_html,
+)
 
 __all__ = [
     "DashboardManager",
     "dashboard_router",
     "fusion_router",
     "forecasting_router",
+    "traffic_router",
+    "relationships_router",
     "build_historical_aqi_dashboard_html",
     "get_dashboard_data",
     "export_standalone_dashboard",
@@ -30,4 +42,8 @@ __all__ = [
     "export_fusion_dashboard_html",
     "build_forecasting_dashboard_html",
     "export_forecasting_dashboard_html",
+    "build_traffic_dashboard_html",
+    "export_traffic_dashboard_html",
+    "build_relationships_dashboard_html",
+    "export_relationships_dashboard_html",
 ]

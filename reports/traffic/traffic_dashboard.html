@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrbanTwin - TomTom Traffic Overview</title>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background: #F8FAFC; color: #1E293B; padding: 30px; }
+        .header { margin-bottom: 25px; }
+        .header h1 { font-size: 26px; font-weight: 700; color: #0F172A; }
+        .header p { color: #64748B; font-size: 14px; margin-top: 4px; }
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; margin-bottom: 25px; }
+        .card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid #E2E8F0; }
+        .card-label { font-size: 13px; font-weight: 600; color: #64748B; text-transform: uppercase; letter-spacing: 0.5px; }
+        .card-val { font-size: 28px; font-weight: 700; color: #0F172A; margin-top: 6px; }
+        .card-sub { font-size: 12px; color: #10B981; margin-top: 4px; }
+        .section { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid #E2E8F0; margin-bottom: 25px; }
+        .section-title { font-size: 18px; font-weight: 700; margin-bottom: 16px; color: #0F172A; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        th { background: #F1F5F9; padding: 10px 14px; text-align: left; font-size: 12px; color: #475569; text-transform: uppercase; }
+        .badge-green { background: #ECFDF5; color: #059669; padding: 4px 8px; border-radius: 6px; font-weight: 600; font-size: 12px; }
+        .notice { background: #F0FDF4; border-left: 4px solid #10B981; padding: 14px 18px; border-radius: 6px; margin-bottom: 25px; font-size: 14px; color: #065F46; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>UrbanTwin: Live Traffic Flow Overview</h1>
+        <p>Milestone 7 - Production TomTom Flow Segment Collector across Pune Arterials</p>
+    </div>
+
+    <div class="notice">
+        <strong>Data Isolation Confirmed:</strong> Traffic data is ingested into an independent, append-only repository completely isolated from AQI and weather observation tables.
+    </div>
+
+    <div class="cards-grid">
+        <div class="card">
+            <div class="card-label">Monitored Corridors</div>
+            <div class="card-val">40</div>
+            <div class="card-sub">Key Arterials (Shivajinagar, SPPU, Karve, Katraj, Wakad)</div>
+        </div>
+        <div class="card">
+            <div class="card-label">Avg Congestion Delay</div>
+            <div class="card-val" style="color: #0F172A;">0.9%</div>
+            <div class="card-sub">Speed Deficit vs Free-Flow</div>
+        </div>
+        <div class="card">
+            <div class="card-label">Collector Health</div>
+            <div class="card-val" style="color: #10B981;">100% Operational</div>
+            <div class="card-sub">Zero unhandled failures</div>
+        </div>
+        <div class="card">
+            <div class="card-label">API Coverage</div>
+            <div class="card-val">100.0%</div>
+            <div class="card-sub">40 requests serviced</div>
+        </div>
+        <div class="card">
+            <div class="card-label">Average Latency</div>
+            <div class="card-val">1.68s</div>
+            <div class="card-sub">TomTom REST API response time</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Pune Arterial Traffic Flow & Congestion Map</div>
+        <div style="height:480px; width:100%;">                            <div id="df95414c-16ff-4c83-8047-78610c1820ef" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("df95414c-16ff-4c83-8047-78610c1820ef")) {                    Plotly.newPlot(                        "df95414c-16ff-4c83-8047-78610c1820ef",                        [{"customdata":[["PT_001_SHV",41.0,41.0,0.0,false,18.5285,73.8475],["PT_002_SHV",24.0,24.0,0.0,false,18.525,73.8415],["PT_003_SHV",40.0,40.0,0.0,false,18.534,73.841],["PT_004_SHV",32.0,38.0,15.789473684210526,false,18.5365,73.848],["PT_005_SHV",29.0,29.0,0.0,false,18.531,73.851],["PT_006_SHV",30.0,30.0,0.0,false,18.5325,73.844],["PT_007_SHV",16.0,21.0,23.809523809523807,false,18.527,73.844],["PT_008_SHV",24.0,24.0,0.0,false,18.529,73.856],["PT_009_SPPU",40.0,40.0,0.0,false,18.551,73.8245],["PT_010_SPPU",25.0,25.0,0.0,false,18.5605,73.8115],["PT_011_SPPU",41.0,41.0,0.0,false,18.5535,73.818],["PT_012_SPPU",33.0,33.0,0.0,false,18.544,73.812],["PT_013_SPPU",29.0,29.0,0.0,false,18.537,73.83],["PT_014_SPPU",40.0,40.0,0.0,false,18.548,73.8275],["PT_015_SPPU",23.0,23.0,0.0,false,18.562,73.804],["PT_016_SPPU",40.0,40.0,0.0,false,18.5445,73.838],["PT_017_KRV",20.0,20.0,0.0,false,18.506,73.831],["PT_018_KRV",30.0,30.0,0.0,false,18.5015,73.818],["PT_019_KRV",29.0,29.0,0.0,false,18.509,73.824],["PT_020_KRV",28.0,28.0,0.0,false,18.5135,73.8305],["PT_021_KRV",26.0,26.0,0.0,false,18.5165,73.84],["PT_022_KRV",30.0,30.0,0.0,false,18.4975,73.814],["PT_023_KRV",21.0,21.0,0.0,false,18.498,73.822],["PT_024_KRV",23.0,23.0,0.0,false,18.5035,73.811],["PT_025_KTJ",32.0,32.0,0.0,false,18.452,73.857],["PT_026_KTJ",23.0,23.0,0.0,false,18.456,73.869],["PT_027_KTJ",22.0,22.0,0.0,false,18.448,73.849],["PT_028_KTJ",26.0,26.0,0.0,false,18.472,73.856],["PT_029_KTJ",32.0,32.0,0.0,false,18.479,73.855],["PT_030_KTJ",40.0,40.0,0.0,false,18.454,73.841],["PT_031_KTJ",28.0,28.0,0.0,false,18.458,73.852],["PT_032_KTJ",35.0,35.0,0.0,false,18.439,73.861],["PT_033_WKD",23.0,23.0,0.0,false,18.597,73.761],["PT_034_WKD",21.0,21.0,0.0,false,18.611,73.778],["PT_035_WKD",24.0,24.0,0.0,false,18.604,73.784],["PT_036_WKD",29.0,29.0,0.0,false,18.5995,73.7505],["PT_037_WKD",22.0,22.0,0.0,false,18.603,73.768],["PT_038_WKD",30.0,30.0,0.0,false,18.591,73.738],["PT_039_WKD",30.0,30.0,0.0,false,18.583,73.769],["PT_040_WKD",23.0,23.0,0.0,false,18.596,73.774]],"hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003esize=%{marker.size}\u003cbr\u003epoint_id=%{customdata[0]}\u003cbr\u003ecurrent_speed=%{customdata[1]:.1f km\u002fh}\u003cbr\u003efree_flow_speed=%{customdata[2]:.1f km\u002fh}\u003cbr\u003eCongestion (%)=%{marker.color:.1f%}\u003cbr\u003eroad_closure=%{customdata[4]}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["JM Road (Deccan Corner to Sancheti)","FC Road (Goodluck Chowk)","University Road (Shivajinagar Station)","Old Mumbai-Pune Highway (Wakdewadi)","Sancheti Chowk Arterial","Shimla Office Chowk","Modern College Road","COEP Flyover Junction","Ganeshkhind Road (SPPU Main Gate)","Aundh Road (Bremen Chowk)","Baner Road (SPPU Junction)","Pashan Road (Abhimanshree Society)","Senapati Bapat Road (ICC Towers)","University Circle Chowk","Aundh-Baner Link Road","Range Hills Road (Khadki link)","Karve Road (Nal Stop Chowk Flyover)","Karve Road (Kothrud Bus Stand)","Paud Road (Paud Phata Flyover)","Law College Road (FTII Junction)","Deccan Gymkhana (Garware Bridge)","Karve Statue Chowk","DP Road (Kothrud)","Mayur Colony Road","Satara Road (Katraj Chowk)","Katraj-Kondhwa Road Arterial","Katraj-Dehu Road Bypass (NH 48)","Satara Road (Padmavati Chowk)","Satara Road (Bibwewadi Junction)","Ambegaon Budruk Link Road","Bharati Vidyapeeth Gate Arterial","Katraj Ghat Old Road","Wakad-Hinjawadi Flyover Arterial","Dange Chowk (Thergaon-Wakad Junction)","Kalewadi Phata (Wakad Road)","Bhumkar Chowk (Wakad Bypass)","Datta Mandir Road (Wakad)","Hinjawadi Phase 1 Shivaji Chowk Connector","Wakad-Bavdhan Expressway Connector","Kaspate Vasti Road (Wakad)"],"lat":{"dtype":"f8","bdata":"nu+nxkuHMkBmZmZmZoYyQGIQWDm0iDJA001iEFiJMkAOLbKd74cyQLgehetRiDJA9P3UeOmGMkCBlUOLbIcyQJMYBFYOjTJAc2iR7XyPMkAEVg4tso0yQCUGgZVDizJAtvP91HiJMkA\u002fNV66SYwyQB1aZDvfjzJACKwcWmSLMkCoxks3iYEyQKrx0k1igDJA\u002fKnx0k2CMkD6fmq8dIMyQE5iEFg5hDJAj8L1KFx\u002fMkBzaJHtfH8yQDeJQWDlgDJAwcqhRbZzMkDb+X5qvHQyQKabxCCwcjJARrbz\u002fdR4MkC0yHa+n3oyQE5iEFg5dDJAaJHtfD91MkCq8dJNYnAyQEa28\u002f3UmDJAI9v5fmqcMkC0yHa+n5oyQLbz\u002fdR4mTJA7nw\u002fNV6aMkCe76fGS5cyQGiR7Xw\u002flTJAf2q8dJOYMkA="},"legendgroup":"","lon":{"dtype":"f8","bdata":"CtejcD12UkBg5dAi23VSQOf7qfHSdVJAg8DKoUV2UkBYObTIdnZSQLx0kxgEdlJAvHSTGAR2UkAQWDm0yHZSQFTjpZvEdFJADi2yne9zUkAxCKwcWnRSQIcW2c73c1JAhetRuB51UkApXI\u002fC9XRSQPp+arx0c1JAEoPAyqF1UkB3vp8aL3VSQDEIrBxadFJA2\u002fl+arx0UkD+1HjpJnVSQPYoXI\u002fCdVJAarx0kxh0UkD4U+Olm3RSQJZDi2znc1JAAiuHFtl2UkBWDi2ynXdSQHWTGARWdlJAEFg5tMh2UkAfhetRuHZSQOf7qfHSdVJASgwCK4d2UkDJdr6fGndSQGIQWDm0cFJAbxKDwMpxUkAZBFYOLXJSQHnpJjEIcFJA\u002ftR46SZxUkCsHFpkO29SQPCnxks3cVJAqMZLN4lxUkA="},"marker":{"color":{"dtype":"f8","bdata":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ3kN5TWUL0AAAAAAAAAAAAAAAAAAAAAA8zzP8zzPN0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="},"coloraxis":"coloraxis","size":{"dtype":"i1","bdata":"Dg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg=="},"sizemode":"area","sizeref":0.035},"mode":"markers","name":"","showlegend":false,"subplot":"map","type":"scattermap"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05}}},"map":{"domain":{"x":[0.0,1.0],"y":[0.0,1.0]},"center":{"lat":18.5204,"lon":73.8567},"zoom":11,"style":"carto-positron"},"coloraxis":{"colorbar":{"title":{"text":"Congestion (%)"}},"colorscale":[[0.0,"rgb(0,104,55)"],[0.1,"rgb(26,152,80)"],[0.2,"rgb(102,189,99)"],[0.3,"rgb(166,217,106)"],[0.4,"rgb(217,239,139)"],[0.5,"rgb(255,255,191)"],[0.6,"rgb(254,224,139)"],[0.7,"rgb(253,174,97)"],[0.8,"rgb(244,109,67)"],[0.9,"rgb(215,48,39)"],[1.0,"rgb(165,0,38)"]],"cmin":0,"cmax":75,"autocolorscale":false},"legend":{"tracegroupgap":0,"itemsizing":"constant"},"title":{"text":"Live Traffic Congestion Index across Pune Arterial Corridors"},"margin":{"l":0,"r":0,"t":40,"b":0},"height":480},                        {"responsive": true}                    )                };            </script>        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Corridor Speed vs Free-Flow Comparison</div>
+        <div style="height:380px; width:100%;">                            <div id="8b7748d6-a822-456a-bc36-b5248d0f4d88" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("8b7748d6-a822-456a-bc36-b5248d0f4d88")) {                    Plotly.newPlot(                        "8b7748d6-a822-456a-bc36-b5248d0f4d88",                        [{"marker":{"color":"#EF4444"},"name":"Current Speed (km\u002fh)","x":["Modern College Road","Karve Road (Nal Stop Chowk Flyover)","DP Road (Kothrud)","Dange Chowk (Thergaon-Wakad Junction)","Datta Mandir Road (Wakad)","Katraj-Dehu Road Bypass (NH 48)","Mayur Colony Road","Aundh-Baner Link Road","Wakad-Hinjawadi Flyover Arterial","Kaspate Vasti Road (Wakad)","Katraj-Kondhwa Road Arterial","Kalewadi Phata (Wakad Road)","FC Road (Goodluck Chowk)","COEP Flyover Junction","Aundh Road (Bremen Chowk)"],"y":{"dtype":"f8","bdata":"AAAAAAAAMEAAAAAAAAA0QAAAAAAAADVAAAAAAAAANUAAAAAAAAA2QAAAAAAAADZAAAAAAAAAN0AAAAAAAAA3QAAAAAAAADdAAAAAAAAAN0AAAAAAAAA3QAAAAAAAADhAAAAAAAAAOEAAAAAAAAA4QAAAAAAAADlA"},"type":"bar"},{"marker":{"color":"#10B981"},"name":"Free-Flow Speed (km\u002fh)","x":["Modern College Road","Karve Road (Nal Stop Chowk Flyover)","DP Road (Kothrud)","Dange Chowk (Thergaon-Wakad Junction)","Datta Mandir Road (Wakad)","Katraj-Dehu Road Bypass (NH 48)","Mayur Colony Road","Aundh-Baner Link Road","Wakad-Hinjawadi Flyover Arterial","Kaspate Vasti Road (Wakad)","Katraj-Kondhwa Road Arterial","Kalewadi Phata (Wakad Road)","FC Road (Goodluck Chowk)","COEP Flyover Junction","Aundh Road (Bremen Chowk)"],"y":{"dtype":"f8","bdata":"AAAAAAAANUAAAAAAAAA0QAAAAAAAADVAAAAAAAAANUAAAAAAAAA2QAAAAAAAADZAAAAAAAAAN0AAAAAAAAA3QAAAAAAAADdAAAAAAAAAN0AAAAAAAAA3QAAAAAAAADhAAAAAAAAAOEAAAAAAAAA4QAAAAAAAADlA"},"type":"bar"}],                        {"template":{"data":{"barpolar":[{"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermap":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermap"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"white","showlakes":true,"showland":true,"subunitcolor":"#C8D4E3"},"hoverlabel":{"align":"left"},"hovermode":"closest","paper_bgcolor":"white","plot_bgcolor":"white","polar":{"angularaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""},"bgcolor":"white","radialaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"yaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"zaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"baxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"bgcolor":"white","caxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2}}},"xaxis":{"tickangle":-45},"margin":{"l":20,"r":20,"t":40,"b":100},"barmode":"group","title":{"text":"Top 15 Most Congested Arterial Road Segments"},"height":380},                        {"responsive": true}                    )                };            </script>        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Critical Arterial Corridors (Sorted by Congestion)</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Point ID</th>
+                    <th>Corridor Location</th>
+                    <th style="text-align: right;">Current Speed</th>
+                    <th style="text-align: right;">Free Flow</th>
+                    <th style="text-align: right;">Congestion</th>
+                    <th style="text-align: center;">Road Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            <tr style="border-bottom: 1px solid #E5E7EB;">
+                <td style="padding: 10px 14px; font-weight: 600;">PT_007_SHV</td>
+                <td style="padding: 10px 14px;">Modern College Road</td>
+                <td style="padding: 10px 14px; text-align: right; color: #EF4444; font-weight: 600;">16.0 km/h</td>
+                <td style="padding: 10px 14px; text-align: right;">21.0 km/h</td>
+                <td style="padding: 10px 14px; text-align: right; font-weight: 600;">23.8%</td>
+                <td style="padding: 10px 14px; text-align: center;"><span style="background: #ECFDF5; color: #047857; padding: 3px 8px; border-radius: 4px; font-size: 12px;">Open</span></td>
+            </tr>
+            
+            <tr style="border-bottom: 1px solid #E5E7EB;">
+                <td style="padding: 10px 14px; font-weight: 600;">PT_017_KRV</td>
+                <td style="padding: 10px 14px;">Karve Road (Nal Stop Chowk Flyover)</td>
+                <td style="padding: 10px 14px; text-align: right; color: #EF4444; font-weight: 600;">20.0 km/h</td>
+                <td style="padding: 10px 14px; text-align: right;">20.0 km/h</td>
+                <td style="padding: 10px 14px; text-align: right; font-weight: 600;">0.0%</td>
+                <td style="padding: 10px 14px; text-align: center;"><span style="background: #ECFDF5; color: #047857; padding: 3px 8px; border-radius: 4px; font-size: 12px;">Open</span></td>
+            </tr>
+            
+            <tr style="border-bottom: 1px solid #E5E7EB;">
+                <td style="padding: 10px 14px; font-weight: 600;">PT_023_KRV</td>
+                <td style="padding: 10px 14px;">DP Road (Kothrud)</td>
+                <td style="padding: 10px 14px; text-align: right; color: #EF4444; font-weight: 600;">21.0 km/h</td>
+                <td style="padding: 10px 14px; text-align: right;">21.0 km/h</td>
+                <td style="padding: 10px 14px; text-align: right; font-weight: 600;">0.0%</td>
+                <td style="padding: 10px 14px; text-align: center;"><span style="background: #ECFDF5; color: #047857; padding: 3px 8px; border-radius: 4px; font-size: 12px;">Open</span></td>
+            </tr>
+            
+            <tr style="border-bottom: 1px solid #E5E7EB;">
+                <td style="padding: 10px 14px; font-weight: 600;">PT_034_WKD</td>
+                <td style="padding: 10px 14px;">Dange Chowk (Thergaon-Wakad Junction)</td>
+                <td style="padding: 10px 14px; text-align: right; color: #EF4444; font-weight: 600;">21.0 km/h</td>
+                <td style="padding: 10px 14px; text-align: right;">21.0 km/h</td>
+                <td style="padding: 10px 14px; text-align: right; font-weight: 600;">0.0%</td>
+                <td style="padding: 10px 14px; text-align: center;"><span style="background: #ECFDF5; color: #047857; padding: 3px 8px; border-radius: 4px; font-size: 12px;">Open</span></td>
+            </tr>
+            
+            <tr style="border-bottom: 1px solid #E5E7EB;">
+                <td style="padding: 10px 14px; font-weight: 600;">PT_037_WKD</td>
+                <td style="padding: 10px 14px;">Datta Mandir Road (Wakad)</td>
+                <td style="padding: 10px 14px; text-align: right; color: #EF4444; font-weight: 600;">22.0 km/h</td>
+                <td style="padding: 10px 14px; text-align: right;">22.0 km/h</td>
+                <td style="padding: 10px 14px; text-align: right; font-weight: 600;">0.0%</td>
+                <td style="padding: 10px 14px; text-align: center;"><span style="background: #ECFDF5; color: #047857; padding: 3px 8px; border-radius: 4px; font-size: 12px;">Open</span></td>
+            </tr>
+            
+            <tr style="border-bottom: 1px solid #E5E7EB;">
+                <td style="padding: 10px 14px; font-weight: 600;">PT_027_KTJ</td>
+                <td style="padding: 10px 14px;">Katraj-Dehu Road Bypass (NH 48)</td>
+                <td style="padding: 10px 14px; text-align: right; color: #EF4444; font-weight: 600;">22.0 km/h</td>
+                <td style="padding: 10px 14px; text-align: right;">22.0 km/h</td>
+                <td style="padding: 10px 14px; text-align: right; font-weight: 600;">0.0%</td>
+                <td style="padding: 10px 14px; text-align: center;"><span style="background: #ECFDF5; color: #047857; padding: 3px 8px; border-radius: 4px; font-size: 12px;">Open</span></td>
+            </tr>
+            
+            <tr style="border-bottom: 1px solid #E5E7EB;">
+                <td style="padding: 10px 14px; font-weight: 600;">PT_024_KRV</td>
+                <td style="padding: 10px 14px;">Mayur Colony Road</td>
+                <td style="padding: 10px 14px; text-align: right; color: #EF4444; font-weight: 600;">23.0 km/h</td>
+                <td style="padding: 10px 14px; text-align: right;">23.0 km/h</td>
+                <td style="padding: 10px 14px; text-align: right; font-weight: 600;">0.0%</td>
+                <td style="padding: 10px 14px; text-align: center;"><span style="background: #ECFDF5; color: #047857; padding: 3px 8px; border-radius: 4px; font-size: 12px;">Open</span></td>
+            </tr>
+            
+            <tr style="border-bottom: 1px solid #E5E7EB;">
+                <td style="padding: 10px 14px; font-weight: 600;">PT_015_SPPU</td>
+                <td style="padding: 10px 14px;">Aundh-Baner Link Road</td>
+                <td style="padding: 10px 14px; text-align: right; color: #EF4444; font-weight: 600;">23.0 km/h</td>
+                <td style="padding: 10px 14px; text-align: right;">23.0 km/h</td>
+                <td style="padding: 10px 14px; text-align: right; font-weight: 600;">0.0%</td>
+                <td style="padding: 10px 14px; text-align: center;"><span style="background: #ECFDF5; color: #047857; padding: 3px 8px; border-radius: 4px; font-size: 12px;">Open</span></td>
+            </tr>
+            
+            <tr style="border-bottom: 1px solid #E5E7EB;">
+                <td style="padding: 10px 14px; font-weight: 600;">PT_033_WKD</td>
+                <td style="padding: 10px 14px;">Wakad-Hinjawadi Flyover Arterial</td>
+                <td style="padding: 10px 14px; text-align: right; color: #EF4444; font-weight: 600;">23.0 km/h</td>
+                <td style="padding: 10px 14px; text-align: right;">23.0 km/h</td>
+                <td style="padding: 10px 14px; text-align: right; font-weight: 600;">0.0%</td>
+                <td style="padding: 10px 14px; text-align: center;"><span style="background: #ECFDF5; color: #047857; padding: 3px 8px; border-radius: 4px; font-size: 12px;">Open</span></td>
+            </tr>
+            
+            <tr style="border-bottom: 1px solid #E5E7EB;">
+                <td style="padding: 10px 14px; font-weight: 600;">PT_040_WKD</td>
+                <td style="padding: 10px 14px;">Kaspate Vasti Road (Wakad)</td>
+                <td style="padding: 10px 14px; text-align: right; color: #EF4444; font-weight: 600;">23.0 km/h</td>
+                <td style="padding: 10px 14px; text-align: right;">23.0 km/h</td>
+                <td style="padding: 10px 14px; text-align: right; font-weight: 600;">0.0%</td>
+                <td style="padding: 10px 14px; text-align: center;"><span style="background: #ECFDF5; color: #047857; padding: 3px 8px; border-radius: 4px; font-size: 12px;">Open</span></td>
+            </tr>
+            
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

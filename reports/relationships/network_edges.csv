@@ -1,0 +1,38 @@
+source,target,source_label,target_label,weight,correlation,edge_type,color,thickness
+aqi,pm25,AQI,PM2.5,0.6892,0.6892,positive,#22c55e,4.45
+aqi,pm10,AQI,PM10,0.4072,0.4072,positive,#22c55e,3.04
+aqi,no2,AQI,NO2,0.6261,0.6261,positive,#22c55e,4.13
+aqi,co,AQI,CO,0.4597,0.4597,positive,#22c55e,3.3
+aqi,so2,AQI,SO2,0.2314,0.2314,positive,#22c55e,2.16
+aqi,o3,AQI,O3,0.4659,0.4659,positive,#22c55e,3.33
+aqi,relative_humidity_2m,AQI,Rel. Humidity,0.2366,-0.2366,negative,#ef4444,2.18
+aqi,surface_pressure,AQI,Surface Pressure,0.2644,0.2644,positive,#22c55e,2.32
+aqi,boundary_layer_height,AQI,Boundary Layer Ht,0.2227,-0.2227,negative,#ef4444,2.11
+pm25,no2,PM2.5,NO2,0.9116,0.9116,positive,#22c55e,5.56
+pm25,co,PM2.5,CO,0.2201,0.2201,positive,#22c55e,2.1
+pm10,so2,PM10,SO2,0.4212,0.4212,positive,#22c55e,3.11
+pm10,o3,PM10,O3,0.3626,0.3626,positive,#22c55e,2.81
+no2,co,NO2,CO,0.4093,0.4093,positive,#22c55e,3.05
+no2,so2,NO2,SO2,0.3621,0.3621,positive,#22c55e,2.81
+no2,o3,NO2,O3,0.3247,0.3247,positive,#22c55e,2.62
+co,temperature_2m,CO,Temperature (2m),0.295,-0.295,negative,#ef4444,2.47
+co,relative_humidity_2m,CO,Rel. Humidity,0.2469,-0.2469,negative,#ef4444,2.23
+co,wind_speed_10m,CO,Wind Speed (10m),0.2554,-0.2554,negative,#ef4444,2.28
+co,wind_direction_10m,CO,Wind Direction,0.3015,-0.3015,negative,#ef4444,2.51
+co,surface_pressure,CO,Surface Pressure,0.3654,0.3654,positive,#22c55e,2.83
+co,boundary_layer_height,CO,Boundary Layer Ht,0.3178,-0.3178,negative,#ef4444,2.59
+so2,o3,SO2,O3,0.622,0.622,positive,#22c55e,4.11
+o3,relative_humidity_2m,O3,Rel. Humidity,0.3215,-0.3215,negative,#ef4444,2.61
+o3,surface_pressure,O3,Surface Pressure,0.2135,0.2135,positive,#22c55e,2.07
+temperature_2m,wind_direction_10m,Temperature (2m),Wind Direction,0.2992,0.2992,positive,#22c55e,2.5
+temperature_2m,surface_pressure,Temperature (2m),Surface Pressure,0.3547,-0.3547,negative,#ef4444,2.77
+relative_humidity_2m,wind_speed_10m,Rel. Humidity,Wind Speed (10m),0.3375,0.3375,positive,#22c55e,2.69
+relative_humidity_2m,surface_pressure,Rel. Humidity,Surface Pressure,0.5594,-0.5594,negative,#ef4444,3.8
+relative_humidity_2m,boundary_layer_height,Rel. Humidity,Boundary Layer Ht,0.4806,0.4806,positive,#22c55e,3.4
+wind_speed_10m,wind_direction_10m,Wind Speed (10m),Wind Direction,0.2427,0.2427,positive,#22c55e,2.21
+wind_speed_10m,surface_pressure,Wind Speed (10m),Surface Pressure,0.6148,-0.6148,negative,#ef4444,4.07
+wind_speed_10m,precipitation,Wind Speed (10m),Precipitation,0.2152,0.2152,positive,#22c55e,2.08
+wind_speed_10m,boundary_layer_height,Wind Speed (10m),Boundary Layer Ht,0.8357,0.8357,positive,#22c55e,5.18
+wind_direction_10m,surface_pressure,Wind Direction,Surface Pressure,0.3438,-0.3438,negative,#ef4444,2.72
+surface_pressure,precipitation,Surface Pressure,Precipitation,0.2396,-0.2396,negative,#ef4444,2.2
+surface_pressure,boundary_layer_height,Surface Pressure,Boundary Layer Ht,0.674,-0.674,negative,#ef4444,4.37

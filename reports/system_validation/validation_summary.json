@@ -1,0 +1,322 @@
+{
+  "run_timestamp": "2026-10-21T19-50-56Z",
+  "overall_health_score": 97,
+  "total_elapsed_seconds": 37.123,
+  "stages": [
+    {
+      "stage_index": 1,
+      "stage_name": "Environment (.env)",
+      "status": "PASS",
+      "score": 100,
+      "duration_s": 0.672,
+      "records": 4,
+      "success": true,
+      "warnings": [],
+      "errors": [],
+      "metrics": {
+        "tomtom_key_configured": true,
+        "db_url_configured": true,
+        "data_dir_exists": true
+      }
+    },
+    {
+      "stage_index": 2,
+      "stage_name": "Database & Schema",
+      "status": "WARN",
+      "score": 75,
+      "duration_s": 6.924,
+      "records": 76734,
+      "success": true,
+      "warnings": [
+        "PostgreSQL connection offline: connection to server at \"localhost\" (::1), port 5432 failed: FATAL:  password authentication failed for user \"urbantwin\""
+      ],
+      "errors": [],
+      "metrics": {
+        "schema_tables": {
+          "stations": {
+            "primary_key": [
+              "station_id"
+            ],
+            "foreign_keys": [],
+            "indexes": [
+              "ix_stations_station_id"
+            ],
+            "unique_constraints": [],
+            "columns": 7
+          },
+          "aqi_observations": {
+            "primary_key": [
+              "id"
+            ],
+            "foreign_keys": [
+              "station_id->stations.station_id"
+            ],
+            "indexes": [
+              "ix_aqi_observations_station_id",
+              "ix_aqi_obs_station_date",
+              "ix_aqi_observations_observation_date"
+            ],
+            "unique_constraints": [
+              "uq_station_observation_date"
+            ],
+            "columns": 12
+          },
+          "traffic_observations": {
+            "primary_key": [
+              "id"
+            ],
+            "foreign_keys": [],
+            "indexes": [
+              "ix_traffic_point_time",
+              "ix_traffic_observations_point_id",
+              "ix_traffic_observations_timestamp"
+            ],
+            "unique_constraints": [
+              "uq_traffic_point_timestamp"
+            ],
+            "columns": 12
+          },
+          "fused_zone_time": {
+            "primary_key": [
+              "id"
+            ],
+            "foreign_keys": [],
+            "indexes": [
+              "ix_fused_zone_time_observation_datetime",
+              "ix_fused_zt_zone_dt",
+              "ix_fused_zone_time_zone_id",
+              "ix_fused_zone_time_station_id"
+            ],
+            "unique_constraints": [
+              "uq_fused_zone_dt_station"
+            ],
+            "columns": 27
+          },
+          "spatial_zones": {
+            "primary_key": [
+              "id"
+            ],
+            "foreign_keys": [],
+            "indexes": [
+              "ix_spatial_zones_zone_id",
+              "idx_spatial_zones_geom"
+            ],
+            "unique_constraints": [],
+            "columns": 8
+          },
+          "entity_correspondences": {
+            "primary_key": [
+              "id"
+            ],
+            "foreign_keys": [
+              "zone_id->spatial_zones.zone_id"
+            ],
+            "indexes": [
+              "ix_entity_correspondences_raw_entity_id",
+              "ix_entity_correspondences_zone_id",
+              "ix_entity_correspondences_entity_type"
+            ],
+            "unique_constraints": [
+              "uq_entity_zone_corr"
+            ],
+            "columns": 9
+          }
+        },
+        "live_db_connected": false,
+        "db_rows": {
+          "aqi_observations": 3751,
+          "fused_zone_time": 3751,
+          "weather_observations": 69192,
+          "traffic_observations": 40
+        }
+      }
+    },
+    {
+      "stage_index": 3,
+      "stage_name": "Alembic Migrations",
+      "status": "PASS",
+      "score": 100,
+      "duration_s": 0.001,
+      "records": 2,
+      "success": true,
+      "warnings": [],
+      "errors": [],
+      "metrics": {
+        "migration_files": [
+          "0001_create_stations_and_aqi_observations.py",
+          "0002_create_traffic_observations.py"
+        ]
+      }
+    },
+    {
+      "stage_index": 4,
+      "stage_name": "AQI Historical Import",
+      "status": "PASS",
+      "score": 100,
+      "duration_s": 0.136,
+      "records": 3751,
+      "success": true,
+      "warnings": [],
+      "errors": [],
+      "metrics": {
+        "stations": [
+          "11613",
+          "3409439",
+          "5661",
+          "3409438",
+          "3409436"
+        ],
+        "station_count": 5,
+        "duplicate_station_date_pairs": 0,
+        "date_min": "2018-03-09",
+        "date_max": "2026-01-28",
+        "span_days": 2882,
+        "aqi_stats": {
+          "count": 2407,
+          "missing_pct": 35.83,
+          "mean": 101.59,
+          "std": 77.81,
+          "min": 0.0,
+          "max": 401.0
+        }
+      }
+    },
+    {
+      "stage_index": 5,
+      "stage_name": "AQI Data Quality",
+      "status": "PASS",
+      "score": 100,
+      "duration_s": 15.006,
+      "records": 3751,
+      "success": true,
+      "warnings": [],
+      "errors": [],
+      "metrics": {
+        "completeness_score": 43.32,
+        "temporal_coverage_pct": 70.14,
+        "station_count_analyzed": 5
+      }
+    },
+    {
+      "stage_index": 6,
+      "stage_name": "Weather Collector",
+      "status": "PASS",
+      "score": 100,
+      "duration_s": 0.057,
+      "records": 69192,
+      "success": true,
+      "warnings": [],
+      "errors": [],
+      "metrics": {
+        "start_date": "2018-03-09",
+        "end_date": "2026-01-28",
+        "days_span": 2882,
+        "duplicate_timestamps": 0
+      }
+    },
+    {
+      "stage_index": 7,
+      "stage_name": "Traffic Collector",
+      "status": "PASS",
+      "score": 100,
+      "duration_s": 10.91,
+      "records": 40,
+      "success": true,
+      "warnings": [],
+      "errors": [],
+      "metrics": {
+        "points_collected": 40,
+        "coverage_percentage": 100.0,
+        "average_latency_seconds": 0.2714,
+        "failed_requests": 0
+      }
+    },
+    {
+      "stage_index": 8,
+      "stage_name": "H3 Spatial Grid",
+      "status": "PASS",
+      "score": 100,
+      "duration_s": 0.091,
+      "records": 251,
+      "success": true,
+      "warnings": [],
+      "errors": [],
+      "metrics": {
+        "h3_resolution": 7,
+        "total_hexagons": 251
+      }
+    },
+    {
+      "stage_index": 9,
+      "stage_name": "Entity Resolution",
+      "status": "PASS",
+      "score": 100,
+      "duration_s": 0.056,
+      "records": 256,
+      "success": true,
+      "warnings": [],
+      "errors": [],
+      "metrics": {
+        "entity_correspondence_rows": 256,
+        "max_station_snap_dist_m": 1257.9
+      }
+    },
+    {
+      "stage_index": 10,
+      "stage_name": "Space-Time Fusion",
+      "status": "PASS",
+      "score": 100,
+      "duration_s": 0.01,
+      "records": 3751,
+      "success": true,
+      "warnings": [],
+      "errors": [],
+      "metrics": {
+        "row_count": 3751,
+        "column_count": 25,
+        "zone_count": 5,
+        "station_count": 5,
+        "traffic_speed_null_pct": 100.0,
+        "traffic_congestion_null_pct": 100.0,
+        "traffic_travel_time_null_pct": 100.0,
+        "traffic_confidence_null_pct": 100.0,
+        "temperature_null_pct": 0.0
+      }
+    },
+    {
+      "stage_index": 11,
+      "stage_name": "Baseline Forecasting",
+      "status": "PASS",
+      "score": 100,
+      "duration_s": 0.087,
+      "records": 8,
+      "success": true,
+      "warnings": [],
+      "errors": [],
+      "metrics": {
+        "feature_matrix_samples": 3751,
+        "feature_names_count": 27,
+        "baseline_models_count": 8
+      }
+    },
+    {
+      "stage_index": 12,
+      "stage_name": "Dashboard Generation",
+      "status": "PASS",
+      "score": 100,
+      "duration_s": 3.172,
+      "records": 4,
+      "success": true,
+      "warnings": [],
+      "errors": [],
+      "metrics": {
+        "historical_aqi_size_bytes": 52233,
+        "space-time_fusion_size_bytes": 188202,
+        "baseline_forecasting_size_bytes": 19122,
+        "tomtom_traffic_size_bytes": 34071,
+        "dashboards_generated": 4,
+        "dashboards_total": 4
+      }
+    }
+  ]
+}

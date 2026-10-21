@@ -1,0 +1,2 @@
+timestamp,total_requested,successful_requests,failed_requests,coverage_percentage,average_latency_seconds
+2026-10-21T17:27:52.170132+00:00,40,40,0,100.0,1.6793

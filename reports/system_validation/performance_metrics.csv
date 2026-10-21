@@ -1,0 +1,13 @@
+stage_index,stage_name,duration_seconds,records_processed,health_score
+1,Environment (.env),0.672,4,100
+2,Database & Schema,6.924,76734,75
+3,Alembic Migrations,0.001,2,100
+4,AQI Historical Import,0.136,3751,100
+5,AQI Data Quality,15.006,3751,100
+6,Weather Collector,0.057,69192,100
+7,Traffic Collector,10.91,40,100
+8,H3 Spatial Grid,0.091,251,100
+9,Entity Resolution,0.056,256,100
+10,Space-Time Fusion,0.01,3751,100
+11,Baseline Forecasting,0.087,8,100
+12,Dashboard Generation,3.172,4,100

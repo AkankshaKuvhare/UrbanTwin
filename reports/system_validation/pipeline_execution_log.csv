@@ -1,0 +1,13 @@
+stage_index,stage_name,status,health_score,duration_seconds,records,warnings,errors
+1,Environment (.env),PASS,100,0.672,4,,
+2,Database & Schema,WARN,75,6.924,76734,"PostgreSQL connection offline: connection to server at ""localhost"" (::1), port 5432 failed: FATAL:  password authentication failed for user ""urbantwin""",
+3,Alembic Migrations,PASS,100,0.001,2,,
+4,AQI Historical Import,PASS,100,0.136,3751,,
+5,AQI Data Quality,PASS,100,15.006,3751,,
+6,Weather Collector,PASS,100,0.057,69192,,
+7,Traffic Collector,PASS,100,10.91,40,,
+8,H3 Spatial Grid,PASS,100,0.091,251,,
+9,Entity Resolution,PASS,100,0.056,256,,
+10,Space-Time Fusion,PASS,100,0.01,3751,,
+11,Baseline Forecasting,PASS,100,0.087,8,,
+12,Dashboard Generation,PASS,100,3.172,4,,

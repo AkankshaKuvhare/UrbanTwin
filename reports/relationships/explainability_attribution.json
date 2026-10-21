@@ -1,0 +1,19 @@
+{
+  "traffic_placeholder": {
+    "status": "Pending Ingestion",
+    "description": "Traffic columns remain NULL. Once real-time traffic observations are fused, feature attribution will update automatically.",
+    "features": [
+      "traffic_speed",
+      "traffic_congestion",
+      "traffic_travel_time",
+      "traffic_confidence"
+    ],
+    "is_active": false
+  },
+  "shap_placeholder": {
+    "status": "Placeholder Initialized (Milestone 8)",
+    "method": "TreeSHAP (KernelExplainer Fallback)",
+    "traffic_marginal_effect": "Awaiting non-null traffic data",
+    "summary": "SHAP feature attributions quantify the directional impact (positive/negative forcing) of meteorological and traffic variables on AQI."
+  }
+}

@@ -1,0 +1,7 @@
+table_name,primary_key,foreign_keys_count,indexes_count,unique_constraints_count,row_count,source,status
+stations,station_id,0,1,0,N/A,parquet_fallback,valid
+aqi_observations,id,1,3,1,3751,parquet_fallback,valid
+traffic_observations,id,0,3,1,40,parquet_fallback,valid
+fused_zone_time,id,0,4,1,3751,parquet_fallback,valid
+spatial_zones,id,0,2,0,N/A,parquet_fallback,valid
+entity_correspondences,id,1,3,1,N/A,parquet_fallback,valid
