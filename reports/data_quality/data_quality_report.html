@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrbanTwin - Historical AQI Data Quality Report</title>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #3b82f6;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #0f172a;
+            --border: #e2e8f0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 24px;
+        }
+        .header {
+            background: var(--card-bg);
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+        }
+        .header h1 { margin: 0 0 8px 0; color: var(--primary); }
+        .header p { margin: 0; color: #64748b; }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .metric-card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .metric-title { font-size: 0.85rem; color: #64748b; font-weight: 600; text-transform: uppercase; }
+        .metric-value { font-size: 1.8rem; font-weight: 700; color: var(--primary); margin-top: 6px; }
+        .section {
+            background: var(--card-bg);
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            margin-bottom: 24px;
+        }
+        h2 { margin-top: 0; color: var(--primary); font-size: 1.3rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+            font-size: 0.92rem;
+        }
+        th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+        th { background: #f8fafc; color: #475569; font-weight: 600; }
+        .progress-bar {
+            background: #e2e8f0;
+            border-radius: 999px;
+            height: 8px;
+            width: 80px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 6px;
+            overflow: hidden;
+        }
+        .progress { background: #ef4444; height: 100%; }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+            gap: 20px;
+        }
+        .figure-card {
+            background: #fff;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        .figure-card h4 { margin: 0 0 8px 0; color: #334155; font-size: 0.95rem; }
+        .figure-card img { width: 100%; height: auto; border-radius: 4px; display: block; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>UrbanTwin - CongestAir Quality & EDA Report</h1>
+        <p>Comprehensive historical air quality profiling and data health audit for Pune, India | Generated: 2026-10-21T18:19:25.015381</p>
+    </div>
+
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <div class="metric-title">Total Observations</div>
+            <div class="metric-value">3,751</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-title">Active Stations</div>
+            <div class="metric-value">5</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-title">Date Span</div>
+            <div class="metric-value" style="font-size: 1.1rem; margin-top: 10px;">2018-03-09 &rarr; 2026-01-28</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-title">Average AQI</div>
+            <div class="metric-value">101.59</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-title">Data Completeness</div>
+            <div class="metric-value">43.32%</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-title">Duplicate Rows</div>
+            <div class="metric-value">0</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Pollutant Descriptive Statistics</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Pollutant</th><th>Valid Count</th><th>Mean</th><th>Std</th><th>Min</th><th>Median</th><th>Max</th><th>Skewness</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>AQI</strong></td><td>2407</td><td>101.59</td><td>77.81</td><td>0.0</td><td>84.3</td><td>401.0</td><td>2.01</td></tr><tr><td><strong>PM25</strong></td><td>2013</td><td>64.03</td><td>145.37</td><td>0.0</td><td>36.5</td><td>2078.7</td><td>6.8</td></tr><tr><td><strong>PM10</strong></td><td>1339</td><td>98.7</td><td>283.42</td><td>0.0</td><td>72.0</td><td>7795.4</td><td>20.63</td></tr><tr><td><strong>NO2</strong></td><td>1932</td><td>31.76</td><td>66.46</td><td>0.0</td><td>16.6</td><td>500.0</td><td>6.06</td></tr><tr><td><strong>CO</strong></td><td>1195</td><td>1.44</td><td>1.29</td><td>0.0</td><td>1.0</td><td>9.6</td><td>2.22</td></tr><tr><td><strong>SO2</strong></td><td>1293</td><td>6.84</td><td>15.08</td><td>-58.9</td><td>3.4</td><td>440.9</td><td>18.99</td></tr><tr><td><strong>O3</strong></td><td>1195</td><td>54.91</td><td>79.35</td><td>0.0</td><td>44.6</td><td>1670.0</td><td>14.96</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Station Coverage & Data Completeness</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Station ID</th><th>Station Name</th><th>Observations</th><th>Temporal Coverage</th><th>Continuity</th><th>Mean AQI</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>5661</td><td>Karve Road Pune, Pune - MPCB</td><td>1772</td><td>2018-03-09 to 2025-05-23</td><td>67.3%</td><td>109.52</td></tr><tr><td>11613</td><td>Revenue Colony-Shivajinagar, Pune - IITM</td><td>947</td><td>2020-11-13 to 2026-01-28</td><td>49.76%</td><td>110.42</td></tr><tr><td>3409436</td><td>Park Street Wakad, Pimpri Chinchwad - MPCB</td><td>345</td><td>2025-02-18 to 2026-01-28</td><td>100.0%</td><td>97.47</td></tr><tr><td>3409438</td><td>Katraj Dairy, Pune - MPCB</td><td>344</td><td>2025-02-19 to 2026-01-28</td><td>100.0%</td><td>81.45</td></tr><tr><td>3409439</td><td>Savitribai Phule Pune University, Pune - MPCB</td><td>343</td><td>2025-02-18 to 2026-01-26</td><td>100.0%</td><td>87.37</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Missing Value Audit</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Field</th><th>Valid Records</th><th>Null Count</th><th>Missing Percentage</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>station_id</strong></td><td>3751</td><td>0</td><td><div class='progress-bar'><div class='progress' style='width:0.0%'></div></div> 0.0%</td></tr><tr><td><strong>station_name</strong></td><td>3751</td><td>0</td><td><div class='progress-bar'><div class='progress' style='width:0.0%'></div></div> 0.0%</td></tr><tr><td><strong>observation_date</strong></td><td>3751</td><td>0</td><td><div class='progress-bar'><div class='progress' style='width:0.0%'></div></div> 0.0%</td></tr><tr><td><strong>aqi</strong></td><td>2407</td><td>1344</td><td><div class='progress-bar'><div class='progress' style='width:35.83%'></div></div> 35.83%</td></tr><tr><td><strong>pm25</strong></td><td>2013</td><td>1738</td><td><div class='progress-bar'><div class='progress' style='width:46.33%'></div></div> 46.33%</td></tr><tr><td><strong>pm10</strong></td><td>1339</td><td>2412</td><td><div class='progress-bar'><div class='progress' style='width:64.3%'></div></div> 64.3%</td></tr><tr><td><strong>no2</strong></td><td>1932</td><td>1819</td><td><div class='progress-bar'><div class='progress' style='width:48.49%'></div></div> 48.49%</td></tr><tr><td><strong>co</strong></td><td>1195</td><td>2556</td><td><div class='progress-bar'><div class='progress' style='width:68.14%'></div></div> 68.14%</td></tr><tr><td><strong>so2</strong></td><td>1293</td><td>2458</td><td><div class='progress-bar'><div class='progress' style='width:65.53%'></div></div> 65.53%</td></tr><tr><td><strong>o3</strong></td><td>1195</td><td>2556</td><td><div class='progress-bar'><div class='progress' style='width:68.14%'></div></div> 68.14%</td></tr><tr><td><strong>dominant_pollutant</strong></td><td>2407</td><td>1344</td><td><div class='progress-bar'><div class='progress' style='width:35.83%'></div></div> 35.83%</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Exploratory Visualizations</h2>
+        <div class="gallery-grid">
+            <div class='figure-card'><h4>Aqi Over Time</h4><img src='figures/aqi_over_time.png' alt='aqi_over_time' /></div><div class='figure-card'><h4>Pm25 Trend</h4><img src='figures/pm25_trend.png' alt='pm25_trend' /></div><div class='figure-card'><h4>Pm10 Trend</h4><img src='figures/pm10_trend.png' alt='pm10_trend' /></div><div class='figure-card'><h4>No2 Trend</h4><img src='figures/no2_trend.png' alt='no2_trend' /></div><div class='figure-card'><h4>Dominant Pollutant Frequency</h4><img src='figures/dominant_pollutant_frequency.png' alt='dominant_pollutant_frequency' /></div><div class='figure-card'><h4>Aqi Distribution</h4><img src='figures/aqi_distribution.png' alt='aqi_distribution' /></div><div class='figure-card'><h4>Correlation Matrix</h4><img src='figures/correlation_matrix.png' alt='correlation_matrix' /></div><div class='figure-card'><h4>Missing Value Heatmap</h4><img src='figures/missing_value_heatmap.png' alt='missing_value_heatmap' /></div><div class='figure-card'><h4>Monthly Aqi Trend</h4><img src='figures/monthly_aqi_trend.png' alt='monthly_aqi_trend' /></div><div class='figure-card'><h4>Yearly Aqi Trend</h4><img src='figures/yearly_aqi_trend.png' alt='yearly_aqi_trend' /></div><div class='figure-card'><h4>Station Wise Aqi Comparison</h4><img src='figures/station_wise_aqi_comparison.png' alt='station_wise_aqi_comparison' /></div>
+        </div>
+    </div>
+</body>
+</html>

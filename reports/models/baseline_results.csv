@@ -1,0 +1,9 @@
+model_key,label,feature_set,num_features,cv_mae,cv_rmse,cv_r2,cv_mape,folds_evaluated
+lr_calendar,Linear Regression (Calendar Only),calendar_only,21,29.8749,45.985,0.2029,42.3004,5
+lr_weather,Linear Regression (Calendar + Weather),calendar_weather,27,31.1985,47.2583,0.1601,43.0866,5
+lgb_calendar,LightGBM (Calendar Only),calendar_only,21,33.1944,48.9078,0.0798,46.9138,5
+lgb_weather,LightGBM (Calendar + Weather),calendar_weather,27,35.5301,50.8656,-0.0119,48.1552,5
+rf_calendar,Random Forest (Calendar Only),calendar_only,21,34.8186,51.4222,-0.0285,48.4763,5
+rf_weather,Random Forest (Calendar + Weather),calendar_weather,27,36.8188,52.1027,-0.0374,52.9803,5
+xgb_weather,XGBoost (Calendar + Weather),calendar_weather,27,38.0998,55.4433,-0.1859,49.2773,5
+xgb_calendar,XGBoost (Calendar Only),calendar_only,21,38.162,56.0303,-0.151,50.386,5

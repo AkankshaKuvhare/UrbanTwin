@@ -1,0 +1,6 @@
+station_id,station_name,observation_count,first_date,last_date,active_days_span,reporting_completeness_pct,mean_aqi
+5661,"Karve Road Pune, Pune - MPCB",1772,2018-03-09,2025-05-23,2633,67.3,109.52
+11613,"Revenue Colony-Shivajinagar, Pune - IITM",947,2020-11-13,2026-01-28,1903,49.76,110.42
+3409436,"Park Street Wakad, Pimpri Chinchwad - MPCB",345,2025-02-18,2026-01-28,345,100.0,97.47
+3409438,"Katraj Dairy, Pune - MPCB",344,2025-02-19,2026-01-28,344,100.0,81.45
+3409439,"Savitribai Phule Pune University, Pune - MPCB",343,2025-02-18,2026-01-26,343,100.0,87.37

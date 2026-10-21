@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrbanTwin - Baseline AQI Forecasting Dashboard</title>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background: #F8FAFC; color: #1E293B; padding: 30px; }
+        .header { margin-bottom: 25px; }
+        .header h1 { font-size: 26px; font-weight: 700; color: #0F172A; }
+        .header p { color: #64748B; font-size: 14px; margin-top: 4px; }
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; margin-bottom: 25px; }
+        .card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid #E2E8F0; }
+        .card-label { font-size: 13px; font-weight: 600; color: #64748B; text-transform: uppercase; letter-spacing: 0.5px; }
+        .card-val { font-size: 28px; font-weight: 700; color: #0F172A; margin-top: 6px; }
+        .card-sub { font-size: 12px; color: #10B981; margin-top: 4px; }
+        .section { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid #E2E8F0; margin-bottom: 25px; }
+        .section-title { font-size: 18px; font-weight: 700; margin-bottom: 16px; color: #0F172A; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        th { background: #F1F5F9; padding: 10px 14px; text-align: left; font-size: 12px; color: #475569; text-transform: uppercase; }
+        .notice { background: #EFF6FF; border-left: 4px solid #3B82F6; padding: 14px 18px; border-radius: 6px; margin-bottom: 25px; font-size: 14px; color: #1E40AF; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>UrbanTwin: Baseline AQI Forecasting</h1>
+        <p>Milestone 6 - Benchmark Model Evaluation across Rolling-Origin Cross-Validation (PMC + PCMC)</p>
+    </div>
+
+    <div class="notice">
+        <strong>Traffic Stream Notice:</strong> Traffic features remain nullable and are not yet ingested. The forecasting pipeline automatically supports traffic covariates with ZERO required code modifications upon ingestion.
+    </div>
+
+    <div class="cards-grid">
+        <div class="card">
+            <div class="card-label">Best Model</div>
+            <div class="card-val" style="font-size: 20px; color: #2563EB;">Linear Regression (Calendar Only)</div>
+            <div class="card-sub">Expanding Window Benchmark</div>
+        </div>
+        <div class="card">
+            <div class="card-label">Best CV RMSE</div>
+            <div class="card-val">45.98</div>
+            <div class="card-sub">Air Quality Index units</div>
+        </div>
+        <div class="card">
+            <div class="card-label">Best CV MAE</div>
+            <div class="card-val">29.87</div>
+            <div class="card-sub">Mean Absolute Error</div>
+        </div>
+        <div class="card">
+            <div class="card-label">Best CV R²</div>
+            <div class="card-val">0.2029</div>
+            <div class="card-sub">Variance Explained</div>
+        </div>
+        <div class="card">
+            <div class="card-label">Models Evaluated</div>
+            <div class="card-val">8</div>
+            <div class="card-sub">Calendar & Weather Baselines</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Model Comparison (Rolling-Origin Cross-Validation)</div>
+        <div style="height:380px; width:100%;">                            <div id="b009729b-6c46-4c8e-adfe-012df408479b" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("b009729b-6c46-4c8e-adfe-012df408479b")) {                    Plotly.newPlot(                        "b009729b-6c46-4c8e-adfe-012df408479b",                        [{"hovertemplate":"Feature Set=calendar_only\u003cbr\u003eRolling CV RMSE (Lower is Better)=%{x}\u003cbr\u003eModel=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"calendar_only","marker":{"color":"#3B82F6","pattern":{"shape":""}},"name":"calendar_only","orientation":"h","showlegend":true,"textposition":"auto","x":{"dtype":"f8","bdata":"rkfhehT+RkCHp1fKMnRIQIMvTKYKtklAzojS3uADTEA="},"xaxis":"x","y":["Linear Regression (Calendar Only)","LightGBM (Calendar Only)","Random Forest (Calendar Only)","XGBoost (Calendar Only)"],"yaxis":"y","type":"bar"},{"hovertemplate":"Feature Set=calendar_weather\u003cbr\u003eRolling CV RMSE (Lower is Better)=%{x}\u003cbr\u003eModel=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"calendar_weather","marker":{"color":"#10B981","pattern":{"shape":""}},"name":"calendar_weather","orientation":"h","showlegend":true,"textposition":"auto","x":{"dtype":"f8","bdata":"RUdy+Q+hR0B0tRX7y25JQEymCkYlDUpAjSjtDb64S0A="},"xaxis":"x","y":["Linear Regression (Calendar + Weather)","LightGBM (Calendar + Weather)","Random Forest (Calendar + Weather)","XGBoost (Calendar + Weather)"],"yaxis":"y","type":"bar"}],                        {"template":{"data":{"barpolar":[{"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermap":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermap"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"white","showlakes":true,"showland":true,"subunitcolor":"#C8D4E3"},"hoverlabel":{"align":"left"},"hovermode":"closest","paper_bgcolor":"white","plot_bgcolor":"white","polar":{"angularaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""},"bgcolor":"white","radialaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"yaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"zaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"baxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"bgcolor":"white","caxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"Rolling CV RMSE (Lower is Better)"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Model"}},"legend":{"title":{"text":"Feature Set"},"tracegroupgap":0},"title":{"text":"Baseline Models: Expanding Window CV RMSE"},"barmode":"relative","margin":{"l":20,"r":20,"t":40,"b":20},"height":380},                        {"responsive": true}                    )                };            </script>        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Evaluation Leaderboard</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Model</th>
+                    <th>Feature Set</th>
+                    <th style="text-align: right;">Features</th>
+                    <th style="text-align: right;">CV RMSE</th>
+                    <th style="text-align: right;">CV MAE</th>
+                    <th style="text-align: right;">CV R²</th>
+                    <th style="text-align: right;">CV MAPE</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+        <tr style="border-bottom: 1px solid #E5E7EB;">
+            <td style="padding: 10px 14px; font-weight: 600;">Linear Regression (Calendar Only)</td>
+            <td style="padding: 10px 14px;"><span style="background: #EFF6FF; color: #1D4ED8; padding: 3px 8px; border-radius: 4px; font-size: 12px;">calendar_only</span></td>
+            <td style="padding: 10px 14px; text-align: right;">21</td>
+            <td style="padding: 10px 14px; text-align: right; font-weight: 600;">45.98</td>
+            <td style="padding: 10px 14px; text-align: right;">29.87</td>
+            <td style="padding: 10px 14px; text-align: right;">0.2029</td>
+            <td style="padding: 10px 14px; text-align: right;">42.3%</td>
+        </tr>
+        
+        <tr style="border-bottom: 1px solid #E5E7EB;">
+            <td style="padding: 10px 14px; font-weight: 600;">Linear Regression (Calendar + Weather)</td>
+            <td style="padding: 10px 14px;"><span style="background: #ECFDF5; color: #047857; padding: 3px 8px; border-radius: 4px; font-size: 12px;">calendar_weather</span></td>
+            <td style="padding: 10px 14px; text-align: right;">27</td>
+            <td style="padding: 10px 14px; text-align: right; font-weight: 600;">47.26</td>
+            <td style="padding: 10px 14px; text-align: right;">31.20</td>
+            <td style="padding: 10px 14px; text-align: right;">0.1601</td>
+            <td style="padding: 10px 14px; text-align: right;">43.1%</td>
+        </tr>
+        
+        <tr style="border-bottom: 1px solid #E5E7EB;">
+            <td style="padding: 10px 14px; font-weight: 600;">LightGBM (Calendar Only)</td>
+            <td style="padding: 10px 14px;"><span style="background: #EFF6FF; color: #1D4ED8; padding: 3px 8px; border-radius: 4px; font-size: 12px;">calendar_only</span></td>
+            <td style="padding: 10px 14px; text-align: right;">21</td>
+            <td style="padding: 10px 14px; text-align: right; font-weight: 600;">48.91</td>
+            <td style="padding: 10px 14px; text-align: right;">33.19</td>
+            <td style="padding: 10px 14px; text-align: right;">0.0798</td>
+            <td style="padding: 10px 14px; text-align: right;">46.9%</td>
+        </tr>
+        
+        <tr style="border-bottom: 1px solid #E5E7EB;">
+            <td style="padding: 10px 14px; font-weight: 600;">LightGBM (Calendar + Weather)</td>
+            <td style="padding: 10px 14px;"><span style="background: #ECFDF5; color: #047857; padding: 3px 8px; border-radius: 4px; font-size: 12px;">calendar_weather</span></td>
+            <td style="padding: 10px 14px; text-align: right;">27</td>
+            <td style="padding: 10px 14px; text-align: right; font-weight: 600;">50.87</td>
+            <td style="padding: 10px 14px; text-align: right;">35.53</td>
+            <td style="padding: 10px 14px; text-align: right;">-0.0119</td>
+            <td style="padding: 10px 14px; text-align: right;">48.2%</td>
+        </tr>
+        
+        <tr style="border-bottom: 1px solid #E5E7EB;">
+            <td style="padding: 10px 14px; font-weight: 600;">Random Forest (Calendar Only)</td>
+            <td style="padding: 10px 14px;"><span style="background: #EFF6FF; color: #1D4ED8; padding: 3px 8px; border-radius: 4px; font-size: 12px;">calendar_only</span></td>
+            <td style="padding: 10px 14px; text-align: right;">21</td>
+            <td style="padding: 10px 14px; text-align: right; font-weight: 600;">51.42</td>
+            <td style="padding: 10px 14px; text-align: right;">34.82</td>
+            <td style="padding: 10px 14px; text-align: right;">-0.0285</td>
+            <td style="padding: 10px 14px; text-align: right;">48.5%</td>
+        </tr>
+        
+        <tr style="border-bottom: 1px solid #E5E7EB;">
+            <td style="padding: 10px 14px; font-weight: 600;">Random Forest (Calendar + Weather)</td>
+            <td style="padding: 10px 14px;"><span style="background: #ECFDF5; color: #047857; padding: 3px 8px; border-radius: 4px; font-size: 12px;">calendar_weather</span></td>
+            <td style="padding: 10px 14px; text-align: right;">27</td>
+            <td style="padding: 10px 14px; text-align: right; font-weight: 600;">52.10</td>
+            <td style="padding: 10px 14px; text-align: right;">36.82</td>
+            <td style="padding: 10px 14px; text-align: right;">-0.0374</td>
+            <td style="padding: 10px 14px; text-align: right;">53.0%</td>
+        </tr>
+        
+        <tr style="border-bottom: 1px solid #E5E7EB;">
+            <td style="padding: 10px 14px; font-weight: 600;">XGBoost (Calendar + Weather)</td>
+            <td style="padding: 10px 14px;"><span style="background: #ECFDF5; color: #047857; padding: 3px 8px; border-radius: 4px; font-size: 12px;">calendar_weather</span></td>
+            <td style="padding: 10px 14px; text-align: right;">27</td>
+            <td style="padding: 10px 14px; text-align: right; font-weight: 600;">55.44</td>
+            <td style="padding: 10px 14px; text-align: right;">38.10</td>
+            <td style="padding: 10px 14px; text-align: right;">-0.1859</td>
+            <td style="padding: 10px 14px; text-align: right;">49.3%</td>
+        </tr>
+        
+        <tr style="border-bottom: 1px solid #E5E7EB;">
+            <td style="padding: 10px 14px; font-weight: 600;">XGBoost (Calendar Only)</td>
+            <td style="padding: 10px 14px;"><span style="background: #EFF6FF; color: #1D4ED8; padding: 3px 8px; border-radius: 4px; font-size: 12px;">calendar_only</span></td>
+            <td style="padding: 10px 14px; text-align: right;">21</td>
+            <td style="padding: 10px 14px; text-align: right; font-weight: 600;">56.03</td>
+            <td style="padding: 10px 14px; text-align: right;">38.16</td>
+            <td style="padding: 10px 14px; text-align: right;">-0.1510</td>
+            <td style="padding: 10px 14px; text-align: right;">50.4%</td>
+        </tr>
+        
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

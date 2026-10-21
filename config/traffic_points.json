@@ -1,0 +1,282 @@
+[
+  {
+    "id": "PT_001_SHV",
+    "name": "JM Road (Deccan Corner to Sancheti)",
+    "latitude": 18.5285,
+    "longitude": 73.8475,
+    "nearest_station": "11613"
+  },
+  {
+    "id": "PT_002_SHV",
+    "name": "FC Road (Goodluck Chowk)",
+    "latitude": 18.525,
+    "longitude": 73.8415,
+    "nearest_station": "11613"
+  },
+  {
+    "id": "PT_003_SHV",
+    "name": "University Road (Shivajinagar Station)",
+    "latitude": 18.534,
+    "longitude": 73.841,
+    "nearest_station": "11613"
+  },
+  {
+    "id": "PT_004_SHV",
+    "name": "Old Mumbai-Pune Highway (Wakdewadi)",
+    "latitude": 18.5365,
+    "longitude": 73.848,
+    "nearest_station": "11613"
+  },
+  {
+    "id": "PT_005_SHV",
+    "name": "Sancheti Chowk Arterial",
+    "latitude": 18.531,
+    "longitude": 73.851,
+    "nearest_station": "11613"
+  },
+  {
+    "id": "PT_006_SHV",
+    "name": "Shimla Office Chowk",
+    "latitude": 18.5325,
+    "longitude": 73.844,
+    "nearest_station": "11613"
+  },
+  {
+    "id": "PT_007_SHV",
+    "name": "Modern College Road",
+    "latitude": 18.527,
+    "longitude": 73.844,
+    "nearest_station": "11613"
+  },
+  {
+    "id": "PT_008_SHV",
+    "name": "COEP Flyover Junction",
+    "latitude": 18.529,
+    "longitude": 73.856,
+    "nearest_station": "11613"
+  },
+  {
+    "id": "PT_009_SPPU",
+    "name": "Ganeshkhind Road (SPPU Main Gate)",
+    "latitude": 18.551,
+    "longitude": 73.8245,
+    "nearest_station": "3409439"
+  },
+  {
+    "id": "PT_010_SPPU",
+    "name": "Aundh Road (Bremen Chowk)",
+    "latitude": 18.5605,
+    "longitude": 73.8115,
+    "nearest_station": "3409439"
+  },
+  {
+    "id": "PT_011_SPPU",
+    "name": "Baner Road (SPPU Junction)",
+    "latitude": 18.5535,
+    "longitude": 73.818,
+    "nearest_station": "3409439"
+  },
+  {
+    "id": "PT_012_SPPU",
+    "name": "Pashan Road (Abhimanshree Society)",
+    "latitude": 18.544,
+    "longitude": 73.812,
+    "nearest_station": "3409439"
+  },
+  {
+    "id": "PT_013_SPPU",
+    "name": "Senapati Bapat Road (ICC Towers)",
+    "latitude": 18.537,
+    "longitude": 73.83,
+    "nearest_station": "3409439"
+  },
+  {
+    "id": "PT_014_SPPU",
+    "name": "University Circle Chowk",
+    "latitude": 18.548,
+    "longitude": 73.8275,
+    "nearest_station": "3409439"
+  },
+  {
+    "id": "PT_015_SPPU",
+    "name": "Aundh-Baner Link Road",
+    "latitude": 18.562,
+    "longitude": 73.804,
+    "nearest_station": "3409439"
+  },
+  {
+    "id": "PT_016_SPPU",
+    "name": "Range Hills Road (Khadki link)",
+    "latitude": 18.5445,
+    "longitude": 73.838,
+    "nearest_station": "3409439"
+  },
+  {
+    "id": "PT_017_KRV",
+    "name": "Karve Road (Nal Stop Chowk Flyover)",
+    "latitude": 18.506,
+    "longitude": 73.831,
+    "nearest_station": "5661"
+  },
+  {
+    "id": "PT_018_KRV",
+    "name": "Karve Road (Kothrud Bus Stand)",
+    "latitude": 18.5015,
+    "longitude": 73.818,
+    "nearest_station": "5661"
+  },
+  {
+    "id": "PT_019_KRV",
+    "name": "Paud Road (Paud Phata Flyover)",
+    "latitude": 18.509,
+    "longitude": 73.824,
+    "nearest_station": "5661"
+  },
+  {
+    "id": "PT_020_KRV",
+    "name": "Law College Road (FTII Junction)",
+    "latitude": 18.5135,
+    "longitude": 73.8305,
+    "nearest_station": "5661"
+  },
+  {
+    "id": "PT_021_KRV",
+    "name": "Deccan Gymkhana (Garware Bridge)",
+    "latitude": 18.5165,
+    "longitude": 73.84,
+    "nearest_station": "5661"
+  },
+  {
+    "id": "PT_022_KRV",
+    "name": "Karve Statue Chowk",
+    "latitude": 18.4975,
+    "longitude": 73.814,
+    "nearest_station": "5661"
+  },
+  {
+    "id": "PT_023_KRV",
+    "name": "DP Road (Kothrud)",
+    "latitude": 18.498,
+    "longitude": 73.822,
+    "nearest_station": "5661"
+  },
+  {
+    "id": "PT_024_KRV",
+    "name": "Mayur Colony Road",
+    "latitude": 18.5035,
+    "longitude": 73.811,
+    "nearest_station": "5661"
+  },
+  {
+    "id": "PT_025_KTJ",
+    "name": "Satara Road (Katraj Chowk)",
+    "latitude": 18.452,
+    "longitude": 73.857,
+    "nearest_station": "3409438"
+  },
+  {
+    "id": "PT_026_KTJ",
+    "name": "Katraj-Kondhwa Road Arterial",
+    "latitude": 18.456,
+    "longitude": 73.869,
+    "nearest_station": "3409438"
+  },
+  {
+    "id": "PT_027_KTJ",
+    "name": "Katraj-Dehu Road Bypass (NH 48)",
+    "latitude": 18.448,
+    "longitude": 73.849,
+    "nearest_station": "3409438"
+  },
+  {
+    "id": "PT_028_KTJ",
+    "name": "Satara Road (Padmavati Chowk)",
+    "latitude": 18.472,
+    "longitude": 73.856,
+    "nearest_station": "3409438"
+  },
+  {
+    "id": "PT_029_KTJ",
+    "name": "Satara Road (Bibwewadi Junction)",
+    "latitude": 18.479,
+    "longitude": 73.855,
+    "nearest_station": "3409438"
+  },
+  {
+    "id": "PT_030_KTJ",
+    "name": "Ambegaon Budruk Link Road",
+    "latitude": 18.454,
+    "longitude": 73.841,
+    "nearest_station": "3409438"
+  },
+  {
+    "id": "PT_031_KTJ",
+    "name": "Bharati Vidyapeeth Gate Arterial",
+    "latitude": 18.458,
+    "longitude": 73.852,
+    "nearest_station": "3409438"
+  },
+  {
+    "id": "PT_032_KTJ",
+    "name": "Katraj Ghat Old Road",
+    "latitude": 18.439,
+    "longitude": 73.861,
+    "nearest_station": "3409438"
+  },
+  {
+    "id": "PT_033_WKD",
+    "name": "Wakad-Hinjawadi Flyover Arterial",
+    "latitude": 18.597,
+    "longitude": 73.761,
+    "nearest_station": "3409436"
+  },
+  {
+    "id": "PT_034_WKD",
+    "name": "Dange Chowk (Thergaon-Wakad Junction)",
+    "latitude": 18.611,
+    "longitude": 73.778,
+    "nearest_station": "3409436"
+  },
+  {
+    "id": "PT_035_WKD",
+    "name": "Kalewadi Phata (Wakad Road)",
+    "latitude": 18.604,
+    "longitude": 73.784,
+    "nearest_station": "3409436"
+  },
+  {
+    "id": "PT_036_WKD",
+    "name": "Bhumkar Chowk (Wakad Bypass)",
+    "latitude": 18.5995,
+    "longitude": 73.7505,
+    "nearest_station": "3409436"
+  },
+  {
+    "id": "PT_037_WKD",
+    "name": "Datta Mandir Road (Wakad)",
+    "latitude": 18.603,
+    "longitude": 73.768,
+    "nearest_station": "3409436"
+  },
+  {
+    "id": "PT_038_WKD",
+    "name": "Hinjawadi Phase 1 Shivaji Chowk Connector",
+    "latitude": 18.591,
+    "longitude": 73.738,
+    "nearest_station": "3409436"
+  },
+  {
+    "id": "PT_039_WKD",
+    "name": "Wakad-Bavdhan Expressway Connector",
+    "latitude": 18.583,
+    "longitude": 73.769,
+    "nearest_station": "3409436"
+  },
+  {
+    "id": "PT_040_WKD",
+    "name": "Kaspate Vasti Road (Wakad)",
+    "latitude": 18.596,
+    "longitude": 73.774,
+    "nearest_station": "3409436"
+  }
+]

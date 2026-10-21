@@ -1,0 +1,12 @@
+column,total_rows,valid_count,null_count,null_percentage
+station_id,3751,3751,0,0.0
+station_name,3751,3751,0,0.0
+observation_date,3751,3751,0,0.0
+aqi,3751,2407,1344,35.83
+pm25,3751,2013,1738,46.33
+pm10,3751,1339,2412,64.3
+no2,3751,1932,1819,48.49
+co,3751,1195,2556,68.14
+so2,3751,1293,2458,65.53
+o3,3751,1195,2556,68.14
+dominant_pollutant,3751,2407,1344,35.83

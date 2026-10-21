@@ -1,0 +1,8 @@
+metric,value
+total_records,3751
+total_zones,5
+total_stations,5
+temporal_range,2018-03-09 00:00:00+05:30 to 2026-01-28 00:00:00+05:30
+weather_completeness_pct,100.0
+aqi_completeness_pct,64.17
+fusion_coverage_pct,82.08

@@ -1,0 +1,6 @@
+zone_id,total_records,weather_valid_count,weather_completeness_pct,aqi_valid_count,aqi_completeness_pct,mean_aqi,mean_temp
+876088405ffffff,345,345,100.0,332,96.23,97.47,22.45
+87608850dffffff,1772,1772,100.0,798,45.03,109.52,21.97
+87608850effffff,947,947,100.0,655,69.17,110.42,21.92
+876088519ffffff,343,343,100.0,302,88.05,87.37,22.46
+87608852cffffff,344,344,100.0,320,93.02,81.45,22.45

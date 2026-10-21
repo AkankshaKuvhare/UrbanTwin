@@ -1,0 +1,49 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    container_name: urbantwin_postgis
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER:-urbantwin}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-urbantwin_secret}
+      POSTGRES_DB: ${DB_NAME:-urbantwin_db}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - postgis_data:/var/lib/postgresql/data
+      - ./docker/init-postgis.sh:/docker-entrypoint-initdb.d/init-postgis.sh:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-urbantwin} -d ${DB_NAME:-urbantwin_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: urbantwin_api
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "${PORT:-8000}:8000"
+    environment:
+      - ENVIRONMENT=${ENVIRONMENT:-development}
+      - DEBUG=${DEBUG:-True}
+      - DATABASE_URL=postgresql+psycopg2://${DB_USER:-urbantwin}:${DB_PASSWORD:-urbantwin_secret}@db:5432/${DB_NAME:-urbantwin_db}
+      - ASYNC_DATABASE_URL=postgresql+asyncpg://${DB_USER:-urbantwin}:${DB_PASSWORD:-urbantwin_secret}@db:5432/${DB_NAME:-urbantwin_db}
+      - OPENAQ_API_KEY=${OPENAQ_API_KEY}
+      - TOMTOM_API_KEY=${TOMTOM_API_KEY}
+      - DATA_MODE=${DATA_MODE:-synthetic}
+    volumes:
+      - .:/app
+      - data_volume:/app/data
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+volumes:
+  postgis_data:
+  data_volume:

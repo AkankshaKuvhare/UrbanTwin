@@ -1,0 +1,99 @@
+{
+  "evaluated_at": "2026-10-21T21:40:13.700662",
+  "best_model": "lr_calendar",
+  "best_model_label": "Linear Regression (Calendar Only)",
+  "best_cv_rmse": 45.985,
+  "best_cv_mae": 29.8749,
+  "best_cv_r2": 0.2029,
+  "models_evaluated": 8,
+  "all_models": [
+    {
+      "model_key": "lr_calendar",
+      "label": "Linear Regression (Calendar Only)",
+      "feature_set": "calendar_only",
+      "num_features": 21,
+      "cv_mae": 29.8749,
+      "cv_rmse": 45.985,
+      "cv_r2": 0.2029,
+      "cv_mape": 42.3004,
+      "folds_evaluated": 5
+    },
+    {
+      "model_key": "lr_weather",
+      "label": "Linear Regression (Calendar + Weather)",
+      "feature_set": "calendar_weather",
+      "num_features": 27,
+      "cv_mae": 31.1985,
+      "cv_rmse": 47.2583,
+      "cv_r2": 0.1601,
+      "cv_mape": 43.0866,
+      "folds_evaluated": 5
+    },
+    {
+      "model_key": "lgb_calendar",
+      "label": "LightGBM (Calendar Only)",
+      "feature_set": "calendar_only",
+      "num_features": 21,
+      "cv_mae": 33.1944,
+      "cv_rmse": 48.9078,
+      "cv_r2": 0.0798,
+      "cv_mape": 46.9138,
+      "folds_evaluated": 5
+    },
+    {
+      "model_key": "lgb_weather",
+      "label": "LightGBM (Calendar + Weather)",
+      "feature_set": "calendar_weather",
+      "num_features": 27,
+      "cv_mae": 35.5301,
+      "cv_rmse": 50.8656,
+      "cv_r2": -0.0119,
+      "cv_mape": 48.1552,
+      "folds_evaluated": 5
+    },
+    {
+      "model_key": "rf_calendar",
+      "label": "Random Forest (Calendar Only)",
+      "feature_set": "calendar_only",
+      "num_features": 21,
+      "cv_mae": 34.8186,
+      "cv_rmse": 51.4222,
+      "cv_r2": -0.0285,
+      "cv_mape": 48.4763,
+      "folds_evaluated": 5
+    },
+    {
+      "model_key": "rf_weather",
+      "label": "Random Forest (Calendar + Weather)",
+      "feature_set": "calendar_weather",
+      "num_features": 27,
+      "cv_mae": 36.8188,
+      "cv_rmse": 52.1027,
+      "cv_r2": -0.0374,
+      "cv_mape": 52.9803,
+      "folds_evaluated": 5
+    },
+    {
+      "model_key": "xgb_weather",
+      "label": "XGBoost (Calendar + Weather)",
+      "feature_set": "calendar_weather",
+      "num_features": 27,
+      "cv_mae": 38.0998,
+      "cv_rmse": 55.4433,
+      "cv_r2": -0.1859,
+      "cv_mape": 49.2773,
+      "folds_evaluated": 5
+    },
+    {
+      "model_key": "xgb_calendar",
+      "label": "XGBoost (Calendar Only)",
+      "feature_set": "calendar_only",
+      "num_features": 21,
+      "cv_mae": 38.162,
+      "cv_rmse": 56.0303,
+      "cv_r2": -0.151,
+      "cv_mape": 50.386,
+      "folds_evaluated": 5
+    }
+  ]
+}
