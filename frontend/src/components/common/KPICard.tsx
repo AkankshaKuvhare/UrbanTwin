@@ -1,10 +1,13 @@
 import React, { ReactNode } from 'react';
 
-interface KPICardProps {
+export interface KPICardProps {
   title: string;
   value: string | number;
   unit?: string;
   subtitle?: string;
+  status?: string;
+  trend?: string;
+  trendValue?: string;
   stationOrSource?: string;
   timestamp?: string;
   icon: ReactNode;
@@ -21,10 +24,13 @@ export const KPICard: React.FC<KPICardProps> = ({
   value,
   unit,
   subtitle,
+  status,
+  trend,
+  trendValue,
   stationOrSource,
   timestamp,
   icon,
-  iconBgColor = 'bg-teal-50 text-teal-600 border-teal-100',
+  iconBgColor = 'bg-slate-800 text-blue-400 border-slate-700',
   badge,
   isPending = false,
   pendingText = 'Real traffic data pending',
@@ -33,18 +39,18 @@ export const KPICard: React.FC<KPICardProps> = ({
 }) => {
   return (
     <div
-      className={`relative bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between ${
+      className={`relative bg-slate-900 rounded-xl p-5 border border-slate-800 shadow-sm hover:border-slate-700 transition-all duration-200 flex flex-col justify-between ${
         highlightBorder ? `border-l-4 ${highlightBorder}` : ''
       }`}
     >
       {/* Top Header */}
       <div className="flex items-start justify-between gap-2 mb-3">
         <div>
-          <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+          <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
             {title}
           </span>
           {subtitle && (
-            <p className="text-xs text-slate-400 mt-0.5">{subtitle}</p>
+            <p className="text-xs text-slate-500 mt-0.5">{subtitle}</p>
           )}
         </div>
         <div
@@ -58,39 +64,44 @@ export const KPICard: React.FC<KPICardProps> = ({
       <div className="my-1">
         {isPending ? (
           <div>
-            <div className="text-lg font-bold text-amber-700 font-mono tracking-tight">
+            <div className="text-lg font-bold text-amber-400 font-mono tracking-tight">
               {pendingText}
             </div>
             {observationCount !== undefined && (
-              <span className="text-xs text-slate-400 mt-1 block">
-                Observations in storage: <strong className="text-slate-600 font-mono">{observationCount}</strong> (Gated)
+              <span className="text-xs text-slate-500 mt-1 block">
+                Observations in storage: <strong className="text-slate-400 font-mono">{observationCount}</strong> (Gated)
               </span>
             )}
           </div>
         ) : (
           <div className="flex items-baseline gap-2">
-            <span className="text-3xl font-bold tracking-tight text-slate-900 font-mono">
+            <span className="text-3xl font-bold tracking-tight text-white font-mono">
               {value}
             </span>
             {unit && (
-              <span className="text-sm font-medium text-slate-500">{unit}</span>
+              <span className="text-sm font-medium text-slate-400">{unit}</span>
             )}
           </div>
         )}
       </div>
 
       {/* Badge & Metadata Footer */}
-      <div className="mt-3 pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-xs">
-        {badge ? (
+      <div className="mt-3 pt-3 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2 text-xs">
+        {status ? (
+          <span className="text-emerald-400 font-mono text-[11px] font-semibold flex items-center gap-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+            {status}
+          </span>
+        ) : badge ? (
           <div>{badge}</div>
         ) : (
-          <div className="text-slate-500 text-[11px] font-medium truncate max-w-[150px]">
+          <div className="text-slate-400 text-[11px] font-medium truncate max-w-[150px]">
             {stationOrSource}
           </div>
         )}
 
         {timestamp && (
-          <span className="text-slate-400 text-[11px] font-mono flex items-center gap-1">
+          <span className="text-slate-500 text-[11px] font-mono flex items-center gap-1">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
             {timestamp}
           </span>
@@ -99,3 +110,4 @@ export const KPICard: React.FC<KPICardProps> = ({
     </div>
   );
 };
+export default KPICard;

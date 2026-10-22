@@ -1,0 +1,2266 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_7742a5f3a256d32311ab544926dece2c {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.css"/>
+</head>
+<body>
+    
+    
+<div style="
+    position: fixed;
+    bottom: 40px; right: 10px; z-index: 9999;
+    background: rgba(15,23,42,0.92);
+    border: 1px solid #334155;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: #e2e8f0;
+    min-width: 150px;
+">
+    <div style="font-weight:700; font-size:13px; margin-bottom:8px; color:#94a3b8;">
+        AQI Legend (India NAQI)
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+        <span style="background:#22c55e;width:14px;height:14px;border-radius:3px;display:inline-block;"></span>
+        0–50 &nbsp; Good
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+        <span style="background:#84cc16;width:14px;height:14px;border-radius:3px;display:inline-block;"></span>
+        51–100 &nbsp; Satisfactory
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+        <span style="background:#f59e0b;width:14px;height:14px;border-radius:3px;display:inline-block;"></span>
+        101–200 &nbsp; Moderate
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+        <span style="background:#f97316;width:14px;height:14px;border-radius:3px;display:inline-block;"></span>
+        201–300 &nbsp; Poor
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+        <span style="background:#ef4444;width:14px;height:14px;border-radius:3px;display:inline-block;"></span>
+        301–400 &nbsp; Very Poor
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+        <span style="background:#7c3aed;width:14px;height:14px;border-radius:3px;display:inline-block;"></span>
+        401+ &nbsp; Severe
+    </div>
+</div>
+    
+            <div class="folium-map" id="map_7742a5f3a256d32311ab544926dece2c" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_7742a5f3a256d32311ab544926dece2c = L.map(
+                "map_7742a5f3a256d32311ab544926dece2c",
+                {
+                    center: [18.52, 73.85],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 12,
+  "zoomControl": true,
+  "preferCanvas": true,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_a58c1ede7ab1c952aa08af7385890d3a = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "CartoDB",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_a58c1ede7ab1c952aa08af7385890d3a.addTo(map_7742a5f3a256d32311ab544926dece2c);
+        
+    
+            var tile_layer_f92ced336e3b160c771a36d6fc080d89 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "CartoDB",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            var tile_layer_c0b18f16c9f943157cbf73275a638121 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "OSM",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            var feature_group_b5b64e089286f1bb4b086fb4b4423ae3 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var polygon_3350c4de711205a51583b66a55ebd428 = L.polygon(
+                [[18.59025026887917, 73.7737135411885], [18.60201922822173, 73.76967075079573], [18.603816054485627, 73.75740351664565], [18.59384559229132, 73.74918066001362], [18.582078010512845, 73.75322304776805], [18.580279513344063, 73.76548869503142]],
+                {"bubblingMouseEvents": true, "color": "#84cc16", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#84cc16", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_b5b64e089286f1bb4b086fb4b4423ae3);
+        
+    
+        var popup_4fd240cf8bb14466447d5c668e01f595 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_d45b931d808ae8f95e8a6a9e090fd2de = $(`<div id="html_d45b931d808ae8f95e8a6a9e090fd2de" style="width: 100.0%; height: 100.0%;"><div style="font-family:'Inter',sans-serif;background:#0f172a;color:#e2e8f0;padding:10px;border-radius:8px;min-width:160px;">                     <b>H3 Zone</b><br>                     <code style="font-size:10px;">876088405ffffff</code><br><br>                     <b>Mean AQI:</b> 97.5<br>                     <b>Category:</b> <span style="color:#84cc16;">Satisfactory</span><br>                     <b>Records:</b> 345                     </div></div>`)[0];
+                popup_4fd240cf8bb14466447d5c668e01f595.setContent(html_d45b931d808ae8f95e8a6a9e090fd2de);
+            
+        
+
+        polygon_3350c4de711205a51583b66a55ebd428.bindPopup(popup_4fd240cf8bb14466447d5c668e01f595)
+        ;
+
+        
+    
+    
+            polygon_3350c4de711205a51583b66a55ebd428.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     Zone: 87608840…<br>Mean AQI: <b>97.5</b><br>Satisfactory
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var polygon_10ed99a2142df30b4ed650ca2632a2bf = L.polygon(
+                [[18.49242629145673, 73.83059475541417], [18.504209203725747, 73.82655253137284], [18.506019349891957, 73.81428036190172], [18.496048251813438, 73.80605200286765], [18.48426672073345, 73.81009382735515], [18.482454906523056, 73.82236441066976]],
+                {"bubblingMouseEvents": true, "color": "#f59e0b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f59e0b", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_b5b64e089286f1bb4b086fb4b4423ae3);
+        
+    
+        var popup_f8adf2a257ee67bfae62111ae3e94088 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_b2a04088f9f038ce3ec3eaeee3b121f6 = $(`<div id="html_b2a04088f9f038ce3ec3eaeee3b121f6" style="width: 100.0%; height: 100.0%;"><div style="font-family:'Inter',sans-serif;background:#0f172a;color:#e2e8f0;padding:10px;border-radius:8px;min-width:160px;">                     <b>H3 Zone</b><br>                     <code style="font-size:10px;">87608850dffffff</code><br><br>                     <b>Mean AQI:</b> 109.5<br>                     <b>Category:</b> <span style="color:#f59e0b;">Moderate</span><br>                     <b>Records:</b> 1772                     </div></div>`)[0];
+                popup_f8adf2a257ee67bfae62111ae3e94088.setContent(html_b2a04088f9f038ce3ec3eaeee3b121f6);
+            
+        
+
+        polygon_10ed99a2142df30b4ed650ca2632a2bf.bindPopup(popup_f8adf2a257ee67bfae62111ae3e94088)
+        ;
+
+        
+    
+    
+            polygon_10ed99a2142df30b4ed650ca2632a2bf.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     Zone: 87608850…<br>Mean AQI: <b>109.5</b><br>Moderate
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var polygon_794e1819eaa4a33806e3b75bc503e3ef = L.polygon(
+                [[18.52234208892038, 73.85529466072167], [18.534124979067755, 73.85125167715375], [18.535934285290303, 73.8389743114185], [18.525962367859577, 73.83074151611832], [18.514180856621973, 73.83478410127397], [18.512369883884922, 73.84705988038175]],
+                {"bubblingMouseEvents": true, "color": "#f59e0b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f59e0b", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_b5b64e089286f1bb4b086fb4b4423ae3);
+        
+    
+        var popup_5431bfbd823751ce8419c784698d0887 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_7f49ca810ac4ba540fea660ee92f1b34 = $(`<div id="html_7f49ca810ac4ba540fea660ee92f1b34" style="width: 100.0%; height: 100.0%;"><div style="font-family:'Inter',sans-serif;background:#0f172a;color:#e2e8f0;padding:10px;border-radius:8px;min-width:160px;">                     <b>H3 Zone</b><br>                     <code style="font-size:10px;">87608850effffff</code><br><br>                     <b>Mean AQI:</b> 110.4<br>                     <b>Category:</b> <span style="color:#f59e0b;">Moderate</span><br>                     <b>Records:</b> 947                     </div></div>`)[0];
+                popup_5431bfbd823751ce8419c784698d0887.setContent(html_7f49ca810ac4ba540fea660ee92f1b34);
+            
+        
+
+        polygon_794e1819eaa4a33806e3b75bc503e3ef.bindPopup(popup_5431bfbd823751ce8419c784698d0887)
+        ;
+
+        
+    
+    
+            polygon_794e1819eaa4a33806e3b75bc503e3ef.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     Zone: 87608850…<br>Mean AQI: <b>110.4</b><br>Moderate
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var polygon_c19ff9087590e196a15a502128cb9036 = L.polygon(
+                [[18.557686570930276, 73.84316538607041], [18.569465270796126, 73.83912207862684], [18.57127041477546, 73.82684514911274], [18.561298525937875, 73.81861311422502], [18.549521203441927, 73.8226560225579], [18.54771439239295, 73.83493136512874]],
+                {"bubblingMouseEvents": true, "color": "#84cc16", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#84cc16", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_b5b64e089286f1bb4b086fb4b4423ae3);
+        
+    
+        var popup_b75efb283096c56fe42172caba05e5f6 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_e0f2f1c05ec1cc87624182cd00cc3108 = $(`<div id="html_e0f2f1c05ec1cc87624182cd00cc3108" style="width: 100.0%; height: 100.0%;"><div style="font-family:'Inter',sans-serif;background:#0f172a;color:#e2e8f0;padding:10px;border-radius:8px;min-width:160px;">                     <b>H3 Zone</b><br>                     <code style="font-size:10px;">876088519ffffff</code><br><br>                     <b>Mean AQI:</b> 87.4<br>                     <b>Category:</b> <span style="color:#84cc16;">Satisfactory</span><br>                     <b>Records:</b> 343                     </div></div>`)[0];
+                popup_b75efb283096c56fe42172caba05e5f6.setContent(html_e0f2f1c05ec1cc87624182cd00cc3108);
+            
+        
+
+        polygon_c19ff9087590e196a15a502128cb9036.bindPopup(popup_b75efb283096c56fe42172caba05e5f6)
+        ;
+
+        
+    
+    
+            polygon_c19ff9087590e196a15a502128cb9036.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     Zone: 87608851…<br>Mean AQI: <b>87.4</b><br>Satisfactory
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var polygon_934e6eaa29a21625578933b9f31a3a15 = L.polygon(
+                [[18.451615487376653, 73.87955029223309], [18.463406733073, 73.87550795738647], [18.465224358205518, 73.86322972283722], [18.455252403010135, 73.85499540936932], [18.443462539296483, 73.85903734720038], [18.441643248775705, 73.87131399575475]],
+                {"bubblingMouseEvents": true, "color": "#84cc16", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#84cc16", "fillOpacity": 0.35, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_b5b64e089286f1bb4b086fb4b4423ae3);
+        
+    
+        var popup_68bd09a5fb71bc09c3b49ff9da6ff6ca = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_47f5ca4e26189f0d7bd31d9f5b368686 = $(`<div id="html_47f5ca4e26189f0d7bd31d9f5b368686" style="width: 100.0%; height: 100.0%;"><div style="font-family:'Inter',sans-serif;background:#0f172a;color:#e2e8f0;padding:10px;border-radius:8px;min-width:160px;">                     <b>H3 Zone</b><br>                     <code style="font-size:10px;">87608852cffffff</code><br><br>                     <b>Mean AQI:</b> 81.5<br>                     <b>Category:</b> <span style="color:#84cc16;">Satisfactory</span><br>                     <b>Records:</b> 344                     </div></div>`)[0];
+                popup_68bd09a5fb71bc09c3b49ff9da6ff6ca.setContent(html_47f5ca4e26189f0d7bd31d9f5b368686);
+            
+        
+
+        polygon_934e6eaa29a21625578933b9f31a3a15.bindPopup(popup_68bd09a5fb71bc09c3b49ff9da6ff6ca)
+        ;
+
+        
+    
+    
+            polygon_934e6eaa29a21625578933b9f31a3a15.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     Zone: 87608852…<br>Mean AQI: <b>81.5</b><br>Satisfactory
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_b5b64e089286f1bb4b086fb4b4423ae3.addTo(map_7742a5f3a256d32311ab544926dece2c);
+        
+    
+            var feature_group_55bb8a90ddf3395d39262f8eb30ec760 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_f9a0b07296e2114dbf2f77cc88c39e8b = L.circleMarker(
+                [18.5314, 73.8446],
+                {"bubblingMouseEvents": true, "color": "#84cc16", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#84cc16", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.5, "radius": 22, "stroke": true, "weight": 2}
+            ).addTo(feature_group_55bb8a90ddf3395d39262f8eb30ec760);
+        
+    
+            var circle_marker_75d7b4f71e71df54851e2260f80d7fa1 = L.circleMarker(
+                [18.5314, 73.8446],
+                {"bubblingMouseEvents": true, "color": "#84cc16", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#84cc16", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16, "stroke": true, "weight": 2}
+            ).addTo(feature_group_55bb8a90ddf3395d39262f8eb30ec760);
+        
+    
+        var popup_f02803d8e311dc823604c1773588d58b = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var i_frame_da49e9f5fcb999020ab6ca00380b1f99 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjMwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxNHB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxNHB4O21hcmdpbi1ib3R0b206MTBweDtjb2xvcjojZjFmNWY5O2JvcmRlci1ib3R0b206MXB4IHNvbGlkICMzMzQxNTU7cGFkZGluZy1ib3R0b206NnB4OyI+CiAgICAgICAgICAgIFJldmVudWUgQ29sb255LVNoaXZhamluYWdhciwgUHVuZSAtIElJVE0KICAgICAgICA8L2Rpdj4KICAgICAgICA8ZGl2IHN0eWxlPSJkaXNwbGF5OmZsZXg7anVzdGlmeS1jb250ZW50OnNwYWNlLWJldHdlZW47YWxpZ24taXRlbXM6Y2VudGVyO21hcmdpbi1ib3R0b206MTBweDsiPgogICAgICAgICAgICA8ZGl2PgogICAgICAgICAgICAgICAgPGRpdiBzdHlsZT0iZm9udC1zaXplOjExcHg7Y29sb3I6Izk0YTNiODsiPkFRSTwvZGl2PgogICAgICAgICAgICAgICAgPGRpdiBzdHlsZT0iZm9udC1zaXplOjI2cHg7Zm9udC13ZWlnaHQ6ODAwO2NvbG9yOiM4NGNjMTY7Ij42OS42PC9kaXY+CiAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICA8ZGl2IHN0eWxlPSJiYWNrZ3JvdW5kOiM4NGNjMTYyMDtib3JkZXI6MXB4IHNvbGlkICM4NGNjMTY7Ym9yZGVyLXJhZGl1czo2cHg7cGFkZGluZzo0cHggMTBweDtmb250LXNpemU6MTFweDtjb2xvcjojODRjYzE2O2ZvbnQtd2VpZ2h0OjYwMDsiPgogICAgICAgICAgICAgICAgU2F0aXNmYWN0b3J5CiAgICAgICAgICAgIDwvZGl2PgogICAgICAgIDwvZGl2PgogICAgICAgIDx0YWJsZSBzdHlsZT0id2lkdGg6MTAwJTtib3JkZXItY29sbGFwc2U6Y29sbGFwc2U7Zm9udC1zaXplOjExcHg7Ij4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+UE0yLjU8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij5OL0EgwrVnL23CszwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+UE0xMDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPk4vQSDCtWcvbcKzPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5OT+KCgjwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjU0LjYgwrVnL23CszwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q088L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4xLjQgbWcvbcKzPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5TT+KCgjwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjUuNCDCtWcvbcKzPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5P4oKDPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MTguNCDCtWcvbcKzPC90ZD48L3RyPgogICAgICAgIDwvdGFibGU+CiAgICAgICAgPGRpdiBzdHlsZT0ibWFyZ2luLXRvcDo4cHg7Zm9udC1zaXplOjEwcHg7Y29sb3I6IzY0NzQ4YjsiPkxhc3QgdXBkYXRlZDogMjAyNi0wMS0yOCAwMDowMDwvZGl2PgogICAgICAgIDxkaXYgc3R5bGU9ImZvbnQtc2l6ZToxMHB4O2NvbG9yOiM2NDc0OGI7Ij5TdGF0aW9uIElEOiAxMTYxMzwvZGl2PgogICAgPC9kaXY+CiAgICA=" width="260" style="border:none !important;" height="280"></iframe>`)[0];
+                popup_f02803d8e311dc823604c1773588d58b.setContent(i_frame_da49e9f5fcb999020ab6ca00380b1f99);
+            
+        
+
+        circle_marker_75d7b4f71e71df54851e2260f80d7fa1.bindPopup(popup_f02803d8e311dc823604c1773588d58b)
+        ;
+
+        
+    
+    
+            circle_marker_75d7b4f71e71df54851e2260f80d7fa1.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:12px;">
+                     <b>Revenue Colony-Shivajinagar, Pune - IITM</b><br>AQI: <b>70</b> – Satisfactory
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_bf4651746b33e770e91ad49ca6187bf2 = L.marker(
+                [18.5314, 73.8446],
+                {
+}
+            ).addTo(feature_group_55bb8a90ddf3395d39262f8eb30ec760);
+        
+    
+            var div_icon_a8e62c2a2366ea5a12150a3e58fcd347 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:10px;font-weight:800;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,0.8);text-align:center;line-height:32px;width:32px;margin-left:-16px;margin-top:-16px;\"\u003e70\u003c/div\u003e",
+  "iconSize": [32, 32],
+  "iconAnchor": [0, 0],
+  "className": "empty",
+});
+        
+    
+                marker_bf4651746b33e770e91ad49ca6187bf2.setIcon(div_icon_a8e62c2a2366ea5a12150a3e58fcd347);
+            
+    
+            var circle_marker_ce583675eb58106950e85c8d06eac9d2 = L.circleMarker(
+                [18.5529, 73.826],
+                {"bubblingMouseEvents": true, "color": "#84cc16", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#84cc16", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.5, "radius": 22, "stroke": true, "weight": 2}
+            ).addTo(feature_group_55bb8a90ddf3395d39262f8eb30ec760);
+        
+    
+            var circle_marker_873181134b61b97e2c8bc480b09bfa07 = L.circleMarker(
+                [18.5529, 73.826],
+                {"bubblingMouseEvents": true, "color": "#84cc16", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#84cc16", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16, "stroke": true, "weight": 2}
+            ).addTo(feature_group_55bb8a90ddf3395d39262f8eb30ec760);
+        
+    
+        var popup_b1773f1f185b310535281c3798c66fae = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var i_frame_f42b34f14b3d652b7ec3ec8e4ee1e2d8 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjMwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxNHB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxNHB4O21hcmdpbi1ib3R0b206MTBweDtjb2xvcjojZjFmNWY5O2JvcmRlci1ib3R0b206MXB4IHNvbGlkICMzMzQxNTU7cGFkZGluZy1ib3R0b206NnB4OyI+CiAgICAgICAgICAgIFNhdml0cmliYWkgUGh1bGUgUHVuZSBVbml2ZXJzaXR5LCBQdW5lIC0gTVBDQgogICAgICAgIDwvZGl2PgogICAgICAgIDxkaXYgc3R5bGU9ImRpc3BsYXk6ZmxleDtqdXN0aWZ5LWNvbnRlbnQ6c3BhY2UtYmV0d2VlbjthbGlnbi1pdGVtczpjZW50ZXI7bWFyZ2luLWJvdHRvbToxMHB4OyI+CiAgICAgICAgICAgIDxkaXY+CiAgICAgICAgICAgICAgICA8ZGl2IHN0eWxlPSJmb250LXNpemU6MTFweDtjb2xvcjojOTRhM2I4OyI+QVFJPC9kaXY+CiAgICAgICAgICAgICAgICA8ZGl2IHN0eWxlPSJmb250LXNpemU6MjZweDtmb250LXdlaWdodDo4MDA7Y29sb3I6Izg0Y2MxNjsiPjkyLjM8L2Rpdj4KICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgIDxkaXYgc3R5bGU9ImJhY2tncm91bmQ6Izg0Y2MxNjIwO2JvcmRlcjoxcHggc29saWQgIzg0Y2MxNjtib3JkZXItcmFkaXVzOjZweDtwYWRkaW5nOjRweCAxMHB4O2ZvbnQtc2l6ZToxMXB4O2NvbG9yOiM4NGNjMTY7Zm9udC13ZWlnaHQ6NjAwOyI+CiAgICAgICAgICAgICAgICBTYXRpc2ZhY3RvcnkKICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgPC9kaXY+CiAgICAgICAgPHRhYmxlIHN0eWxlPSJ3aWR0aDoxMDAlO2JvcmRlci1jb2xsYXBzZTpjb2xsYXBzZTtmb250LXNpemU6MTFweDsiPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5QTTIuNTwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjQ5LjUgwrVnL23CszwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+UE0xMDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjkyLjMgwrVnL23CszwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Tk/igoI8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij5OL0EgwrVnL23CszwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q088L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij5OL0EgbWcvbcKzPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5TT+KCgjwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPk4vQSDCtWcvbcKzPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5P4oKDPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+Ti9BIMK1Zy9twrM8L3RkPjwvdHI+CiAgICAgICAgPC90YWJsZT4KICAgICAgICA8ZGl2IHN0eWxlPSJtYXJnaW4tdG9wOjhweDtmb250LXNpemU6MTBweDtjb2xvcjojNjQ3NDhiOyI+TGFzdCB1cGRhdGVkOiAyMDI2LTAxLTI2IDAwOjAwPC9kaXY+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC1zaXplOjEwcHg7Y29sb3I6IzY0NzQ4YjsiPlN0YXRpb24gSUQ6IDM0MDk0Mzk8L2Rpdj4KICAgIDwvZGl2PgogICAg" width="260" style="border:none !important;" height="280"></iframe>`)[0];
+                popup_b1773f1f185b310535281c3798c66fae.setContent(i_frame_f42b34f14b3d652b7ec3ec8e4ee1e2d8);
+            
+        
+
+        circle_marker_873181134b61b97e2c8bc480b09bfa07.bindPopup(popup_b1773f1f185b310535281c3798c66fae)
+        ;
+
+        
+    
+    
+            circle_marker_873181134b61b97e2c8bc480b09bfa07.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:12px;">
+                     <b>Savitribai Phule Pune University, Pune - MPCB</b><br>AQI: <b>92</b> – Satisfactory
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_e96a553d95163a92149a1f48daa0da7d = L.marker(
+                [18.5529, 73.826],
+                {
+}
+            ).addTo(feature_group_55bb8a90ddf3395d39262f8eb30ec760);
+        
+    
+            var div_icon_1859f69d8cef46eff5ddba7d53ef08d6 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:10px;font-weight:800;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,0.8);text-align:center;line-height:32px;width:32px;margin-left:-16px;margin-top:-16px;\"\u003e92\u003c/div\u003e",
+  "iconSize": [32, 32],
+  "iconAnchor": [0, 0],
+  "className": "empty",
+});
+        
+    
+                marker_e96a553d95163a92149a1f48daa0da7d.setIcon(div_icon_1859f69d8cef46eff5ddba7d53ef08d6);
+            
+    
+            var circle_marker_d67c7e5764983f199a225d0e8e8e1c8a = L.circleMarker(
+                [18.502, 73.827],
+                {"bubblingMouseEvents": true, "color": "#84cc16", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#84cc16", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.5, "radius": 22, "stroke": true, "weight": 2}
+            ).addTo(feature_group_55bb8a90ddf3395d39262f8eb30ec760);
+        
+    
+            var circle_marker_a4d1e5ee30983e1767a50d5dd8fc4dd2 = L.circleMarker(
+                [18.502, 73.827],
+                {"bubblingMouseEvents": true, "color": "#84cc16", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#84cc16", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16, "stroke": true, "weight": 2}
+            ).addTo(feature_group_55bb8a90ddf3395d39262f8eb30ec760);
+        
+    
+        var popup_c78aed798a94fb034326e8c912d0c7cf = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var i_frame_51911687519777eff8081abcd52a76f9 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjMwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxNHB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxNHB4O21hcmdpbi1ib3R0b206MTBweDtjb2xvcjojZjFmNWY5O2JvcmRlci1ib3R0b206MXB4IHNvbGlkICMzMzQxNTU7cGFkZGluZy1ib3R0b206NnB4OyI+CiAgICAgICAgICAgIEthcnZlIFJvYWQgUHVuZSwgUHVuZSAtIE1QQ0IKICAgICAgICA8L2Rpdj4KICAgICAgICA8ZGl2IHN0eWxlPSJkaXNwbGF5OmZsZXg7anVzdGlmeS1jb250ZW50OnNwYWNlLWJldHdlZW47YWxpZ24taXRlbXM6Y2VudGVyO21hcmdpbi1ib3R0b206MTBweDsiPgogICAgICAgICAgICA8ZGl2PgogICAgICAgICAgICAgICAgPGRpdiBzdHlsZT0iZm9udC1zaXplOjExcHg7Y29sb3I6Izk0YTNiODsiPkFRSTwvZGl2PgogICAgICAgICAgICAgICAgPGRpdiBzdHlsZT0iZm9udC1zaXplOjI2cHg7Zm9udC13ZWlnaHQ6ODAwO2NvbG9yOiM4NGNjMTY7Ij4xMDAuMDwvZGl2PgogICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgPGRpdiBzdHlsZT0iYmFja2dyb3VuZDojODRjYzE2MjA7Ym9yZGVyOjFweCBzb2xpZCAjODRjYzE2O2JvcmRlci1yYWRpdXM6NnB4O3BhZGRpbmc6NHB4IDEwcHg7Zm9udC1zaXplOjExcHg7Y29sb3I6Izg0Y2MxNjtmb250LXdlaWdodDo2MDA7Ij4KICAgICAgICAgICAgICAgIFNhdGlzZmFjdG9yeQogICAgICAgICAgICA8L2Rpdj4KICAgICAgICA8L2Rpdj4KICAgICAgICA8dGFibGUgc3R5bGU9IndpZHRoOjEwMCU7Ym9yZGVyLWNvbGxhcHNlOmNvbGxhcHNlO2ZvbnQtc2l6ZToxMXB4OyI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPlBNMi41PC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+Ti9BIMK1Zy9twrM8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPlBNMTA8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij5OL0EgwrVnL23CszwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Tk/igoI8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij5OL0EgwrVnL23CszwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q088L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4yLjAgbWcvbcKzPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5TT+KCgjwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjMzLjMgwrVnL23CszwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+T+KCgzwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjgwLjAgwrVnL23CszwvdGQ+PC90cj4KICAgICAgICA8L3RhYmxlPgogICAgICAgIDxkaXYgc3R5bGU9Im1hcmdpbi10b3A6OHB4O2ZvbnQtc2l6ZToxMHB4O2NvbG9yOiM2NDc0OGI7Ij5MYXN0IHVwZGF0ZWQ6IDIwMjUtMDUtMjMgMDA6MDA8L2Rpdj4KICAgICAgICA8ZGl2IHN0eWxlPSJmb250LXNpemU6MTBweDtjb2xvcjojNjQ3NDhiOyI+U3RhdGlvbiBJRDogNTY2MTwvZGl2PgogICAgPC9kaXY+CiAgICA=" width="260" style="border:none !important;" height="280"></iframe>`)[0];
+                popup_c78aed798a94fb034326e8c912d0c7cf.setContent(i_frame_51911687519777eff8081abcd52a76f9);
+            
+        
+
+        circle_marker_a4d1e5ee30983e1767a50d5dd8fc4dd2.bindPopup(popup_c78aed798a94fb034326e8c912d0c7cf)
+        ;
+
+        
+    
+    
+            circle_marker_a4d1e5ee30983e1767a50d5dd8fc4dd2.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:12px;">
+                     <b>Karve Road Pune, Pune - MPCB</b><br>AQI: <b>100</b> – Satisfactory
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_c618a5e239074f433a4083604ed047ab = L.marker(
+                [18.502, 73.827],
+                {
+}
+            ).addTo(feature_group_55bb8a90ddf3395d39262f8eb30ec760);
+        
+    
+            var div_icon_d44d7849c52ed8115f62554210354aed = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:10px;font-weight:800;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,0.8);text-align:center;line-height:32px;width:32px;margin-left:-16px;margin-top:-16px;\"\u003e100\u003c/div\u003e",
+  "iconSize": [32, 32],
+  "iconAnchor": [0, 0],
+  "className": "empty",
+});
+        
+    
+                marker_c618a5e239074f433a4083604ed047ab.setIcon(div_icon_d44d7849c52ed8115f62554210354aed);
+            
+    
+            var circle_marker_75ea5984566d1253c724f15adef8f4f8 = L.circleMarker(
+                [18.455, 73.858],
+                {"bubblingMouseEvents": true, "color": "#84cc16", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#84cc16", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.5, "radius": 22, "stroke": true, "weight": 2}
+            ).addTo(feature_group_55bb8a90ddf3395d39262f8eb30ec760);
+        
+    
+            var circle_marker_d76cb1ea5d5bd16feda8dabf0ac7606b = L.circleMarker(
+                [18.455, 73.858],
+                {"bubblingMouseEvents": true, "color": "#84cc16", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#84cc16", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16, "stroke": true, "weight": 2}
+            ).addTo(feature_group_55bb8a90ddf3395d39262f8eb30ec760);
+        
+    
+        var popup_66452db28383067dc17904b72b174c48 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var i_frame_c4daf09e9b022e592c26b49492bb61c7 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjMwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxNHB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxNHB4O21hcmdpbi1ib3R0b206MTBweDtjb2xvcjojZjFmNWY5O2JvcmRlci1ib3R0b206MXB4IHNvbGlkICMzMzQxNTU7cGFkZGluZy1ib3R0b206NnB4OyI+CiAgICAgICAgICAgIEthdHJhaiBEYWlyeSwgUHVuZSAtIE1QQ0IKICAgICAgICA8L2Rpdj4KICAgICAgICA8ZGl2IHN0eWxlPSJkaXNwbGF5OmZsZXg7anVzdGlmeS1jb250ZW50OnNwYWNlLWJldHdlZW47YWxpZ24taXRlbXM6Y2VudGVyO21hcmdpbi1ib3R0b206MTBweDsiPgogICAgICAgICAgICA8ZGl2PgogICAgICAgICAgICAgICAgPGRpdiBzdHlsZT0iZm9udC1zaXplOjExcHg7Y29sb3I6Izk0YTNiODsiPkFRSTwvZGl2PgogICAgICAgICAgICAgICAgPGRpdiBzdHlsZT0iZm9udC1zaXplOjI2cHg7Zm9udC13ZWlnaHQ6ODAwO2NvbG9yOiM4NGNjMTY7Ij44OC4wPC9kaXY+CiAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICA8ZGl2IHN0eWxlPSJiYWNrZ3JvdW5kOiM4NGNjMTYyMDtib3JkZXI6MXB4IHNvbGlkICM4NGNjMTY7Ym9yZGVyLXJhZGl1czo2cHg7cGFkZGluZzo0cHggMTBweDtmb250LXNpemU6MTFweDtjb2xvcjojODRjYzE2O2ZvbnQtd2VpZ2h0OjYwMDsiPgogICAgICAgICAgICAgICAgU2F0aXNmYWN0b3J5CiAgICAgICAgICAgIDwvZGl2PgogICAgICAgIDwvZGl2PgogICAgICAgIDx0YWJsZSBzdHlsZT0id2lkdGg6MTAwJTtib3JkZXItY29sbGFwc2U6Y29sbGFwc2U7Zm9udC1zaXplOjExcHg7Ij4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+UE0yLjU8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4yMy40IMK1Zy9twrM8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPlBNMTA8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij44OC4wIMK1Zy9twrM8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPk5P4oKCPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MTkuNCDCtWcvbcKzPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5DTzwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjEuMCBtZy9twrM8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPlNP4oKCPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+NC42IMK1Zy9twrM8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPk/igoM8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4zNi42IMK1Zy9twrM8L3RkPjwvdHI+CiAgICAgICAgPC90YWJsZT4KICAgICAgICA8ZGl2IHN0eWxlPSJtYXJnaW4tdG9wOjhweDtmb250LXNpemU6MTBweDtjb2xvcjojNjQ3NDhiOyI+TGFzdCB1cGRhdGVkOiAyMDI2LTAxLTI4IDAwOjAwPC9kaXY+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC1zaXplOjEwcHg7Y29sb3I6IzY0NzQ4YjsiPlN0YXRpb24gSUQ6IDM0MDk0Mzg8L2Rpdj4KICAgIDwvZGl2PgogICAg" width="260" style="border:none !important;" height="280"></iframe>`)[0];
+                popup_66452db28383067dc17904b72b174c48.setContent(i_frame_c4daf09e9b022e592c26b49492bb61c7);
+            
+        
+
+        circle_marker_d76cb1ea5d5bd16feda8dabf0ac7606b.bindPopup(popup_66452db28383067dc17904b72b174c48)
+        ;
+
+        
+    
+    
+            circle_marker_d76cb1ea5d5bd16feda8dabf0ac7606b.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:12px;">
+                     <b>Katraj Dairy, Pune - MPCB</b><br>AQI: <b>88</b> – Satisfactory
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_34f23f25e30109abdb596501585c5fbb = L.marker(
+                [18.455, 73.858],
+                {
+}
+            ).addTo(feature_group_55bb8a90ddf3395d39262f8eb30ec760);
+        
+    
+            var div_icon_02c343e1b5cacd43dcfcfe9f429c6179 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:10px;font-weight:800;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,0.8);text-align:center;line-height:32px;width:32px;margin-left:-16px;margin-top:-16px;\"\u003e88\u003c/div\u003e",
+  "iconSize": [32, 32],
+  "iconAnchor": [0, 0],
+  "className": "empty",
+});
+        
+    
+                marker_34f23f25e30109abdb596501585c5fbb.setIcon(div_icon_02c343e1b5cacd43dcfcfe9f429c6179);
+            
+    
+            var circle_marker_a432ab4f53bbca20b7a8e993daf2da20 = L.circleMarker(
+                [18.6015, 73.7645],
+                {"bubblingMouseEvents": true, "color": "#f59e0b", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#f59e0b", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.5, "radius": 22, "stroke": true, "weight": 2}
+            ).addTo(feature_group_55bb8a90ddf3395d39262f8eb30ec760);
+        
+    
+            var circle_marker_827458e14cde2af5edc87168b4079e22 = L.circleMarker(
+                [18.6015, 73.7645],
+                {"bubblingMouseEvents": true, "color": "#f59e0b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f59e0b", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16, "stroke": true, "weight": 2}
+            ).addTo(feature_group_55bb8a90ddf3395d39262f8eb30ec760);
+        
+    
+        var popup_a8c4465908f859d8e84343e048d92e69 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var i_frame_742d398a8902aee4e3cbc94fb315914f = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjMwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxNHB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxNHB4O21hcmdpbi1ib3R0b206MTBweDtjb2xvcjojZjFmNWY5O2JvcmRlci1ib3R0b206MXB4IHNvbGlkICMzMzQxNTU7cGFkZGluZy1ib3R0b206NnB4OyI+CiAgICAgICAgICAgIFBhcmsgU3RyZWV0IFdha2FkLCBQaW1wcmkgQ2hpbmNod2FkIC0gTVBDQgogICAgICAgIDwvZGl2PgogICAgICAgIDxkaXYgc3R5bGU9ImRpc3BsYXk6ZmxleDtqdXN0aWZ5LWNvbnRlbnQ6c3BhY2UtYmV0d2VlbjthbGlnbi1pdGVtczpjZW50ZXI7bWFyZ2luLWJvdHRvbToxMHB4OyI+CiAgICAgICAgICAgIDxkaXY+CiAgICAgICAgICAgICAgICA8ZGl2IHN0eWxlPSJmb250LXNpemU6MTFweDtjb2xvcjojOTRhM2I4OyI+QVFJPC9kaXY+CiAgICAgICAgICAgICAgICA8ZGl2IHN0eWxlPSJmb250LXNpemU6MjZweDtmb250LXdlaWdodDo4MDA7Y29sb3I6I2Y1OWUwYjsiPjEwMi41PC9kaXY+CiAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICA8ZGl2IHN0eWxlPSJiYWNrZ3JvdW5kOiNmNTllMGIyMDtib3JkZXI6MXB4IHNvbGlkICNmNTllMGI7Ym9yZGVyLXJhZGl1czo2cHg7cGFkZGluZzo0cHggMTBweDtmb250LXNpemU6MTFweDtjb2xvcjojZjU5ZTBiO2ZvbnQtd2VpZ2h0OjYwMDsiPgogICAgICAgICAgICAgICAgTW9kZXJhdGUKICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgPC9kaXY+CiAgICAgICAgPHRhYmxlIHN0eWxlPSJ3aWR0aDoxMDAlO2JvcmRlci1jb2xsYXBzZTpjb2xsYXBzZTtmb250LXNpemU6MTFweDsiPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5QTTIuNTwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjQzLjIgwrVnL23CszwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+UE0xMDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjEwMy4yIMK1Zy9twrM8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPk5P4oKCPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+NDAuMSDCtWcvbcKzPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5DTzwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjEuMSBtZy9twrM8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPlNP4oKCPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MS41IMK1Zy9twrM8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPk/igoM8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4yNi45IMK1Zy9twrM8L3RkPjwvdHI+CiAgICAgICAgPC90YWJsZT4KICAgICAgICA8ZGl2IHN0eWxlPSJtYXJnaW4tdG9wOjhweDtmb250LXNpemU6MTBweDtjb2xvcjojNjQ3NDhiOyI+TGFzdCB1cGRhdGVkOiAyMDI2LTAxLTI4IDAwOjAwPC9kaXY+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC1zaXplOjEwcHg7Y29sb3I6IzY0NzQ4YjsiPlN0YXRpb24gSUQ6IDM0MDk0MzY8L2Rpdj4KICAgIDwvZGl2PgogICAg" width="260" style="border:none !important;" height="280"></iframe>`)[0];
+                popup_a8c4465908f859d8e84343e048d92e69.setContent(i_frame_742d398a8902aee4e3cbc94fb315914f);
+            
+        
+
+        circle_marker_827458e14cde2af5edc87168b4079e22.bindPopup(popup_a8c4465908f859d8e84343e048d92e69)
+        ;
+
+        
+    
+    
+            circle_marker_827458e14cde2af5edc87168b4079e22.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:12px;">
+                     <b>Park Street Wakad, Pimpri Chinchwad - MPCB</b><br>AQI: <b>102</b> – Moderate
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_148cec8294934e4dc9baba82b3e81bcf = L.marker(
+                [18.6015, 73.7645],
+                {
+}
+            ).addTo(feature_group_55bb8a90ddf3395d39262f8eb30ec760);
+        
+    
+            var div_icon_ffcb16359844f2452103a0803178d706 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:10px;font-weight:800;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,0.8);text-align:center;line-height:32px;width:32px;margin-left:-16px;margin-top:-16px;\"\u003e102\u003c/div\u003e",
+  "iconSize": [32, 32],
+  "iconAnchor": [0, 0],
+  "className": "empty",
+});
+        
+    
+                marker_148cec8294934e4dc9baba82b3e81bcf.setIcon(div_icon_ffcb16359844f2452103a0803178d706);
+            
+    
+            feature_group_55bb8a90ddf3395d39262f8eb30ec760.addTo(map_7742a5f3a256d32311ab544926dece2c);
+        
+    
+            var feature_group_74631e116a7d649c23515827de091d42 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_d742b5725b39f774d84e1930fb7f08cf = L.circleMarker(
+                [18.5285, 73.8475],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_5ba7ee692c41a76ec3697d22d4d50ecb = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_cf9db5fd456d6c6206e7cfef44f9cdfc = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgSk0gUm9hZCAoRGVjY2FuIENvcm5lciB0byBTYW5jaGV0aSkKICAgICAgICA8L2Rpdj4KICAgICAgICA8dGFibGUgc3R5bGU9IndpZHRoOjEwMCU7Zm9udC1zaXplOjExcHg7Ym9yZGVyLWNvbGxhcHNlOmNvbGxhcHNlOyI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkN1cnJlbnQgU3BlZWQ8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij40MS4wIGttL2g8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkZyZWUgRmxvdyBTcGVlZDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjQxLjAga20vaDwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q29uZ2VzdGlvbjwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjAlPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Db25maWRlbmNlPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MSU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPlJvYWQgQ2xvc3VyZTwvdGQ+CiAgICAgICAgICAgICAgICA8dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwO2NvbG9yOiMyMmM1NWU7Ij5ObzwvdGQ+PC90cj4KICAgICAgICA8L3RhYmxlPgogICAgICAgIDxkaXYgc3R5bGU9Im1hcmdpbi10b3A6NnB4O2ZvbnQtc2l6ZToxMHB4O2NvbG9yOiM2NDc0OGI7Ij5JRDogUFRfMDAxX1NIVjwvZGl2PgogICAgPC9kaXY+CiAgICA=" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_5ba7ee692c41a76ec3697d22d4d50ecb.setContent(i_frame_cf9db5fd456d6c6206e7cfef44f9cdfc);
+            
+        
+
+        circle_marker_d742b5725b39f774d84e1930fb7f08cf.bindPopup(popup_5ba7ee692c41a76ec3697d22d4d50ecb)
+        ;
+
+        
+    
+    
+            circle_marker_d742b5725b39f774d84e1930fb7f08cf.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>JM Road (Deccan Corner to Sancheti)</b><br>Speed: 41.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7e27edea340f09384f4bb72f91eb20ad = L.circleMarker(
+                [18.525, 73.8415],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_78fc0c1914118d9ff300231598edc097 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_9c8d89a9760f6afafb18f2f5d5998108 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgRkMgUm9hZCAoR29vZGx1Y2sgQ2hvd2spCiAgICAgICAgPC9kaXY+CiAgICAgICAgPHRhYmxlIHN0eWxlPSJ3aWR0aDoxMDAlO2ZvbnQtc2l6ZToxMXB4O2JvcmRlci1jb2xsYXBzZTpjb2xsYXBzZTsiPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5DdXJyZW50IFNwZWVkPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MjQuMCBrbS9oPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5GcmVlIEZsb3cgU3BlZWQ8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4yNC4wIGttL2g8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkNvbmdlc3Rpb248L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4wJTwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q29uZmlkZW5jZTwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjElPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Sb2FkIENsb3N1cmU8L3RkPgogICAgICAgICAgICAgICAgPHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDtjb2xvcjojMjJjNTVlOyI+Tm88L3RkPjwvdHI+CiAgICAgICAgPC90YWJsZT4KICAgICAgICA8ZGl2IHN0eWxlPSJtYXJnaW4tdG9wOjZweDtmb250LXNpemU6MTBweDtjb2xvcjojNjQ3NDhiOyI+SUQ6IFBUXzAwMl9TSFY8L2Rpdj4KICAgIDwvZGl2PgogICAg" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_78fc0c1914118d9ff300231598edc097.setContent(i_frame_9c8d89a9760f6afafb18f2f5d5998108);
+            
+        
+
+        circle_marker_7e27edea340f09384f4bb72f91eb20ad.bindPopup(popup_78fc0c1914118d9ff300231598edc097)
+        ;
+
+        
+    
+    
+            circle_marker_7e27edea340f09384f4bb72f91eb20ad.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>FC Road (Goodluck Chowk)</b><br>Speed: 24.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e8f467c85c42d2977ae66bd7e26c8be3 = L.circleMarker(
+                [18.534, 73.841],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_17012e07b899c68f8ed5b8bae737cdb0 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_267251a5cbe66cc7cfc508d542e66a03 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgVW5pdmVyc2l0eSBSb2FkIChTaGl2YWppbmFnYXIgU3RhdGlvbikKICAgICAgICA8L2Rpdj4KICAgICAgICA8dGFibGUgc3R5bGU9IndpZHRoOjEwMCU7Zm9udC1zaXplOjExcHg7Ym9yZGVyLWNvbGxhcHNlOmNvbGxhcHNlOyI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkN1cnJlbnQgU3BlZWQ8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij40MC4wIGttL2g8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkZyZWUgRmxvdyBTcGVlZDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjQwLjAga20vaDwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q29uZ2VzdGlvbjwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjAlPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Db25maWRlbmNlPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MSU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPlJvYWQgQ2xvc3VyZTwvdGQ+CiAgICAgICAgICAgICAgICA8dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwO2NvbG9yOiMyMmM1NWU7Ij5ObzwvdGQ+PC90cj4KICAgICAgICA8L3RhYmxlPgogICAgICAgIDxkaXYgc3R5bGU9Im1hcmdpbi10b3A6NnB4O2ZvbnQtc2l6ZToxMHB4O2NvbG9yOiM2NDc0OGI7Ij5JRDogUFRfMDAzX1NIVjwvZGl2PgogICAgPC9kaXY+CiAgICA=" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_17012e07b899c68f8ed5b8bae737cdb0.setContent(i_frame_267251a5cbe66cc7cfc508d542e66a03);
+            
+        
+
+        circle_marker_e8f467c85c42d2977ae66bd7e26c8be3.bindPopup(popup_17012e07b899c68f8ed5b8bae737cdb0)
+        ;
+
+        
+    
+    
+            circle_marker_e8f467c85c42d2977ae66bd7e26c8be3.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>University Road (Shivajinagar Station)</b><br>Speed: 40.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d3c39e6b622cddedb7aab1e680afa9ec = L.circleMarker(
+                [18.5365, 73.848],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_946dd28268b04290a186c7740439c425 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_9600abb607040da9b5b80c18c6686d41 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgT2xkIE11bWJhaS1QdW5lIEhpZ2h3YXkgKFdha2Rld2FkaSkKICAgICAgICA8L2Rpdj4KICAgICAgICA8dGFibGUgc3R5bGU9IndpZHRoOjEwMCU7Zm9udC1zaXplOjExcHg7Ym9yZGVyLWNvbGxhcHNlOmNvbGxhcHNlOyI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkN1cnJlbnQgU3BlZWQ8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4zMi4wIGttL2g8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkZyZWUgRmxvdyBTcGVlZDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjM4LjAga20vaDwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q29uZ2VzdGlvbjwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjE2JTwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q29uZmlkZW5jZTwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjElPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Sb2FkIENsb3N1cmU8L3RkPgogICAgICAgICAgICAgICAgPHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDtjb2xvcjojMjJjNTVlOyI+Tm88L3RkPjwvdHI+CiAgICAgICAgPC90YWJsZT4KICAgICAgICA8ZGl2IHN0eWxlPSJtYXJnaW4tdG9wOjZweDtmb250LXNpemU6MTBweDtjb2xvcjojNjQ3NDhiOyI+SUQ6IFBUXzAwNF9TSFY8L2Rpdj4KICAgIDwvZGl2PgogICAg" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_946dd28268b04290a186c7740439c425.setContent(i_frame_9600abb607040da9b5b80c18c6686d41);
+            
+        
+
+        circle_marker_d3c39e6b622cddedb7aab1e680afa9ec.bindPopup(popup_946dd28268b04290a186c7740439c425)
+        ;
+
+        
+    
+    
+            circle_marker_d3c39e6b622cddedb7aab1e680afa9ec.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Old Mumbai-Pune Highway (Wakdewadi)</b><br>Speed: 32.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_96861027a5838968b992710d108702ee = L.circleMarker(
+                [18.531, 73.851],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_922ea0024d4b491c21b0de13537e11b5 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_870d49a1aaed91ceabba0a4d9c735f30 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgU2FuY2hldGkgQ2hvd2sgQXJ0ZXJpYWwKICAgICAgICA8L2Rpdj4KICAgICAgICA8dGFibGUgc3R5bGU9IndpZHRoOjEwMCU7Zm9udC1zaXplOjExcHg7Ym9yZGVyLWNvbGxhcHNlOmNvbGxhcHNlOyI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkN1cnJlbnQgU3BlZWQ8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4yOS4wIGttL2g8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkZyZWUgRmxvdyBTcGVlZDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjI5LjAga20vaDwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q29uZ2VzdGlvbjwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjAlPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Db25maWRlbmNlPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MSU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPlJvYWQgQ2xvc3VyZTwvdGQ+CiAgICAgICAgICAgICAgICA8dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwO2NvbG9yOiMyMmM1NWU7Ij5ObzwvdGQ+PC90cj4KICAgICAgICA8L3RhYmxlPgogICAgICAgIDxkaXYgc3R5bGU9Im1hcmdpbi10b3A6NnB4O2ZvbnQtc2l6ZToxMHB4O2NvbG9yOiM2NDc0OGI7Ij5JRDogUFRfMDA1X1NIVjwvZGl2PgogICAgPC9kaXY+CiAgICA=" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_922ea0024d4b491c21b0de13537e11b5.setContent(i_frame_870d49a1aaed91ceabba0a4d9c735f30);
+            
+        
+
+        circle_marker_96861027a5838968b992710d108702ee.bindPopup(popup_922ea0024d4b491c21b0de13537e11b5)
+        ;
+
+        
+    
+    
+            circle_marker_96861027a5838968b992710d108702ee.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Sancheti Chowk Arterial</b><br>Speed: 29.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_28331ba7f7d2fd9814c610eb501386c9 = L.circleMarker(
+                [18.5325, 73.844],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_38c850e6282dbc405837c60c35a361f6 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_f77b46111c7ddf2894021b795fa89e57 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgU2hpbWxhIE9mZmljZSBDaG93awogICAgICAgIDwvZGl2PgogICAgICAgIDx0YWJsZSBzdHlsZT0id2lkdGg6MTAwJTtmb250LXNpemU6MTFweDtib3JkZXItY29sbGFwc2U6Y29sbGFwc2U7Ij4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q3VycmVudCBTcGVlZDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjMwLjAga20vaDwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+RnJlZSBGbG93IFNwZWVkPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MzAuMCBrbS9oPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Db25nZXN0aW9uPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MCU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkNvbmZpZGVuY2U8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4xJTwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Um9hZCBDbG9zdXJlPC90ZD4KICAgICAgICAgICAgICAgIDx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Y29sb3I6IzIyYzU1ZTsiPk5vPC90ZD48L3RyPgogICAgICAgIDwvdGFibGU+CiAgICAgICAgPGRpdiBzdHlsZT0ibWFyZ2luLXRvcDo2cHg7Zm9udC1zaXplOjEwcHg7Y29sb3I6IzY0NzQ4YjsiPklEOiBQVF8wMDZfU0hWPC9kaXY+CiAgICA8L2Rpdj4KICAgIA==" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_38c850e6282dbc405837c60c35a361f6.setContent(i_frame_f77b46111c7ddf2894021b795fa89e57);
+            
+        
+
+        circle_marker_28331ba7f7d2fd9814c610eb501386c9.bindPopup(popup_38c850e6282dbc405837c60c35a361f6)
+        ;
+
+        
+    
+    
+            circle_marker_28331ba7f7d2fd9814c610eb501386c9.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Shimla Office Chowk</b><br>Speed: 30.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_859c365ff7c7d9725860fc01dc6e4dfc = L.circleMarker(
+                [18.527, 73.844],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_9b723b32cee6616a2494535221875a6a = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_19aa734d6a748d68a7f7f7052a38f729 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgTW9kZXJuIENvbGxlZ2UgUm9hZAogICAgICAgIDwvZGl2PgogICAgICAgIDx0YWJsZSBzdHlsZT0id2lkdGg6MTAwJTtmb250LXNpemU6MTFweDtib3JkZXItY29sbGFwc2U6Y29sbGFwc2U7Ij4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q3VycmVudCBTcGVlZDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjE2LjAga20vaDwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+RnJlZSBGbG93IFNwZWVkPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MjEuMCBrbS9oPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Db25nZXN0aW9uPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MjQlPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Db25maWRlbmNlPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MSU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPlJvYWQgQ2xvc3VyZTwvdGQ+CiAgICAgICAgICAgICAgICA8dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwO2NvbG9yOiMyMmM1NWU7Ij5ObzwvdGQ+PC90cj4KICAgICAgICA8L3RhYmxlPgogICAgICAgIDxkaXYgc3R5bGU9Im1hcmdpbi10b3A6NnB4O2ZvbnQtc2l6ZToxMHB4O2NvbG9yOiM2NDc0OGI7Ij5JRDogUFRfMDA3X1NIVjwvZGl2PgogICAgPC9kaXY+CiAgICA=" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_9b723b32cee6616a2494535221875a6a.setContent(i_frame_19aa734d6a748d68a7f7f7052a38f729);
+            
+        
+
+        circle_marker_859c365ff7c7d9725860fc01dc6e4dfc.bindPopup(popup_9b723b32cee6616a2494535221875a6a)
+        ;
+
+        
+    
+    
+            circle_marker_859c365ff7c7d9725860fc01dc6e4dfc.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Modern College Road</b><br>Speed: 16.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_388a144a3d47c697c7b4b4cb61696cd7 = L.circleMarker(
+                [18.529, 73.856],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_6794b9040c69bfeb6fb15393fe16684b = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_5311ac3ee7e5bb062f5852faebad42ed = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgQ09FUCBGbHlvdmVyIEp1bmN0aW9uCiAgICAgICAgPC9kaXY+CiAgICAgICAgPHRhYmxlIHN0eWxlPSJ3aWR0aDoxMDAlO2ZvbnQtc2l6ZToxMXB4O2JvcmRlci1jb2xsYXBzZTpjb2xsYXBzZTsiPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5DdXJyZW50IFNwZWVkPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MjQuMCBrbS9oPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5GcmVlIEZsb3cgU3BlZWQ8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4yNC4wIGttL2g8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkNvbmdlc3Rpb248L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4wJTwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q29uZmlkZW5jZTwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjElPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Sb2FkIENsb3N1cmU8L3RkPgogICAgICAgICAgICAgICAgPHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDtjb2xvcjojMjJjNTVlOyI+Tm88L3RkPjwvdHI+CiAgICAgICAgPC90YWJsZT4KICAgICAgICA8ZGl2IHN0eWxlPSJtYXJnaW4tdG9wOjZweDtmb250LXNpemU6MTBweDtjb2xvcjojNjQ3NDhiOyI+SUQ6IFBUXzAwOF9TSFY8L2Rpdj4KICAgIDwvZGl2PgogICAg" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_6794b9040c69bfeb6fb15393fe16684b.setContent(i_frame_5311ac3ee7e5bb062f5852faebad42ed);
+            
+        
+
+        circle_marker_388a144a3d47c697c7b4b4cb61696cd7.bindPopup(popup_6794b9040c69bfeb6fb15393fe16684b)
+        ;
+
+        
+    
+    
+            circle_marker_388a144a3d47c697c7b4b4cb61696cd7.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>COEP Flyover Junction</b><br>Speed: 24.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4edd46e92940ae2627971c8a88ea90cb = L.circleMarker(
+                [18.551, 73.8245],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_8238502004e471a8d65dfc8a79a6c178 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_9bd17ffcff235bcb7f25089b4ef5aea0 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgR2FuZXNoa2hpbmQgUm9hZCAoU1BQVSBNYWluIEdhdGUpCiAgICAgICAgPC9kaXY+CiAgICAgICAgPHRhYmxlIHN0eWxlPSJ3aWR0aDoxMDAlO2ZvbnQtc2l6ZToxMXB4O2JvcmRlci1jb2xsYXBzZTpjb2xsYXBzZTsiPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5DdXJyZW50IFNwZWVkPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+NDAuMCBrbS9oPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5GcmVlIEZsb3cgU3BlZWQ8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij40MC4wIGttL2g8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkNvbmdlc3Rpb248L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4wJTwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q29uZmlkZW5jZTwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjElPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Sb2FkIENsb3N1cmU8L3RkPgogICAgICAgICAgICAgICAgPHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDtjb2xvcjojMjJjNTVlOyI+Tm88L3RkPjwvdHI+CiAgICAgICAgPC90YWJsZT4KICAgICAgICA8ZGl2IHN0eWxlPSJtYXJnaW4tdG9wOjZweDtmb250LXNpemU6MTBweDtjb2xvcjojNjQ3NDhiOyI+SUQ6IFBUXzAwOV9TUFBVPC9kaXY+CiAgICA8L2Rpdj4KICAgIA==" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_8238502004e471a8d65dfc8a79a6c178.setContent(i_frame_9bd17ffcff235bcb7f25089b4ef5aea0);
+            
+        
+
+        circle_marker_4edd46e92940ae2627971c8a88ea90cb.bindPopup(popup_8238502004e471a8d65dfc8a79a6c178)
+        ;
+
+        
+    
+    
+            circle_marker_4edd46e92940ae2627971c8a88ea90cb.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Ganeshkhind Road (SPPU Main Gate)</b><br>Speed: 40.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ac544a9de85220d802412d923c01b5c2 = L.circleMarker(
+                [18.5605, 73.8115],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_fc86d7e48f41447b03ac528223ba2b2b = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_9cee492050d40eb1866e24641f3b452b = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgQXVuZGggUm9hZCAoQnJlbWVuIENob3drKQogICAgICAgIDwvZGl2PgogICAgICAgIDx0YWJsZSBzdHlsZT0id2lkdGg6MTAwJTtmb250LXNpemU6MTFweDtib3JkZXItY29sbGFwc2U6Y29sbGFwc2U7Ij4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q3VycmVudCBTcGVlZDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjI1LjAga20vaDwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+RnJlZSBGbG93IFNwZWVkPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MjUuMCBrbS9oPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Db25nZXN0aW9uPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MCU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkNvbmZpZGVuY2U8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4xJTwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Um9hZCBDbG9zdXJlPC90ZD4KICAgICAgICAgICAgICAgIDx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Y29sb3I6IzIyYzU1ZTsiPk5vPC90ZD48L3RyPgogICAgICAgIDwvdGFibGU+CiAgICAgICAgPGRpdiBzdHlsZT0ibWFyZ2luLXRvcDo2cHg7Zm9udC1zaXplOjEwcHg7Y29sb3I6IzY0NzQ4YjsiPklEOiBQVF8wMTBfU1BQVTwvZGl2PgogICAgPC9kaXY+CiAgICA=" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_fc86d7e48f41447b03ac528223ba2b2b.setContent(i_frame_9cee492050d40eb1866e24641f3b452b);
+            
+        
+
+        circle_marker_ac544a9de85220d802412d923c01b5c2.bindPopup(popup_fc86d7e48f41447b03ac528223ba2b2b)
+        ;
+
+        
+    
+    
+            circle_marker_ac544a9de85220d802412d923c01b5c2.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Aundh Road (Bremen Chowk)</b><br>Speed: 25.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c14ebdfeaec348144b87d89f1fe9eec3 = L.circleMarker(
+                [18.5535, 73.818],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_43ec4778110187d6887180123129d2e1 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_bb4f767ab929e6cc579db4320a0a78d3 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgQmFuZXIgUm9hZCAoU1BQVSBKdW5jdGlvbikKICAgICAgICA8L2Rpdj4KICAgICAgICA8dGFibGUgc3R5bGU9IndpZHRoOjEwMCU7Zm9udC1zaXplOjExcHg7Ym9yZGVyLWNvbGxhcHNlOmNvbGxhcHNlOyI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkN1cnJlbnQgU3BlZWQ8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij40MS4wIGttL2g8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkZyZWUgRmxvdyBTcGVlZDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjQxLjAga20vaDwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q29uZ2VzdGlvbjwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjAlPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Db25maWRlbmNlPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MSU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPlJvYWQgQ2xvc3VyZTwvdGQ+CiAgICAgICAgICAgICAgICA8dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwO2NvbG9yOiMyMmM1NWU7Ij5ObzwvdGQ+PC90cj4KICAgICAgICA8L3RhYmxlPgogICAgICAgIDxkaXYgc3R5bGU9Im1hcmdpbi10b3A6NnB4O2ZvbnQtc2l6ZToxMHB4O2NvbG9yOiM2NDc0OGI7Ij5JRDogUFRfMDExX1NQUFU8L2Rpdj4KICAgIDwvZGl2PgogICAg" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_43ec4778110187d6887180123129d2e1.setContent(i_frame_bb4f767ab929e6cc579db4320a0a78d3);
+            
+        
+
+        circle_marker_c14ebdfeaec348144b87d89f1fe9eec3.bindPopup(popup_43ec4778110187d6887180123129d2e1)
+        ;
+
+        
+    
+    
+            circle_marker_c14ebdfeaec348144b87d89f1fe9eec3.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Baner Road (SPPU Junction)</b><br>Speed: 41.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4abe801c45d38c5a949799531601d416 = L.circleMarker(
+                [18.544, 73.812],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_0775273c518cbc81cf598f6ec0fa941f = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_b133b58cabed5f27ed963d2bad08fe13 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgUGFzaGFuIFJvYWQgKEFiaGltYW5zaHJlZSBTb2NpZXR5KQogICAgICAgIDwvZGl2PgogICAgICAgIDx0YWJsZSBzdHlsZT0id2lkdGg6MTAwJTtmb250LXNpemU6MTFweDtib3JkZXItY29sbGFwc2U6Y29sbGFwc2U7Ij4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q3VycmVudCBTcGVlZDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjMzLjAga20vaDwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+RnJlZSBGbG93IFNwZWVkPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MzMuMCBrbS9oPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Db25nZXN0aW9uPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MCU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkNvbmZpZGVuY2U8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4xJTwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Um9hZCBDbG9zdXJlPC90ZD4KICAgICAgICAgICAgICAgIDx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Y29sb3I6IzIyYzU1ZTsiPk5vPC90ZD48L3RyPgogICAgICAgIDwvdGFibGU+CiAgICAgICAgPGRpdiBzdHlsZT0ibWFyZ2luLXRvcDo2cHg7Zm9udC1zaXplOjEwcHg7Y29sb3I6IzY0NzQ4YjsiPklEOiBQVF8wMTJfU1BQVTwvZGl2PgogICAgPC9kaXY+CiAgICA=" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_0775273c518cbc81cf598f6ec0fa941f.setContent(i_frame_b133b58cabed5f27ed963d2bad08fe13);
+            
+        
+
+        circle_marker_4abe801c45d38c5a949799531601d416.bindPopup(popup_0775273c518cbc81cf598f6ec0fa941f)
+        ;
+
+        
+    
+    
+            circle_marker_4abe801c45d38c5a949799531601d416.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Pashan Road (Abhimanshree Society)</b><br>Speed: 33.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_609327b6ea6973c96d615bc9961b353f = L.circleMarker(
+                [18.537, 73.83],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_4aaf31970b94b49d6216ac821262762c = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_698b7ec64295b8de2d4481cabde8a1c7 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgU2VuYXBhdGkgQmFwYXQgUm9hZCAoSUNDIFRvd2VycykKICAgICAgICA8L2Rpdj4KICAgICAgICA8dGFibGUgc3R5bGU9IndpZHRoOjEwMCU7Zm9udC1zaXplOjExcHg7Ym9yZGVyLWNvbGxhcHNlOmNvbGxhcHNlOyI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkN1cnJlbnQgU3BlZWQ8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4yOS4wIGttL2g8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkZyZWUgRmxvdyBTcGVlZDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjI5LjAga20vaDwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q29uZ2VzdGlvbjwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjAlPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Db25maWRlbmNlPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MSU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPlJvYWQgQ2xvc3VyZTwvdGQ+CiAgICAgICAgICAgICAgICA8dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwO2NvbG9yOiMyMmM1NWU7Ij5ObzwvdGQ+PC90cj4KICAgICAgICA8L3RhYmxlPgogICAgICAgIDxkaXYgc3R5bGU9Im1hcmdpbi10b3A6NnB4O2ZvbnQtc2l6ZToxMHB4O2NvbG9yOiM2NDc0OGI7Ij5JRDogUFRfMDEzX1NQUFU8L2Rpdj4KICAgIDwvZGl2PgogICAg" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_4aaf31970b94b49d6216ac821262762c.setContent(i_frame_698b7ec64295b8de2d4481cabde8a1c7);
+            
+        
+
+        circle_marker_609327b6ea6973c96d615bc9961b353f.bindPopup(popup_4aaf31970b94b49d6216ac821262762c)
+        ;
+
+        
+    
+    
+            circle_marker_609327b6ea6973c96d615bc9961b353f.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Senapati Bapat Road (ICC Towers)</b><br>Speed: 29.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2840db304aa328407e702766d718763d = L.circleMarker(
+                [18.548, 73.8275],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_98667a286c5eb0e757424e02ce5ac9cd = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_0bbc73bb944e80c50c25d4f54cb1b00a = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgVW5pdmVyc2l0eSBDaXJjbGUgQ2hvd2sKICAgICAgICA8L2Rpdj4KICAgICAgICA8dGFibGUgc3R5bGU9IndpZHRoOjEwMCU7Zm9udC1zaXplOjExcHg7Ym9yZGVyLWNvbGxhcHNlOmNvbGxhcHNlOyI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkN1cnJlbnQgU3BlZWQ8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij40MC4wIGttL2g8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkZyZWUgRmxvdyBTcGVlZDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjQwLjAga20vaDwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q29uZ2VzdGlvbjwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjAlPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Db25maWRlbmNlPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MSU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPlJvYWQgQ2xvc3VyZTwvdGQ+CiAgICAgICAgICAgICAgICA8dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwO2NvbG9yOiMyMmM1NWU7Ij5ObzwvdGQ+PC90cj4KICAgICAgICA8L3RhYmxlPgogICAgICAgIDxkaXYgc3R5bGU9Im1hcmdpbi10b3A6NnB4O2ZvbnQtc2l6ZToxMHB4O2NvbG9yOiM2NDc0OGI7Ij5JRDogUFRfMDE0X1NQUFU8L2Rpdj4KICAgIDwvZGl2PgogICAg" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_98667a286c5eb0e757424e02ce5ac9cd.setContent(i_frame_0bbc73bb944e80c50c25d4f54cb1b00a);
+            
+        
+
+        circle_marker_2840db304aa328407e702766d718763d.bindPopup(popup_98667a286c5eb0e757424e02ce5ac9cd)
+        ;
+
+        
+    
+    
+            circle_marker_2840db304aa328407e702766d718763d.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>University Circle Chowk</b><br>Speed: 40.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_af9cae43c4d74c670da24317b4b13263 = L.circleMarker(
+                [18.562, 73.804],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_0fe51b3d8633a5d60c9c47eb0cf44615 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_99952054d4db772bd26abdaf2d48eb2e = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgQXVuZGgtQmFuZXIgTGluayBSb2FkCiAgICAgICAgPC9kaXY+CiAgICAgICAgPHRhYmxlIHN0eWxlPSJ3aWR0aDoxMDAlO2ZvbnQtc2l6ZToxMXB4O2JvcmRlci1jb2xsYXBzZTpjb2xsYXBzZTsiPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5DdXJyZW50IFNwZWVkPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MjMuMCBrbS9oPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5GcmVlIEZsb3cgU3BlZWQ8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4yMy4wIGttL2g8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkNvbmdlc3Rpb248L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4wJTwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q29uZmlkZW5jZTwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjElPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Sb2FkIENsb3N1cmU8L3RkPgogICAgICAgICAgICAgICAgPHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDtjb2xvcjojMjJjNTVlOyI+Tm88L3RkPjwvdHI+CiAgICAgICAgPC90YWJsZT4KICAgICAgICA8ZGl2IHN0eWxlPSJtYXJnaW4tdG9wOjZweDtmb250LXNpemU6MTBweDtjb2xvcjojNjQ3NDhiOyI+SUQ6IFBUXzAxNV9TUFBVPC9kaXY+CiAgICA8L2Rpdj4KICAgIA==" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_0fe51b3d8633a5d60c9c47eb0cf44615.setContent(i_frame_99952054d4db772bd26abdaf2d48eb2e);
+            
+        
+
+        circle_marker_af9cae43c4d74c670da24317b4b13263.bindPopup(popup_0fe51b3d8633a5d60c9c47eb0cf44615)
+        ;
+
+        
+    
+    
+            circle_marker_af9cae43c4d74c670da24317b4b13263.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Aundh-Baner Link Road</b><br>Speed: 23.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3db23ed001c8877d2aa01c49f1deabc0 = L.circleMarker(
+                [18.5445, 73.838],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_707061a4d905b7e488c27047a134197e = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_4cf909d93a79bc44fa4aea1515a07815 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgUmFuZ2UgSGlsbHMgUm9hZCAoS2hhZGtpIGxpbmspCiAgICAgICAgPC9kaXY+CiAgICAgICAgPHRhYmxlIHN0eWxlPSJ3aWR0aDoxMDAlO2ZvbnQtc2l6ZToxMXB4O2JvcmRlci1jb2xsYXBzZTpjb2xsYXBzZTsiPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5DdXJyZW50IFNwZWVkPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+NDAuMCBrbS9oPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5GcmVlIEZsb3cgU3BlZWQ8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij40MC4wIGttL2g8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkNvbmdlc3Rpb248L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4wJTwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q29uZmlkZW5jZTwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjElPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Sb2FkIENsb3N1cmU8L3RkPgogICAgICAgICAgICAgICAgPHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDtjb2xvcjojMjJjNTVlOyI+Tm88L3RkPjwvdHI+CiAgICAgICAgPC90YWJsZT4KICAgICAgICA8ZGl2IHN0eWxlPSJtYXJnaW4tdG9wOjZweDtmb250LXNpemU6MTBweDtjb2xvcjojNjQ3NDhiOyI+SUQ6IFBUXzAxNl9TUFBVPC9kaXY+CiAgICA8L2Rpdj4KICAgIA==" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_707061a4d905b7e488c27047a134197e.setContent(i_frame_4cf909d93a79bc44fa4aea1515a07815);
+            
+        
+
+        circle_marker_3db23ed001c8877d2aa01c49f1deabc0.bindPopup(popup_707061a4d905b7e488c27047a134197e)
+        ;
+
+        
+    
+    
+            circle_marker_3db23ed001c8877d2aa01c49f1deabc0.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Range Hills Road (Khadki link)</b><br>Speed: 40.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_de682bbb4ed8fb8bfaccfd4d63ba1b9b = L.circleMarker(
+                [18.506, 73.831],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_8fce6e8262e585f9019f6fc47986e9c1 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_fc5472bd0fa007bf63934571013b7ee0 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgS2FydmUgUm9hZCAoTmFsIFN0b3AgQ2hvd2sgRmx5b3ZlcikKICAgICAgICA8L2Rpdj4KICAgICAgICA8dGFibGUgc3R5bGU9IndpZHRoOjEwMCU7Zm9udC1zaXplOjExcHg7Ym9yZGVyLWNvbGxhcHNlOmNvbGxhcHNlOyI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkN1cnJlbnQgU3BlZWQ8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4yMC4wIGttL2g8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkZyZWUgRmxvdyBTcGVlZDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjIwLjAga20vaDwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q29uZ2VzdGlvbjwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjAlPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Db25maWRlbmNlPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MSU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPlJvYWQgQ2xvc3VyZTwvdGQ+CiAgICAgICAgICAgICAgICA8dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwO2NvbG9yOiMyMmM1NWU7Ij5ObzwvdGQ+PC90cj4KICAgICAgICA8L3RhYmxlPgogICAgICAgIDxkaXYgc3R5bGU9Im1hcmdpbi10b3A6NnB4O2ZvbnQtc2l6ZToxMHB4O2NvbG9yOiM2NDc0OGI7Ij5JRDogUFRfMDE3X0tSVjwvZGl2PgogICAgPC9kaXY+CiAgICA=" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_8fce6e8262e585f9019f6fc47986e9c1.setContent(i_frame_fc5472bd0fa007bf63934571013b7ee0);
+            
+        
+
+        circle_marker_de682bbb4ed8fb8bfaccfd4d63ba1b9b.bindPopup(popup_8fce6e8262e585f9019f6fc47986e9c1)
+        ;
+
+        
+    
+    
+            circle_marker_de682bbb4ed8fb8bfaccfd4d63ba1b9b.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Karve Road (Nal Stop Chowk Flyover)</b><br>Speed: 20.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5b2d845736ff67b3ff7dd47d121d27dd = L.circleMarker(
+                [18.5015, 73.818],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_ed4f82de7c4063ba4e01891e17d668c0 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_5175661cfaaee962f5c3cb58ef350370 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgS2FydmUgUm9hZCAoS290aHJ1ZCBCdXMgU3RhbmQpCiAgICAgICAgPC9kaXY+CiAgICAgICAgPHRhYmxlIHN0eWxlPSJ3aWR0aDoxMDAlO2ZvbnQtc2l6ZToxMXB4O2JvcmRlci1jb2xsYXBzZTpjb2xsYXBzZTsiPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5DdXJyZW50IFNwZWVkPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MzAuMCBrbS9oPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5GcmVlIEZsb3cgU3BlZWQ8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4zMC4wIGttL2g8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkNvbmdlc3Rpb248L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4wJTwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q29uZmlkZW5jZTwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjElPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Sb2FkIENsb3N1cmU8L3RkPgogICAgICAgICAgICAgICAgPHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDtjb2xvcjojMjJjNTVlOyI+Tm88L3RkPjwvdHI+CiAgICAgICAgPC90YWJsZT4KICAgICAgICA8ZGl2IHN0eWxlPSJtYXJnaW4tdG9wOjZweDtmb250LXNpemU6MTBweDtjb2xvcjojNjQ3NDhiOyI+SUQ6IFBUXzAxOF9LUlY8L2Rpdj4KICAgIDwvZGl2PgogICAg" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_ed4f82de7c4063ba4e01891e17d668c0.setContent(i_frame_5175661cfaaee962f5c3cb58ef350370);
+            
+        
+
+        circle_marker_5b2d845736ff67b3ff7dd47d121d27dd.bindPopup(popup_ed4f82de7c4063ba4e01891e17d668c0)
+        ;
+
+        
+    
+    
+            circle_marker_5b2d845736ff67b3ff7dd47d121d27dd.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Karve Road (Kothrud Bus Stand)</b><br>Speed: 30.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_bc4dd1976cfd926de3f9ef9db4d335b9 = L.circleMarker(
+                [18.509, 73.824],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_3c1b43a5033ce34252c1fdee3129e2a1 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_90eaedb98e6a87e89a9b12447a298828 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgUGF1ZCBSb2FkIChQYXVkIFBoYXRhIEZseW92ZXIpCiAgICAgICAgPC9kaXY+CiAgICAgICAgPHRhYmxlIHN0eWxlPSJ3aWR0aDoxMDAlO2ZvbnQtc2l6ZToxMXB4O2JvcmRlci1jb2xsYXBzZTpjb2xsYXBzZTsiPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5DdXJyZW50IFNwZWVkPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MjkuMCBrbS9oPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5GcmVlIEZsb3cgU3BlZWQ8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4yOS4wIGttL2g8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkNvbmdlc3Rpb248L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4wJTwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q29uZmlkZW5jZTwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjElPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Sb2FkIENsb3N1cmU8L3RkPgogICAgICAgICAgICAgICAgPHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDtjb2xvcjojMjJjNTVlOyI+Tm88L3RkPjwvdHI+CiAgICAgICAgPC90YWJsZT4KICAgICAgICA8ZGl2IHN0eWxlPSJtYXJnaW4tdG9wOjZweDtmb250LXNpemU6MTBweDtjb2xvcjojNjQ3NDhiOyI+SUQ6IFBUXzAxOV9LUlY8L2Rpdj4KICAgIDwvZGl2PgogICAg" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_3c1b43a5033ce34252c1fdee3129e2a1.setContent(i_frame_90eaedb98e6a87e89a9b12447a298828);
+            
+        
+
+        circle_marker_bc4dd1976cfd926de3f9ef9db4d335b9.bindPopup(popup_3c1b43a5033ce34252c1fdee3129e2a1)
+        ;
+
+        
+    
+    
+            circle_marker_bc4dd1976cfd926de3f9ef9db4d335b9.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Paud Road (Paud Phata Flyover)</b><br>Speed: 29.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2051011d4fadbcb77374ffc1ac117f4c = L.circleMarker(
+                [18.5135, 73.8305],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_3e98ca2ffbe9379cec1f6e1606f5aa81 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_c2984f8c48fbc624b2ff6f859e6f58d1 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgTGF3IENvbGxlZ2UgUm9hZCAoRlRJSSBKdW5jdGlvbikKICAgICAgICA8L2Rpdj4KICAgICAgICA8dGFibGUgc3R5bGU9IndpZHRoOjEwMCU7Zm9udC1zaXplOjExcHg7Ym9yZGVyLWNvbGxhcHNlOmNvbGxhcHNlOyI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkN1cnJlbnQgU3BlZWQ8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4yOC4wIGttL2g8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkZyZWUgRmxvdyBTcGVlZDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjI4LjAga20vaDwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q29uZ2VzdGlvbjwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjAlPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Db25maWRlbmNlPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MSU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPlJvYWQgQ2xvc3VyZTwvdGQ+CiAgICAgICAgICAgICAgICA8dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwO2NvbG9yOiMyMmM1NWU7Ij5ObzwvdGQ+PC90cj4KICAgICAgICA8L3RhYmxlPgogICAgICAgIDxkaXYgc3R5bGU9Im1hcmdpbi10b3A6NnB4O2ZvbnQtc2l6ZToxMHB4O2NvbG9yOiM2NDc0OGI7Ij5JRDogUFRfMDIwX0tSVjwvZGl2PgogICAgPC9kaXY+CiAgICA=" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_3e98ca2ffbe9379cec1f6e1606f5aa81.setContent(i_frame_c2984f8c48fbc624b2ff6f859e6f58d1);
+            
+        
+
+        circle_marker_2051011d4fadbcb77374ffc1ac117f4c.bindPopup(popup_3e98ca2ffbe9379cec1f6e1606f5aa81)
+        ;
+
+        
+    
+    
+            circle_marker_2051011d4fadbcb77374ffc1ac117f4c.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Law College Road (FTII Junction)</b><br>Speed: 28.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1c0f562fcf89a480b8ed6ecf519b8445 = L.circleMarker(
+                [18.5165, 73.84],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_c045d9bbf444d16665bcc708164eecf9 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_1dcdd61b76dee140e5c69124803afc31 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgRGVjY2FuIEd5bWtoYW5hIChHYXJ3YXJlIEJyaWRnZSkKICAgICAgICA8L2Rpdj4KICAgICAgICA8dGFibGUgc3R5bGU9IndpZHRoOjEwMCU7Zm9udC1zaXplOjExcHg7Ym9yZGVyLWNvbGxhcHNlOmNvbGxhcHNlOyI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkN1cnJlbnQgU3BlZWQ8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4yNi4wIGttL2g8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkZyZWUgRmxvdyBTcGVlZDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjI2LjAga20vaDwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q29uZ2VzdGlvbjwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjAlPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Db25maWRlbmNlPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MSU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPlJvYWQgQ2xvc3VyZTwvdGQ+CiAgICAgICAgICAgICAgICA8dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwO2NvbG9yOiMyMmM1NWU7Ij5ObzwvdGQ+PC90cj4KICAgICAgICA8L3RhYmxlPgogICAgICAgIDxkaXYgc3R5bGU9Im1hcmdpbi10b3A6NnB4O2ZvbnQtc2l6ZToxMHB4O2NvbG9yOiM2NDc0OGI7Ij5JRDogUFRfMDIxX0tSVjwvZGl2PgogICAgPC9kaXY+CiAgICA=" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_c045d9bbf444d16665bcc708164eecf9.setContent(i_frame_1dcdd61b76dee140e5c69124803afc31);
+            
+        
+
+        circle_marker_1c0f562fcf89a480b8ed6ecf519b8445.bindPopup(popup_c045d9bbf444d16665bcc708164eecf9)
+        ;
+
+        
+    
+    
+            circle_marker_1c0f562fcf89a480b8ed6ecf519b8445.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Deccan Gymkhana (Garware Bridge)</b><br>Speed: 26.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fa38d1c1ec4bed86f84f00125d3f71ba = L.circleMarker(
+                [18.4975, 73.814],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_f02f92c0225645bb46acc3e5b84777d3 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_f49a443124000f1570dc697664e9e13d = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgS2FydmUgU3RhdHVlIENob3drCiAgICAgICAgPC9kaXY+CiAgICAgICAgPHRhYmxlIHN0eWxlPSJ3aWR0aDoxMDAlO2ZvbnQtc2l6ZToxMXB4O2JvcmRlci1jb2xsYXBzZTpjb2xsYXBzZTsiPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5DdXJyZW50IFNwZWVkPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MzAuMCBrbS9oPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5GcmVlIEZsb3cgU3BlZWQ8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4zMC4wIGttL2g8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkNvbmdlc3Rpb248L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4wJTwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q29uZmlkZW5jZTwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjElPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Sb2FkIENsb3N1cmU8L3RkPgogICAgICAgICAgICAgICAgPHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDtjb2xvcjojMjJjNTVlOyI+Tm88L3RkPjwvdHI+CiAgICAgICAgPC90YWJsZT4KICAgICAgICA8ZGl2IHN0eWxlPSJtYXJnaW4tdG9wOjZweDtmb250LXNpemU6MTBweDtjb2xvcjojNjQ3NDhiOyI+SUQ6IFBUXzAyMl9LUlY8L2Rpdj4KICAgIDwvZGl2PgogICAg" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_f02f92c0225645bb46acc3e5b84777d3.setContent(i_frame_f49a443124000f1570dc697664e9e13d);
+            
+        
+
+        circle_marker_fa38d1c1ec4bed86f84f00125d3f71ba.bindPopup(popup_f02f92c0225645bb46acc3e5b84777d3)
+        ;
+
+        
+    
+    
+            circle_marker_fa38d1c1ec4bed86f84f00125d3f71ba.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Karve Statue Chowk</b><br>Speed: 30.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c3c901418201d58e7b997a8ffbaa5cbb = L.circleMarker(
+                [18.498, 73.822],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_49a26c669b9f01247ba65ef5528e9084 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_4cee00283eeaccbc086ba1246a6bbf9e = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgRFAgUm9hZCAoS290aHJ1ZCkKICAgICAgICA8L2Rpdj4KICAgICAgICA8dGFibGUgc3R5bGU9IndpZHRoOjEwMCU7Zm9udC1zaXplOjExcHg7Ym9yZGVyLWNvbGxhcHNlOmNvbGxhcHNlOyI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkN1cnJlbnQgU3BlZWQ8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4yMS4wIGttL2g8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkZyZWUgRmxvdyBTcGVlZDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjIxLjAga20vaDwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q29uZ2VzdGlvbjwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjAlPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Db25maWRlbmNlPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MSU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPlJvYWQgQ2xvc3VyZTwvdGQ+CiAgICAgICAgICAgICAgICA8dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwO2NvbG9yOiMyMmM1NWU7Ij5ObzwvdGQ+PC90cj4KICAgICAgICA8L3RhYmxlPgogICAgICAgIDxkaXYgc3R5bGU9Im1hcmdpbi10b3A6NnB4O2ZvbnQtc2l6ZToxMHB4O2NvbG9yOiM2NDc0OGI7Ij5JRDogUFRfMDIzX0tSVjwvZGl2PgogICAgPC9kaXY+CiAgICA=" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_49a26c669b9f01247ba65ef5528e9084.setContent(i_frame_4cee00283eeaccbc086ba1246a6bbf9e);
+            
+        
+
+        circle_marker_c3c901418201d58e7b997a8ffbaa5cbb.bindPopup(popup_49a26c669b9f01247ba65ef5528e9084)
+        ;
+
+        
+    
+    
+            circle_marker_c3c901418201d58e7b997a8ffbaa5cbb.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>DP Road (Kothrud)</b><br>Speed: 21.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ea0ae69ba5036b135c77ea5f13dc2649 = L.circleMarker(
+                [18.5035, 73.811],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_c239d48004e4434acb4df3adf21bcda4 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_7ee91eb374bf61a4c1757f55d3bbc58c = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgTWF5dXIgQ29sb255IFJvYWQKICAgICAgICA8L2Rpdj4KICAgICAgICA8dGFibGUgc3R5bGU9IndpZHRoOjEwMCU7Zm9udC1zaXplOjExcHg7Ym9yZGVyLWNvbGxhcHNlOmNvbGxhcHNlOyI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkN1cnJlbnQgU3BlZWQ8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4yMy4wIGttL2g8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkZyZWUgRmxvdyBTcGVlZDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjIzLjAga20vaDwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q29uZ2VzdGlvbjwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjAlPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Db25maWRlbmNlPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MSU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPlJvYWQgQ2xvc3VyZTwvdGQ+CiAgICAgICAgICAgICAgICA8dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwO2NvbG9yOiMyMmM1NWU7Ij5ObzwvdGQ+PC90cj4KICAgICAgICA8L3RhYmxlPgogICAgICAgIDxkaXYgc3R5bGU9Im1hcmdpbi10b3A6NnB4O2ZvbnQtc2l6ZToxMHB4O2NvbG9yOiM2NDc0OGI7Ij5JRDogUFRfMDI0X0tSVjwvZGl2PgogICAgPC9kaXY+CiAgICA=" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_c239d48004e4434acb4df3adf21bcda4.setContent(i_frame_7ee91eb374bf61a4c1757f55d3bbc58c);
+            
+        
+
+        circle_marker_ea0ae69ba5036b135c77ea5f13dc2649.bindPopup(popup_c239d48004e4434acb4df3adf21bcda4)
+        ;
+
+        
+    
+    
+            circle_marker_ea0ae69ba5036b135c77ea5f13dc2649.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Mayur Colony Road</b><br>Speed: 23.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_dfcce13fefb4bb52eb1bf7e1806c30cc = L.circleMarker(
+                [18.452, 73.857],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_5dcac205585b880a4fbd3d65c13eebce = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_fde26603e9fd601808e8e5076c806ba0 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgU2F0YXJhIFJvYWQgKEthdHJhaiBDaG93aykKICAgICAgICA8L2Rpdj4KICAgICAgICA8dGFibGUgc3R5bGU9IndpZHRoOjEwMCU7Zm9udC1zaXplOjExcHg7Ym9yZGVyLWNvbGxhcHNlOmNvbGxhcHNlOyI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkN1cnJlbnQgU3BlZWQ8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4zMi4wIGttL2g8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkZyZWUgRmxvdyBTcGVlZDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjMyLjAga20vaDwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q29uZ2VzdGlvbjwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjAlPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Db25maWRlbmNlPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MSU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPlJvYWQgQ2xvc3VyZTwvdGQ+CiAgICAgICAgICAgICAgICA8dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwO2NvbG9yOiMyMmM1NWU7Ij5ObzwvdGQ+PC90cj4KICAgICAgICA8L3RhYmxlPgogICAgICAgIDxkaXYgc3R5bGU9Im1hcmdpbi10b3A6NnB4O2ZvbnQtc2l6ZToxMHB4O2NvbG9yOiM2NDc0OGI7Ij5JRDogUFRfMDI1X0tUSjwvZGl2PgogICAgPC9kaXY+CiAgICA=" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_5dcac205585b880a4fbd3d65c13eebce.setContent(i_frame_fde26603e9fd601808e8e5076c806ba0);
+            
+        
+
+        circle_marker_dfcce13fefb4bb52eb1bf7e1806c30cc.bindPopup(popup_5dcac205585b880a4fbd3d65c13eebce)
+        ;
+
+        
+    
+    
+            circle_marker_dfcce13fefb4bb52eb1bf7e1806c30cc.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Satara Road (Katraj Chowk)</b><br>Speed: 32.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7f23614f0e70e68b37989f24f8d8588d = L.circleMarker(
+                [18.456, 73.869],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_7fe3b0a07910714553479e4e9f44b925 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_5a7b1783955a2ebdc27693d93875dd25 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgS2F0cmFqLUtvbmRod2EgUm9hZCBBcnRlcmlhbAogICAgICAgIDwvZGl2PgogICAgICAgIDx0YWJsZSBzdHlsZT0id2lkdGg6MTAwJTtmb250LXNpemU6MTFweDtib3JkZXItY29sbGFwc2U6Y29sbGFwc2U7Ij4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q3VycmVudCBTcGVlZDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjIzLjAga20vaDwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+RnJlZSBGbG93IFNwZWVkPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MjMuMCBrbS9oPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Db25nZXN0aW9uPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MCU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkNvbmZpZGVuY2U8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4xJTwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Um9hZCBDbG9zdXJlPC90ZD4KICAgICAgICAgICAgICAgIDx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Y29sb3I6IzIyYzU1ZTsiPk5vPC90ZD48L3RyPgogICAgICAgIDwvdGFibGU+CiAgICAgICAgPGRpdiBzdHlsZT0ibWFyZ2luLXRvcDo2cHg7Zm9udC1zaXplOjEwcHg7Y29sb3I6IzY0NzQ4YjsiPklEOiBQVF8wMjZfS1RKPC9kaXY+CiAgICA8L2Rpdj4KICAgIA==" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_7fe3b0a07910714553479e4e9f44b925.setContent(i_frame_5a7b1783955a2ebdc27693d93875dd25);
+            
+        
+
+        circle_marker_7f23614f0e70e68b37989f24f8d8588d.bindPopup(popup_7fe3b0a07910714553479e4e9f44b925)
+        ;
+
+        
+    
+    
+            circle_marker_7f23614f0e70e68b37989f24f8d8588d.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Katraj-Kondhwa Road Arterial</b><br>Speed: 23.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5bc51830b5e71e079468a75a4db56853 = L.circleMarker(
+                [18.448, 73.849],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_b343bca45fecf5cf1e2f50469a644f5f = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_83c6dd382ef3daedbc5b8c24c22b9fe7 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgS2F0cmFqLURlaHUgUm9hZCBCeXBhc3MgKE5IIDQ4KQogICAgICAgIDwvZGl2PgogICAgICAgIDx0YWJsZSBzdHlsZT0id2lkdGg6MTAwJTtmb250LXNpemU6MTFweDtib3JkZXItY29sbGFwc2U6Y29sbGFwc2U7Ij4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q3VycmVudCBTcGVlZDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjIyLjAga20vaDwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+RnJlZSBGbG93IFNwZWVkPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MjIuMCBrbS9oPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Db25nZXN0aW9uPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MCU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkNvbmZpZGVuY2U8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4xJTwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Um9hZCBDbG9zdXJlPC90ZD4KICAgICAgICAgICAgICAgIDx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Y29sb3I6IzIyYzU1ZTsiPk5vPC90ZD48L3RyPgogICAgICAgIDwvdGFibGU+CiAgICAgICAgPGRpdiBzdHlsZT0ibWFyZ2luLXRvcDo2cHg7Zm9udC1zaXplOjEwcHg7Y29sb3I6IzY0NzQ4YjsiPklEOiBQVF8wMjdfS1RKPC9kaXY+CiAgICA8L2Rpdj4KICAgIA==" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_b343bca45fecf5cf1e2f50469a644f5f.setContent(i_frame_83c6dd382ef3daedbc5b8c24c22b9fe7);
+            
+        
+
+        circle_marker_5bc51830b5e71e079468a75a4db56853.bindPopup(popup_b343bca45fecf5cf1e2f50469a644f5f)
+        ;
+
+        
+    
+    
+            circle_marker_5bc51830b5e71e079468a75a4db56853.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Katraj-Dehu Road Bypass (NH 48)</b><br>Speed: 22.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_91943d476bafaa3dc21563ac32f97e3d = L.circleMarker(
+                [18.472, 73.856],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_99d11b0b8d674a6d20dfff94b2572032 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_9ec18039757d66d4c109eb9df71e059d = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgU2F0YXJhIFJvYWQgKFBhZG1hdmF0aSBDaG93aykKICAgICAgICA8L2Rpdj4KICAgICAgICA8dGFibGUgc3R5bGU9IndpZHRoOjEwMCU7Zm9udC1zaXplOjExcHg7Ym9yZGVyLWNvbGxhcHNlOmNvbGxhcHNlOyI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkN1cnJlbnQgU3BlZWQ8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4yNi4wIGttL2g8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkZyZWUgRmxvdyBTcGVlZDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjI2LjAga20vaDwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q29uZ2VzdGlvbjwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjAlPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Db25maWRlbmNlPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MSU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPlJvYWQgQ2xvc3VyZTwvdGQ+CiAgICAgICAgICAgICAgICA8dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwO2NvbG9yOiMyMmM1NWU7Ij5ObzwvdGQ+PC90cj4KICAgICAgICA8L3RhYmxlPgogICAgICAgIDxkaXYgc3R5bGU9Im1hcmdpbi10b3A6NnB4O2ZvbnQtc2l6ZToxMHB4O2NvbG9yOiM2NDc0OGI7Ij5JRDogUFRfMDI4X0tUSjwvZGl2PgogICAgPC9kaXY+CiAgICA=" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_99d11b0b8d674a6d20dfff94b2572032.setContent(i_frame_9ec18039757d66d4c109eb9df71e059d);
+            
+        
+
+        circle_marker_91943d476bafaa3dc21563ac32f97e3d.bindPopup(popup_99d11b0b8d674a6d20dfff94b2572032)
+        ;
+
+        
+    
+    
+            circle_marker_91943d476bafaa3dc21563ac32f97e3d.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Satara Road (Padmavati Chowk)</b><br>Speed: 26.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fabff4d676e8c459d45ef4121cb1e2fc = L.circleMarker(
+                [18.479, 73.855],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_48cf2a4d471f41ed301bb258df7497db = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_aea182f46f2fdb36f86e0554b633acbe = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgU2F0YXJhIFJvYWQgKEJpYndld2FkaSBKdW5jdGlvbikKICAgICAgICA8L2Rpdj4KICAgICAgICA8dGFibGUgc3R5bGU9IndpZHRoOjEwMCU7Zm9udC1zaXplOjExcHg7Ym9yZGVyLWNvbGxhcHNlOmNvbGxhcHNlOyI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkN1cnJlbnQgU3BlZWQ8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4zMi4wIGttL2g8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkZyZWUgRmxvdyBTcGVlZDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjMyLjAga20vaDwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q29uZ2VzdGlvbjwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjAlPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Db25maWRlbmNlPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MSU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPlJvYWQgQ2xvc3VyZTwvdGQ+CiAgICAgICAgICAgICAgICA8dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwO2NvbG9yOiMyMmM1NWU7Ij5ObzwvdGQ+PC90cj4KICAgICAgICA8L3RhYmxlPgogICAgICAgIDxkaXYgc3R5bGU9Im1hcmdpbi10b3A6NnB4O2ZvbnQtc2l6ZToxMHB4O2NvbG9yOiM2NDc0OGI7Ij5JRDogUFRfMDI5X0tUSjwvZGl2PgogICAgPC9kaXY+CiAgICA=" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_48cf2a4d471f41ed301bb258df7497db.setContent(i_frame_aea182f46f2fdb36f86e0554b633acbe);
+            
+        
+
+        circle_marker_fabff4d676e8c459d45ef4121cb1e2fc.bindPopup(popup_48cf2a4d471f41ed301bb258df7497db)
+        ;
+
+        
+    
+    
+            circle_marker_fabff4d676e8c459d45ef4121cb1e2fc.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Satara Road (Bibwewadi Junction)</b><br>Speed: 32.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_264a1f67fb6fbd709b72e6122e13c949 = L.circleMarker(
+                [18.454, 73.841],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_180b00bc0c2d9e3605ee3de58492376e = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_87d0b762ef9d8907698311dad645d3ee = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgQW1iZWdhb24gQnVkcnVrIExpbmsgUm9hZAogICAgICAgIDwvZGl2PgogICAgICAgIDx0YWJsZSBzdHlsZT0id2lkdGg6MTAwJTtmb250LXNpemU6MTFweDtib3JkZXItY29sbGFwc2U6Y29sbGFwc2U7Ij4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q3VycmVudCBTcGVlZDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjQwLjAga20vaDwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+RnJlZSBGbG93IFNwZWVkPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+NDAuMCBrbS9oPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Db25nZXN0aW9uPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MCU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkNvbmZpZGVuY2U8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4xJTwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Um9hZCBDbG9zdXJlPC90ZD4KICAgICAgICAgICAgICAgIDx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Y29sb3I6IzIyYzU1ZTsiPk5vPC90ZD48L3RyPgogICAgICAgIDwvdGFibGU+CiAgICAgICAgPGRpdiBzdHlsZT0ibWFyZ2luLXRvcDo2cHg7Zm9udC1zaXplOjEwcHg7Y29sb3I6IzY0NzQ4YjsiPklEOiBQVF8wMzBfS1RKPC9kaXY+CiAgICA8L2Rpdj4KICAgIA==" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_180b00bc0c2d9e3605ee3de58492376e.setContent(i_frame_87d0b762ef9d8907698311dad645d3ee);
+            
+        
+
+        circle_marker_264a1f67fb6fbd709b72e6122e13c949.bindPopup(popup_180b00bc0c2d9e3605ee3de58492376e)
+        ;
+
+        
+    
+    
+            circle_marker_264a1f67fb6fbd709b72e6122e13c949.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Ambegaon Budruk Link Road</b><br>Speed: 40.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ee5d50d327de7d64e13a1b011c033d17 = L.circleMarker(
+                [18.458, 73.852],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_3064bc2f4d51a52adcb32101108174ed = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_78647dd2211cc6c8a68c04ffd8443ebb = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgQmhhcmF0aSBWaWR5YXBlZXRoIEdhdGUgQXJ0ZXJpYWwKICAgICAgICA8L2Rpdj4KICAgICAgICA8dGFibGUgc3R5bGU9IndpZHRoOjEwMCU7Zm9udC1zaXplOjExcHg7Ym9yZGVyLWNvbGxhcHNlOmNvbGxhcHNlOyI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkN1cnJlbnQgU3BlZWQ8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4yOC4wIGttL2g8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkZyZWUgRmxvdyBTcGVlZDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjI4LjAga20vaDwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q29uZ2VzdGlvbjwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjAlPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Db25maWRlbmNlPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MSU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPlJvYWQgQ2xvc3VyZTwvdGQ+CiAgICAgICAgICAgICAgICA8dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwO2NvbG9yOiMyMmM1NWU7Ij5ObzwvdGQ+PC90cj4KICAgICAgICA8L3RhYmxlPgogICAgICAgIDxkaXYgc3R5bGU9Im1hcmdpbi10b3A6NnB4O2ZvbnQtc2l6ZToxMHB4O2NvbG9yOiM2NDc0OGI7Ij5JRDogUFRfMDMxX0tUSjwvZGl2PgogICAgPC9kaXY+CiAgICA=" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_3064bc2f4d51a52adcb32101108174ed.setContent(i_frame_78647dd2211cc6c8a68c04ffd8443ebb);
+            
+        
+
+        circle_marker_ee5d50d327de7d64e13a1b011c033d17.bindPopup(popup_3064bc2f4d51a52adcb32101108174ed)
+        ;
+
+        
+    
+    
+            circle_marker_ee5d50d327de7d64e13a1b011c033d17.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Bharati Vidyapeeth Gate Arterial</b><br>Speed: 28.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_736cc258b46a8de89f5db7ca5f9d63e9 = L.circleMarker(
+                [18.439, 73.861],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_e6a9e7d918da4c8e36aa3188e1380923 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_f0ae7f3d0e7d117fc4db3d396a1ac327 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgS2F0cmFqIEdoYXQgT2xkIFJvYWQKICAgICAgICA8L2Rpdj4KICAgICAgICA8dGFibGUgc3R5bGU9IndpZHRoOjEwMCU7Zm9udC1zaXplOjExcHg7Ym9yZGVyLWNvbGxhcHNlOmNvbGxhcHNlOyI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkN1cnJlbnQgU3BlZWQ8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4zNS4wIGttL2g8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkZyZWUgRmxvdyBTcGVlZDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjM1LjAga20vaDwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q29uZ2VzdGlvbjwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjAlPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Db25maWRlbmNlPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MSU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPlJvYWQgQ2xvc3VyZTwvdGQ+CiAgICAgICAgICAgICAgICA8dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwO2NvbG9yOiMyMmM1NWU7Ij5ObzwvdGQ+PC90cj4KICAgICAgICA8L3RhYmxlPgogICAgICAgIDxkaXYgc3R5bGU9Im1hcmdpbi10b3A6NnB4O2ZvbnQtc2l6ZToxMHB4O2NvbG9yOiM2NDc0OGI7Ij5JRDogUFRfMDMyX0tUSjwvZGl2PgogICAgPC9kaXY+CiAgICA=" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_e6a9e7d918da4c8e36aa3188e1380923.setContent(i_frame_f0ae7f3d0e7d117fc4db3d396a1ac327);
+            
+        
+
+        circle_marker_736cc258b46a8de89f5db7ca5f9d63e9.bindPopup(popup_e6a9e7d918da4c8e36aa3188e1380923)
+        ;
+
+        
+    
+    
+            circle_marker_736cc258b46a8de89f5db7ca5f9d63e9.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Katraj Ghat Old Road</b><br>Speed: 35.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7fbf8c547521a5a246efd0a080ebbe70 = L.circleMarker(
+                [18.597, 73.761],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_909d9d57d3d95795d64d014165c03508 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_99a9103ebf3898a0352d64d0cdeecf83 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgV2FrYWQtSGluamF3YWRpIEZseW92ZXIgQXJ0ZXJpYWwKICAgICAgICA8L2Rpdj4KICAgICAgICA8dGFibGUgc3R5bGU9IndpZHRoOjEwMCU7Zm9udC1zaXplOjExcHg7Ym9yZGVyLWNvbGxhcHNlOmNvbGxhcHNlOyI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkN1cnJlbnQgU3BlZWQ8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4yMy4wIGttL2g8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkZyZWUgRmxvdyBTcGVlZDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjIzLjAga20vaDwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q29uZ2VzdGlvbjwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjAlPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Db25maWRlbmNlPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MSU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPlJvYWQgQ2xvc3VyZTwvdGQ+CiAgICAgICAgICAgICAgICA8dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwO2NvbG9yOiMyMmM1NWU7Ij5ObzwvdGQ+PC90cj4KICAgICAgICA8L3RhYmxlPgogICAgICAgIDxkaXYgc3R5bGU9Im1hcmdpbi10b3A6NnB4O2ZvbnQtc2l6ZToxMHB4O2NvbG9yOiM2NDc0OGI7Ij5JRDogUFRfMDMzX1dLRDwvZGl2PgogICAgPC9kaXY+CiAgICA=" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_909d9d57d3d95795d64d014165c03508.setContent(i_frame_99a9103ebf3898a0352d64d0cdeecf83);
+            
+        
+
+        circle_marker_7fbf8c547521a5a246efd0a080ebbe70.bindPopup(popup_909d9d57d3d95795d64d014165c03508)
+        ;
+
+        
+    
+    
+            circle_marker_7fbf8c547521a5a246efd0a080ebbe70.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Wakad-Hinjawadi Flyover Arterial</b><br>Speed: 23.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_34da8406b27413e9dd2fb6d8f1b1b1e3 = L.circleMarker(
+                [18.611, 73.778],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_739e0097dd3898696ba930f02181df4b = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_179428baa6715eb3a2b15a49725a0fff = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgRGFuZ2UgQ2hvd2sgKFRoZXJnYW9uLVdha2FkIEp1bmN0aW9uKQogICAgICAgIDwvZGl2PgogICAgICAgIDx0YWJsZSBzdHlsZT0id2lkdGg6MTAwJTtmb250LXNpemU6MTFweDtib3JkZXItY29sbGFwc2U6Y29sbGFwc2U7Ij4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q3VycmVudCBTcGVlZDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjIxLjAga20vaDwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+RnJlZSBGbG93IFNwZWVkPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MjEuMCBrbS9oPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Db25nZXN0aW9uPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MCU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkNvbmZpZGVuY2U8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4xJTwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Um9hZCBDbG9zdXJlPC90ZD4KICAgICAgICAgICAgICAgIDx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Y29sb3I6IzIyYzU1ZTsiPk5vPC90ZD48L3RyPgogICAgICAgIDwvdGFibGU+CiAgICAgICAgPGRpdiBzdHlsZT0ibWFyZ2luLXRvcDo2cHg7Zm9udC1zaXplOjEwcHg7Y29sb3I6IzY0NzQ4YjsiPklEOiBQVF8wMzRfV0tEPC9kaXY+CiAgICA8L2Rpdj4KICAgIA==" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_739e0097dd3898696ba930f02181df4b.setContent(i_frame_179428baa6715eb3a2b15a49725a0fff);
+            
+        
+
+        circle_marker_34da8406b27413e9dd2fb6d8f1b1b1e3.bindPopup(popup_739e0097dd3898696ba930f02181df4b)
+        ;
+
+        
+    
+    
+            circle_marker_34da8406b27413e9dd2fb6d8f1b1b1e3.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Dange Chowk (Thergaon-Wakad Junction)</b><br>Speed: 21.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0fbe33ba93a506e8c7721d94f691978b = L.circleMarker(
+                [18.604, 73.784],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_b009eab9f08d146df00a4a238e98a67a = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_cff64f1be9717ca7cb7d12f5bdf81782 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgS2FsZXdhZGkgUGhhdGEgKFdha2FkIFJvYWQpCiAgICAgICAgPC9kaXY+CiAgICAgICAgPHRhYmxlIHN0eWxlPSJ3aWR0aDoxMDAlO2ZvbnQtc2l6ZToxMXB4O2JvcmRlci1jb2xsYXBzZTpjb2xsYXBzZTsiPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5DdXJyZW50IFNwZWVkPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MjQuMCBrbS9oPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5GcmVlIEZsb3cgU3BlZWQ8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4yNC4wIGttL2g8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkNvbmdlc3Rpb248L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4wJTwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q29uZmlkZW5jZTwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjElPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Sb2FkIENsb3N1cmU8L3RkPgogICAgICAgICAgICAgICAgPHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDtjb2xvcjojMjJjNTVlOyI+Tm88L3RkPjwvdHI+CiAgICAgICAgPC90YWJsZT4KICAgICAgICA8ZGl2IHN0eWxlPSJtYXJnaW4tdG9wOjZweDtmb250LXNpemU6MTBweDtjb2xvcjojNjQ3NDhiOyI+SUQ6IFBUXzAzNV9XS0Q8L2Rpdj4KICAgIDwvZGl2PgogICAg" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_b009eab9f08d146df00a4a238e98a67a.setContent(i_frame_cff64f1be9717ca7cb7d12f5bdf81782);
+            
+        
+
+        circle_marker_0fbe33ba93a506e8c7721d94f691978b.bindPopup(popup_b009eab9f08d146df00a4a238e98a67a)
+        ;
+
+        
+    
+    
+            circle_marker_0fbe33ba93a506e8c7721d94f691978b.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Kalewadi Phata (Wakad Road)</b><br>Speed: 24.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_00b31282cfa0c60197ca111bd47d80df = L.circleMarker(
+                [18.5995, 73.7505],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_ba79c79318ed5c4ea4692aede298b643 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_e1996eee0fcdf3a8fe9af9ee76a8d26d = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgQmh1bWthciBDaG93ayAoV2FrYWQgQnlwYXNzKQogICAgICAgIDwvZGl2PgogICAgICAgIDx0YWJsZSBzdHlsZT0id2lkdGg6MTAwJTtmb250LXNpemU6MTFweDtib3JkZXItY29sbGFwc2U6Y29sbGFwc2U7Ij4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q3VycmVudCBTcGVlZDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjI5LjAga20vaDwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+RnJlZSBGbG93IFNwZWVkPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MjkuMCBrbS9oPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Db25nZXN0aW9uPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MCU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkNvbmZpZGVuY2U8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4xJTwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Um9hZCBDbG9zdXJlPC90ZD4KICAgICAgICAgICAgICAgIDx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Y29sb3I6IzIyYzU1ZTsiPk5vPC90ZD48L3RyPgogICAgICAgIDwvdGFibGU+CiAgICAgICAgPGRpdiBzdHlsZT0ibWFyZ2luLXRvcDo2cHg7Zm9udC1zaXplOjEwcHg7Y29sb3I6IzY0NzQ4YjsiPklEOiBQVF8wMzZfV0tEPC9kaXY+CiAgICA8L2Rpdj4KICAgIA==" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_ba79c79318ed5c4ea4692aede298b643.setContent(i_frame_e1996eee0fcdf3a8fe9af9ee76a8d26d);
+            
+        
+
+        circle_marker_00b31282cfa0c60197ca111bd47d80df.bindPopup(popup_ba79c79318ed5c4ea4692aede298b643)
+        ;
+
+        
+    
+    
+            circle_marker_00b31282cfa0c60197ca111bd47d80df.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Bhumkar Chowk (Wakad Bypass)</b><br>Speed: 29.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b79e0313fff0fc99438f162ec0968ff5 = L.circleMarker(
+                [18.603, 73.768],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_88a7728a7f6e1562a2f96f327eba4ed6 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_4158ff078b1563e6e8d98a4ca8b3cdd0 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgRGF0dGEgTWFuZGlyIFJvYWQgKFdha2FkKQogICAgICAgIDwvZGl2PgogICAgICAgIDx0YWJsZSBzdHlsZT0id2lkdGg6MTAwJTtmb250LXNpemU6MTFweDtib3JkZXItY29sbGFwc2U6Y29sbGFwc2U7Ij4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q3VycmVudCBTcGVlZDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjIyLjAga20vaDwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+RnJlZSBGbG93IFNwZWVkPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MjIuMCBrbS9oPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Db25nZXN0aW9uPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MCU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkNvbmZpZGVuY2U8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4xJTwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Um9hZCBDbG9zdXJlPC90ZD4KICAgICAgICAgICAgICAgIDx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Y29sb3I6IzIyYzU1ZTsiPk5vPC90ZD48L3RyPgogICAgICAgIDwvdGFibGU+CiAgICAgICAgPGRpdiBzdHlsZT0ibWFyZ2luLXRvcDo2cHg7Zm9udC1zaXplOjEwcHg7Y29sb3I6IzY0NzQ4YjsiPklEOiBQVF8wMzdfV0tEPC9kaXY+CiAgICA8L2Rpdj4KICAgIA==" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_88a7728a7f6e1562a2f96f327eba4ed6.setContent(i_frame_4158ff078b1563e6e8d98a4ca8b3cdd0);
+            
+        
+
+        circle_marker_b79e0313fff0fc99438f162ec0968ff5.bindPopup(popup_88a7728a7f6e1562a2f96f327eba4ed6)
+        ;
+
+        
+    
+    
+            circle_marker_b79e0313fff0fc99438f162ec0968ff5.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Datta Mandir Road (Wakad)</b><br>Speed: 22.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1ecdc67595546ba91860eb937370e570 = L.circleMarker(
+                [18.591, 73.738],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_06e7815c3270af3d2c2176a2b94130b1 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_26bcf6f7e0eb02743e5c58408648c13f = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgSGluamF3YWRpIFBoYXNlIDEgU2hpdmFqaSBDaG93ayBDb25uZWN0b3IKICAgICAgICA8L2Rpdj4KICAgICAgICA8dGFibGUgc3R5bGU9IndpZHRoOjEwMCU7Zm9udC1zaXplOjExcHg7Ym9yZGVyLWNvbGxhcHNlOmNvbGxhcHNlOyI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkN1cnJlbnQgU3BlZWQ8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4zMC4wIGttL2g8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkZyZWUgRmxvdyBTcGVlZDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjMwLjAga20vaDwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q29uZ2VzdGlvbjwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjAlPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Db25maWRlbmNlPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MSU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPlJvYWQgQ2xvc3VyZTwvdGQ+CiAgICAgICAgICAgICAgICA8dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwO2NvbG9yOiMyMmM1NWU7Ij5ObzwvdGQ+PC90cj4KICAgICAgICA8L3RhYmxlPgogICAgICAgIDxkaXYgc3R5bGU9Im1hcmdpbi10b3A6NnB4O2ZvbnQtc2l6ZToxMHB4O2NvbG9yOiM2NDc0OGI7Ij5JRDogUFRfMDM4X1dLRDwvZGl2PgogICAgPC9kaXY+CiAgICA=" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_06e7815c3270af3d2c2176a2b94130b1.setContent(i_frame_26bcf6f7e0eb02743e5c58408648c13f);
+            
+        
+
+        circle_marker_1ecdc67595546ba91860eb937370e570.bindPopup(popup_06e7815c3270af3d2c2176a2b94130b1)
+        ;
+
+        
+    
+    
+            circle_marker_1ecdc67595546ba91860eb937370e570.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Hinjawadi Phase 1 Shivaji Chowk Connector</b><br>Speed: 30.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_955e6bea33bf2a95c404c9f4e6008a3e = L.circleMarker(
+                [18.583, 73.769],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_341e47cc2b9fa0941b99a19b1ccf61d3 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_86fdcd4b433faef42b03345870365992 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgV2FrYWQtQmF2ZGhhbiBFeHByZXNzd2F5IENvbm5lY3RvcgogICAgICAgIDwvZGl2PgogICAgICAgIDx0YWJsZSBzdHlsZT0id2lkdGg6MTAwJTtmb250LXNpemU6MTFweDtib3JkZXItY29sbGFwc2U6Y29sbGFwc2U7Ij4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q3VycmVudCBTcGVlZDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjMwLjAga20vaDwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+RnJlZSBGbG93IFNwZWVkPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MzAuMCBrbS9oPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Db25nZXN0aW9uPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MCU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkNvbmZpZGVuY2U8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4xJTwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Um9hZCBDbG9zdXJlPC90ZD4KICAgICAgICAgICAgICAgIDx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Y29sb3I6IzIyYzU1ZTsiPk5vPC90ZD48L3RyPgogICAgICAgIDwvdGFibGU+CiAgICAgICAgPGRpdiBzdHlsZT0ibWFyZ2luLXRvcDo2cHg7Zm9udC1zaXplOjEwcHg7Y29sb3I6IzY0NzQ4YjsiPklEOiBQVF8wMzlfV0tEPC9kaXY+CiAgICA8L2Rpdj4KICAgIA==" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_341e47cc2b9fa0941b99a19b1ccf61d3.setContent(i_frame_86fdcd4b433faef42b03345870365992);
+            
+        
+
+        circle_marker_955e6bea33bf2a95c404c9f4e6008a3e.bindPopup(popup_341e47cc2b9fa0941b99a19b1ccf61d3)
+        ;
+
+        
+    
+    
+            circle_marker_955e6bea33bf2a95c404c9f4e6008a3e.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Wakad-Bavdhan Expressway Connector</b><br>Speed: 30.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_339058425e62e33c215a43aabe84690b = L.circleMarker(
+                [18.596, 73.774],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_74631e116a7d649c23515827de091d42);
+        
+    
+        var popup_e619efe1fe5da072d2e6d07264c9167c = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_783ff72d765abc52c1b8340dddf97646 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MjAwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgS2FzcGF0ZSBWYXN0aSBSb2FkIChXYWthZCkKICAgICAgICA8L2Rpdj4KICAgICAgICA8dGFibGUgc3R5bGU9IndpZHRoOjEwMCU7Zm9udC1zaXplOjExcHg7Ym9yZGVyLWNvbGxhcHNlOmNvbGxhcHNlOyI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkN1cnJlbnQgU3BlZWQ8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4yMy4wIGttL2g8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkZyZWUgRmxvdyBTcGVlZDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjIzLjAga20vaDwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+Q29uZ2VzdGlvbjwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjAlPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5Db25maWRlbmNlPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MSU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPlJvYWQgQ2xvc3VyZTwvdGQ+CiAgICAgICAgICAgICAgICA8dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwO2NvbG9yOiMyMmM1NWU7Ij5ObzwvdGQ+PC90cj4KICAgICAgICA8L3RhYmxlPgogICAgICAgIDxkaXYgc3R5bGU9Im1hcmdpbi10b3A6NnB4O2ZvbnQtc2l6ZToxMHB4O2NvbG9yOiM2NDc0OGI7Ij5JRDogUFRfMDQwX1dLRDwvZGl2PgogICAgPC9kaXY+CiAgICA=" width="230" style="border:none !important;" height="200"></iframe>`)[0];
+                popup_e619efe1fe5da072d2e6d07264c9167c.setContent(i_frame_783ff72d765abc52c1b8340dddf97646);
+            
+        
+
+        circle_marker_339058425e62e33c215a43aabe84690b.bindPopup(popup_e619efe1fe5da072d2e6d07264c9167c)
+        ;
+
+        
+    
+    
+            circle_marker_339058425e62e33c215a43aabe84690b.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Kaspate Vasti Road (Wakad)</b><br>Speed: 23.0 km/h
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_74631e116a7d649c23515827de091d42.addTo(map_7742a5f3a256d32311ab544926dece2c);
+        
+    
+            var feature_group_4265ae68636986cac14a134ed81ded66 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_2308be790edbef994ace5fa3d4d3a22a = L.marker(
+                [18.5314, 73.8446],
+                {
+}
+            ).addTo(feature_group_4265ae68636986cac14a134ed81ded66);
+        
+    
+            var div_icon_e3ed4b37e158822fe10b3655f7e25cd5 = L.divIcon({
+  "html": "\u003cdiv style=\"\n                    background:rgba(30,58,138,0.85);\n                    border:1px solid #3b82f6;\n                    border-radius:6px;\n                    padding:3px 7px;\n                    font-size:10px;\n                    font-weight:700;\n                    color:#93c5fd;\n                    white-space:nowrap;\n                    text-align:center;\n                    box-shadow:0 2px 4px rgba(0,0,0,0.4);\n                \"\u003e19.8\u00b0C\u003c/div\u003e",
+  "iconSize": [60, 22],
+  "iconAnchor": [30, 11],
+  "className": "empty",
+});
+        
+    
+        var popup_ced1c9f60e8dfacdd1ab303b110c2a7e = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_8495eb6766e22dbfe4efb399f28566e7 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MTkwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgV2VhdGhlciAtIFJldmVudWUgQ29sb255LVNoaXZhamluYWdhciwgUHVuZSAtIElJVE0KICAgICAgICA8L2Rpdj4KICAgICAgICA8dGFibGUgc3R5bGU9IndpZHRoOjEwMCU7Zm9udC1zaXplOjExcHg7Ym9yZGVyLWNvbGxhcHNlOmNvbGxhcHNlOyI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPlRlbXBlcmF0dXJlPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MTkuOCDCsEM8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkh1bWlkaXR5PC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+ODAuOCAlPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5XaW5kIFNwZWVkPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+My4xIG0vczwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+V2luZCBEaXI8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4yNTYuOMKwPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5QcmVzc3VyZTwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjk1NC40IGhQYTwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+UmFpbmZhbGw8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4wLjAgbW08L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkJMIEhlaWdodDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjE4NS4wIG08L3RkPjwvdHI+CiAgICAgICAgPC90YWJsZT4KICAgIDwvZGl2PgogICAg" width="220" style="border:none !important;" height="240"></iframe>`)[0];
+                popup_ced1c9f60e8dfacdd1ab303b110c2a7e.setContent(i_frame_8495eb6766e22dbfe4efb399f28566e7);
+            
+        
+
+        marker_2308be790edbef994ace5fa3d4d3a22a.bindPopup(popup_ced1c9f60e8dfacdd1ab303b110c2a7e)
+        ;
+
+        
+    
+    
+            marker_2308be790edbef994ace5fa3d4d3a22a.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Weather:</b> Revenue Colony-Shivajinagar, Pune - IITM<br>Temp: 19.8°C
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_2308be790edbef994ace5fa3d4d3a22a.setIcon(div_icon_e3ed4b37e158822fe10b3655f7e25cd5);
+            
+    
+            var marker_c145ed9859f79e108b270bb5249e62a5 = L.marker(
+                [18.5529, 73.826],
+                {
+}
+            ).addTo(feature_group_4265ae68636986cac14a134ed81ded66);
+        
+    
+            var div_icon_ed903218a2211ffdfc52f1ae8ea8f582 = L.divIcon({
+  "html": "\u003cdiv style=\"\n                    background:rgba(30,58,138,0.85);\n                    border:1px solid #3b82f6;\n                    border-radius:6px;\n                    padding:3px 7px;\n                    font-size:10px;\n                    font-weight:700;\n                    color:#93c5fd;\n                    white-space:nowrap;\n                    text-align:center;\n                    box-shadow:0 2px 4px rgba(0,0,0,0.4);\n                \"\u003e20.7\u00b0C\u003c/div\u003e",
+  "iconSize": [60, 22],
+  "iconAnchor": [30, 11],
+  "className": "empty",
+});
+        
+    
+        var popup_7c56946a00223635ce998545f30ce85c = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_4ea7deb89a8605c28ad2117facea6b14 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MTkwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgV2VhdGhlciAtIFNhdml0cmliYWkgUGh1bGUgUHVuZSBVbml2ZXJzaXR5LCBQdW5lIC0gTVBDQgogICAgICAgIDwvZGl2PgogICAgICAgIDx0YWJsZSBzdHlsZT0id2lkdGg6MTAwJTtmb250LXNpemU6MTFweDtib3JkZXItY29sbGFwc2U6Y29sbGFwc2U7Ij4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+VGVtcGVyYXR1cmU8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4yMC43IMKwQzwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+SHVtaWRpdHk8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij41Ni4wICU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPldpbmQgU3BlZWQ8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4xLjAgbS9zPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5XaW5kIERpcjwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjMwMS4wwrA8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPlByZXNzdXJlPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+OTUyLjQgaFBhPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5SYWluZmFsbDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjAuMCBtbTwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+QkwgSGVpZ2h0PC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MzUuMCBtPC90ZD48L3RyPgogICAgICAgIDwvdGFibGU+CiAgICA8L2Rpdj4KICAgIA==" width="220" style="border:none !important;" height="240"></iframe>`)[0];
+                popup_7c56946a00223635ce998545f30ce85c.setContent(i_frame_4ea7deb89a8605c28ad2117facea6b14);
+            
+        
+
+        marker_c145ed9859f79e108b270bb5249e62a5.bindPopup(popup_7c56946a00223635ce998545f30ce85c)
+        ;
+
+        
+    
+    
+            marker_c145ed9859f79e108b270bb5249e62a5.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Weather:</b> Savitribai Phule Pune University, Pune - MPCB<br>Temp: 20.7°C
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_c145ed9859f79e108b270bb5249e62a5.setIcon(div_icon_ed903218a2211ffdfc52f1ae8ea8f582);
+            
+    
+            var marker_508417b832c112185cfd5a3f77ef04a8 = L.marker(
+                [18.502, 73.827],
+                {
+}
+            ).addTo(feature_group_4265ae68636986cac14a134ed81ded66);
+        
+    
+            var div_icon_9b66d24080cb34e2196c6b425cf4074f = L.divIcon({
+  "html": "\u003cdiv style=\"\n                    background:rgba(30,58,138,0.85);\n                    border:1px solid #3b82f6;\n                    border-radius:6px;\n                    padding:3px 7px;\n                    font-size:10px;\n                    font-weight:700;\n                    color:#93c5fd;\n                    white-space:nowrap;\n                    text-align:center;\n                    box-shadow:0 2px 4px rgba(0,0,0,0.4);\n                \"\u003e23.4\u00b0C\u003c/div\u003e",
+  "iconSize": [60, 22],
+  "iconAnchor": [30, 11],
+  "className": "empty",
+});
+        
+    
+        var popup_9937009b71aece80491899caeeeae58c = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_189e8f34fd4a4aa81c7bcffdacb46025 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MTkwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgV2VhdGhlciAtIEthcnZlIFJvYWQgUHVuZSwgUHVuZSAtIE1QQ0IKICAgICAgICA8L2Rpdj4KICAgICAgICA8dGFibGUgc3R5bGU9IndpZHRoOjEwMCU7Zm9udC1zaXplOjExcHg7Ym9yZGVyLWNvbGxhcHNlOmNvbGxhcHNlOyI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPlRlbXBlcmF0dXJlPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MjMuNCDCsEM8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkh1bWlkaXR5PC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+OTkuNCAlPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5XaW5kIFNwZWVkPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+Mi4zIG0vczwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+V2luZCBEaXI8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij40NS4wwrA8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPlByZXNzdXJlPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+OTQxLjQgaFBhPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5SYWluZmFsbDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjEuOSBtbTwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+QkwgSGVpZ2h0PC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+NjUuMCBtPC90ZD48L3RyPgogICAgICAgIDwvdGFibGU+CiAgICA8L2Rpdj4KICAgIA==" width="220" style="border:none !important;" height="240"></iframe>`)[0];
+                popup_9937009b71aece80491899caeeeae58c.setContent(i_frame_189e8f34fd4a4aa81c7bcffdacb46025);
+            
+        
+
+        marker_508417b832c112185cfd5a3f77ef04a8.bindPopup(popup_9937009b71aece80491899caeeeae58c)
+        ;
+
+        
+    
+    
+            marker_508417b832c112185cfd5a3f77ef04a8.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Weather:</b> Karve Road Pune, Pune - MPCB<br>Temp: 23.4°C
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_508417b832c112185cfd5a3f77ef04a8.setIcon(div_icon_9b66d24080cb34e2196c6b425cf4074f);
+            
+    
+            var marker_9ff269358e91f1ed425de02de5aca2d1 = L.marker(
+                [18.455, 73.858],
+                {
+}
+            ).addTo(feature_group_4265ae68636986cac14a134ed81ded66);
+        
+    
+            var div_icon_daf390b243f00f56a037bb98aa9a4b74 = L.divIcon({
+  "html": "\u003cdiv style=\"\n                    background:rgba(30,58,138,0.85);\n                    border:1px solid #3b82f6;\n                    border-radius:6px;\n                    padding:3px 7px;\n                    font-size:10px;\n                    font-weight:700;\n                    color:#93c5fd;\n                    white-space:nowrap;\n                    text-align:center;\n                    box-shadow:0 2px 4px rgba(0,0,0,0.4);\n                \"\u003e19.8\u00b0C\u003c/div\u003e",
+  "iconSize": [60, 22],
+  "iconAnchor": [30, 11],
+  "className": "empty",
+});
+        
+    
+        var popup_0f96d3e663d98f63658cb25fdd93528a = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_9c9554c8405747d2336298671e738d76 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MTkwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgV2VhdGhlciAtIEthdHJhaiBEYWlyeSwgUHVuZSAtIE1QQ0IKICAgICAgICA8L2Rpdj4KICAgICAgICA8dGFibGUgc3R5bGU9IndpZHRoOjEwMCU7Zm9udC1zaXplOjExcHg7Ym9yZGVyLWNvbGxhcHNlOmNvbGxhcHNlOyI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPlRlbXBlcmF0dXJlPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MTkuOCDCsEM8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkh1bWlkaXR5PC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+ODAuOCAlPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5XaW5kIFNwZWVkPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+My4xIG0vczwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+V2luZCBEaXI8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4yNTYuOMKwPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5QcmVzc3VyZTwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjk1NC40IGhQYTwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+UmFpbmZhbGw8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4wLjAgbW08L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPkJMIEhlaWdodDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjE4NS4wIG08L3RkPjwvdHI+CiAgICAgICAgPC90YWJsZT4KICAgIDwvZGl2PgogICAg" width="220" style="border:none !important;" height="240"></iframe>`)[0];
+                popup_0f96d3e663d98f63658cb25fdd93528a.setContent(i_frame_9c9554c8405747d2336298671e738d76);
+            
+        
+
+        marker_9ff269358e91f1ed425de02de5aca2d1.bindPopup(popup_0f96d3e663d98f63658cb25fdd93528a)
+        ;
+
+        
+    
+    
+            marker_9ff269358e91f1ed425de02de5aca2d1.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Weather:</b> Katraj Dairy, Pune - MPCB<br>Temp: 19.8°C
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_9ff269358e91f1ed425de02de5aca2d1.setIcon(div_icon_daf390b243f00f56a037bb98aa9a4b74);
+            
+    
+            var marker_de796d8990889240bc33becbdfd0cc14 = L.marker(
+                [18.6015, 73.7645],
+                {
+}
+            ).addTo(feature_group_4265ae68636986cac14a134ed81ded66);
+        
+    
+            var div_icon_6b92fa501c5502703ff8889c4c61bc9c = L.divIcon({
+  "html": "\u003cdiv style=\"\n                    background:rgba(30,58,138,0.85);\n                    border:1px solid #3b82f6;\n                    border-radius:6px;\n                    padding:3px 7px;\n                    font-size:10px;\n                    font-weight:700;\n                    color:#93c5fd;\n                    white-space:nowrap;\n                    text-align:center;\n                    box-shadow:0 2px 4px rgba(0,0,0,0.4);\n                \"\u003e19.8\u00b0C\u003c/div\u003e",
+  "iconSize": [60, 22],
+  "iconAnchor": [30, 11],
+  "className": "empty",
+});
+        
+    
+        var popup_2bb6af6d6b4484ff2e89084a2e5c1369 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var i_frame_14beea5c11c4f78a5604e8b505102f45 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgIDxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OidJbnRlcicsc2Fucy1zZXJpZjttaW4td2lkdGg6MTkwcHg7YmFja2dyb3VuZDojMGYxNzJhO2NvbG9yOiNlMmU4ZjA7Ym9yZGVyLXJhZGl1czo4cHg7cGFkZGluZzoxMnB4OyI+CiAgICAgICAgPGRpdiBzdHlsZT0iZm9udC13ZWlnaHQ6NzAwO2ZvbnQtc2l6ZToxM3B4O21hcmdpbi1ib3R0b206OHB4O2NvbG9yOiNmMWY1Zjk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzMzNDE1NTtwYWRkaW5nLWJvdHRvbTo1cHg7Ij4KICAgICAgICAgICAgV2VhdGhlciAtIFBhcmsgU3RyZWV0IFdha2FkLCBQaW1wcmkgQ2hpbmNod2FkIC0gTVBDQgogICAgICAgIDwvZGl2PgogICAgICAgIDx0YWJsZSBzdHlsZT0id2lkdGg6MTAwJTtmb250LXNpemU6MTFweDtib3JkZXItY29sbGFwc2U6Y29sbGFwc2U7Ij4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+VGVtcGVyYXR1cmU8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4xOS44IMKwQzwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+SHVtaWRpdHk8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij44MC44ICU8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPldpbmQgU3BlZWQ8L3RkPjx0ZCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodDtmb250LXdlaWdodDo2MDA7Ij4zLjEgbS9zPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5XaW5kIERpcjwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjI1Ni44wrA8L3RkPjwvdHI+CiAgICAgICAgICAgIDx0cj48dGQgc3R5bGU9ImNvbG9yOiM5NGEzYjg7cGFkZGluZzoycHggMDsiPlByZXNzdXJlPC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+OTU0LjQgaFBhPC90ZD48L3RyPgogICAgICAgICAgICA8dHI+PHRkIHN0eWxlPSJjb2xvcjojOTRhM2I4O3BhZGRpbmc6MnB4IDA7Ij5SYWluZmFsbDwvdGQ+PHRkIHN0eWxlPSJ0ZXh0LWFsaWduOnJpZ2h0O2ZvbnQtd2VpZ2h0OjYwMDsiPjAuMCBtbTwvdGQ+PC90cj4KICAgICAgICAgICAgPHRyPjx0ZCBzdHlsZT0iY29sb3I6Izk0YTNiODtwYWRkaW5nOjJweCAwOyI+QkwgSGVpZ2h0PC90ZD48dGQgc3R5bGU9InRleHQtYWxpZ246cmlnaHQ7Zm9udC13ZWlnaHQ6NjAwOyI+MTg1LjAgbTwvdGQ+PC90cj4KICAgICAgICA8L3RhYmxlPgogICAgPC9kaXY+CiAgICA=" width="220" style="border:none !important;" height="240"></iframe>`)[0];
+                popup_2bb6af6d6b4484ff2e89084a2e5c1369.setContent(i_frame_14beea5c11c4f78a5604e8b505102f45);
+            
+        
+
+        marker_de796d8990889240bc33becbdfd0cc14.bindPopup(popup_2bb6af6d6b4484ff2e89084a2e5c1369)
+        ;
+
+        
+    
+    
+            marker_de796d8990889240bc33becbdfd0cc14.bindTooltip(
+                `<div style="background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:6px;font-size:11px;">
+                     <b>Weather:</b> Park Street Wakad, Pimpri Chinchwad - MPCB<br>Temp: 19.8°C
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_de796d8990889240bc33becbdfd0cc14.setIcon(div_icon_6b92fa501c5502703ff8889c4c61bc9c);
+            
+    
+            var tile_layer_b06bb4878e14b792cc0bb253584ab9db = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detect_retina": false, "max_native_zoom": 19, "max_zoom": 19, "min_zoom": 0, "no_wrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+            var mini_map_d27cd3bb71a383470ae042cb79cffc53 = new L.Control.MiniMap(
+                tile_layer_b06bb4878e14b792cc0bb253584ab9db,
+                {
+  "position": "bottomright",
+  "width": 150,
+  "height": 150,
+  "collapsedWidth": 25,
+  "collapsedHeight": 25,
+  "zoomLevelOffset": -5,
+  "centerFixed": false,
+  "zoomAnimation": false,
+  "toggleDisplay": true,
+  "autoToggleDisplay": false,
+  "minimized": false,
+}
+            );
+            map_7742a5f3a256d32311ab544926dece2c.addControl(mini_map_d27cd3bb71a383470ae042cb79cffc53);
+        
+    
+            L.control.fullscreen(
+                {
+  "position": "topleft",
+  "title": "Full Screen",
+  "titleCancel": "Exit Full Screen",
+  "forceSeparateButton": false,
+}
+            ).addTo(map_7742a5f3a256d32311ab544926dece2c);
+        
+    
+            var layer_control_2502f9e33f374b731c3aba0328251c07_layers = {
+                base_layers : {
+                    "Dark (Default)" : tile_layer_a58c1ede7ab1c952aa08af7385890d3a,
+                    "Light" : tile_layer_f92ced336e3b160c771a36d6fc080d89,
+                    "OpenStreetMap" : tile_layer_c0b18f16c9f943157cbf73275a638121,
+                },
+                overlays :  {
+                    "H3 AQI Zones" : feature_group_b5b64e089286f1bb4b086fb4b4423ae3,
+                    "AQI Stations" : feature_group_55bb8a90ddf3395d39262f8eb30ec760,
+                    "Traffic Monitoring" : feature_group_74631e116a7d649c23515827de091d42,
+                    "Weather Stations" : feature_group_4265ae68636986cac14a134ed81ded66,
+                },
+            };
+            let layer_control_2502f9e33f374b731c3aba0328251c07 = L.control.layers(
+                layer_control_2502f9e33f374b731c3aba0328251c07_layers.base_layers,
+                layer_control_2502f9e33f374b731c3aba0328251c07_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": false,
+  "autoZIndex": true,
+}
+            ).addTo(map_7742a5f3a256d32311ab544926dece2c);
+
+        
+</script>
+</html>

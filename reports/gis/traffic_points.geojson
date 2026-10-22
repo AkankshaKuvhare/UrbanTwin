@@ -1,0 +1,1051 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.8475,
+          18.5285
+        ]
+      },
+      "properties": {
+        "point_id": "PT_001_SHV",
+        "name": "JM Road (Deccan Corner to Sancheti)",
+        "nearest_station": "11613",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 41.0,
+        "free_flow_speed": 41.0,
+        "current_travel_time": 1488.0,
+        "free_flow_travel_time": 1488.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC2",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.8415,
+          18.525
+        ]
+      },
+      "properties": {
+        "point_id": "PT_002_SHV",
+        "name": "FC Road (Goodluck Chowk)",
+        "nearest_station": "11613",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 24.0,
+        "free_flow_speed": 24.0,
+        "current_travel_time": 336.0,
+        "free_flow_travel_time": 336.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC2",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.841,
+          18.534
+        ]
+      },
+      "properties": {
+        "point_id": "PT_003_SHV",
+        "name": "University Road (Shivajinagar Station)",
+        "nearest_station": "11613",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 40.0,
+        "free_flow_speed": 40.0,
+        "current_travel_time": 1523.0,
+        "free_flow_travel_time": 1523.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC2",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.848,
+          18.5365
+        ]
+      },
+      "properties": {
+        "point_id": "PT_004_SHV",
+        "name": "Old Mumbai-Pune Highway (Wakdewadi)",
+        "nearest_station": "11613",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 32.0,
+        "free_flow_speed": 38.0,
+        "current_travel_time": 601.0,
+        "free_flow_travel_time": 506.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC1",
+        "source": "tomtom",
+        "congestion_ratio": 0.1578947368421053,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.851,
+          18.531
+        ]
+      },
+      "properties": {
+        "point_id": "PT_005_SHV",
+        "name": "Sancheti Chowk Arterial",
+        "nearest_station": "11613",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 29.0,
+        "free_flow_speed": 29.0,
+        "current_travel_time": 69.0,
+        "free_flow_travel_time": 69.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC2",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.844,
+          18.5325
+        ]
+      },
+      "properties": {
+        "point_id": "PT_006_SHV",
+        "name": "Shimla Office Chowk",
+        "nearest_station": "11613",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 30.0,
+        "free_flow_speed": 30.0,
+        "current_travel_time": 54.0,
+        "free_flow_travel_time": 54.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC2",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.844,
+          18.527
+        ]
+      },
+      "properties": {
+        "point_id": "PT_007_SHV",
+        "name": "Modern College Road",
+        "nearest_station": "11613",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 16.0,
+        "free_flow_speed": 21.0,
+        "current_travel_time": 458.0,
+        "free_flow_travel_time": 348.0,
+        "confidence": 0.918306,
+        "road_closure": false,
+        "frc": "FRC4",
+        "source": "tomtom",
+        "congestion_ratio": 0.23809523809523814,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.856,
+          18.529
+        ]
+      },
+      "properties": {
+        "point_id": "PT_008_SHV",
+        "name": "COEP Flyover Junction",
+        "nearest_station": "11613",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 24.0,
+        "free_flow_speed": 24.0,
+        "current_travel_time": 167.0,
+        "free_flow_travel_time": 167.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC3",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.8245,
+          18.551
+        ]
+      },
+      "properties": {
+        "point_id": "PT_009_SPPU",
+        "name": "Ganeshkhind Road (SPPU Main Gate)",
+        "nearest_station": "3409439",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 40.0,
+        "free_flow_speed": 40.0,
+        "current_travel_time": 1523.0,
+        "free_flow_travel_time": 1523.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC2",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.8115,
+          18.5605
+        ]
+      },
+      "properties": {
+        "point_id": "PT_010_SPPU",
+        "name": "Aundh Road (Bremen Chowk)",
+        "nearest_station": "3409439",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 25.0,
+        "free_flow_speed": 25.0,
+        "current_travel_time": 273.0,
+        "free_flow_travel_time": 273.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC4",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.818,
+          18.5535
+        ]
+      },
+      "properties": {
+        "point_id": "PT_011_SPPU",
+        "name": "Baner Road (SPPU Junction)",
+        "nearest_station": "3409439",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 41.0,
+        "free_flow_speed": 41.0,
+        "current_travel_time": 1488.0,
+        "free_flow_travel_time": 1488.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC2",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.812,
+          18.544
+        ]
+      },
+      "properties": {
+        "point_id": "PT_012_SPPU",
+        "name": "Pashan Road (Abhimanshree Society)",
+        "nearest_station": "3409439",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 33.0,
+        "free_flow_speed": 33.0,
+        "current_travel_time": 869.0,
+        "free_flow_travel_time": 869.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC3",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.83,
+          18.537
+        ]
+      },
+      "properties": {
+        "point_id": "PT_013_SPPU",
+        "name": "Senapati Bapat Road (ICC Towers)",
+        "nearest_station": "3409439",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 29.0,
+        "free_flow_speed": 29.0,
+        "current_travel_time": 302.0,
+        "free_flow_travel_time": 302.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC2",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.8275,
+          18.548
+        ]
+      },
+      "properties": {
+        "point_id": "PT_014_SPPU",
+        "name": "University Circle Chowk",
+        "nearest_station": "3409439",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 40.0,
+        "free_flow_speed": 40.0,
+        "current_travel_time": 1523.0,
+        "free_flow_travel_time": 1523.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC2",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.804,
+          18.562
+        ]
+      },
+      "properties": {
+        "point_id": "PT_015_SPPU",
+        "name": "Aundh-Baner Link Road",
+        "nearest_station": "3409439",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 23.0,
+        "free_flow_speed": 23.0,
+        "current_travel_time": 70.0,
+        "free_flow_travel_time": 70.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC4",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.838,
+          18.5445
+        ]
+      },
+      "properties": {
+        "point_id": "PT_016_SPPU",
+        "name": "Range Hills Road (Khadki link)",
+        "nearest_station": "3409439",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 40.0,
+        "free_flow_speed": 40.0,
+        "current_travel_time": 1523.0,
+        "free_flow_travel_time": 1523.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC2",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.831,
+          18.506
+        ]
+      },
+      "properties": {
+        "point_id": "PT_017_KRV",
+        "name": "Karve Road (Nal Stop Chowk Flyover)",
+        "nearest_station": "5661",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 20.0,
+        "free_flow_speed": 20.0,
+        "current_travel_time": 90.0,
+        "free_flow_travel_time": 90.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC4",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.818,
+          18.5015
+        ]
+      },
+      "properties": {
+        "point_id": "PT_018_KRV",
+        "name": "Karve Road (Kothrud Bus Stand)",
+        "nearest_station": "5661",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 30.0,
+        "free_flow_speed": 30.0,
+        "current_travel_time": 760.0,
+        "free_flow_travel_time": 760.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC2",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.824,
+          18.509
+        ]
+      },
+      "properties": {
+        "point_id": "PT_019_KRV",
+        "name": "Paud Road (Paud Phata Flyover)",
+        "nearest_station": "5661",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 29.0,
+        "free_flow_speed": 29.0,
+        "current_travel_time": 598.0,
+        "free_flow_travel_time": 598.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC3",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.8305,
+          18.5135
+        ]
+      },
+      "properties": {
+        "point_id": "PT_020_KRV",
+        "name": "Law College Road (FTII Junction)",
+        "nearest_station": "5661",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 28.0,
+        "free_flow_speed": 28.0,
+        "current_travel_time": 66.0,
+        "free_flow_travel_time": 66.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC4",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.84,
+          18.5165
+        ]
+      },
+      "properties": {
+        "point_id": "PT_021_KRV",
+        "name": "Deccan Gymkhana (Garware Bridge)",
+        "nearest_station": "5661",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 26.0,
+        "free_flow_speed": 26.0,
+        "current_travel_time": 167.0,
+        "free_flow_travel_time": 167.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC3",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.814,
+          18.4975
+        ]
+      },
+      "properties": {
+        "point_id": "PT_022_KRV",
+        "name": "Karve Statue Chowk",
+        "nearest_station": "5661",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 30.0,
+        "free_flow_speed": 30.0,
+        "current_travel_time": 760.0,
+        "free_flow_travel_time": 760.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC2",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.822,
+          18.498
+        ]
+      },
+      "properties": {
+        "point_id": "PT_023_KRV",
+        "name": "DP Road (Kothrud)",
+        "nearest_station": "5661",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 21.0,
+        "free_flow_speed": 21.0,
+        "current_travel_time": 193.0,
+        "free_flow_travel_time": 193.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC4",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.811,
+          18.5035
+        ]
+      },
+      "properties": {
+        "point_id": "PT_024_KRV",
+        "name": "Mayur Colony Road",
+        "nearest_station": "5661",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 23.0,
+        "free_flow_speed": 23.0,
+        "current_travel_time": 204.0,
+        "free_flow_travel_time": 204.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC4",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.857,
+          18.452
+        ]
+      },
+      "properties": {
+        "point_id": "PT_025_KTJ",
+        "name": "Satara Road (Katraj Chowk)",
+        "nearest_station": "3409438",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 32.0,
+        "free_flow_speed": 32.0,
+        "current_travel_time": 645.0,
+        "free_flow_travel_time": 645.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC1",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.869,
+          18.456
+        ]
+      },
+      "properties": {
+        "point_id": "PT_026_KTJ",
+        "name": "Katraj-Kondhwa Road Arterial",
+        "nearest_station": "3409438",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 23.0,
+        "free_flow_speed": 23.0,
+        "current_travel_time": 332.0,
+        "free_flow_travel_time": 332.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC2",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.849,
+          18.448
+        ]
+      },
+      "properties": {
+        "point_id": "PT_027_KTJ",
+        "name": "Katraj-Dehu Road Bypass (NH 48)",
+        "nearest_station": "3409438",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 22.0,
+        "free_flow_speed": 22.0,
+        "current_travel_time": 675.0,
+        "free_flow_travel_time": 675.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC4",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.856,
+          18.472
+        ]
+      },
+      "properties": {
+        "point_id": "PT_028_KTJ",
+        "name": "Satara Road (Padmavati Chowk)",
+        "nearest_station": "3409438",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 26.0,
+        "free_flow_speed": 26.0,
+        "current_travel_time": 179.0,
+        "free_flow_travel_time": 179.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC4",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.855,
+          18.479
+        ]
+      },
+      "properties": {
+        "point_id": "PT_029_KTJ",
+        "name": "Satara Road (Bibwewadi Junction)",
+        "nearest_station": "3409438",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 32.0,
+        "free_flow_speed": 32.0,
+        "current_travel_time": 645.0,
+        "free_flow_travel_time": 645.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC1",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.841,
+          18.454
+        ]
+      },
+      "properties": {
+        "point_id": "PT_030_KTJ",
+        "name": "Ambegaon Budruk Link Road",
+        "nearest_station": "3409438",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 40.0,
+        "free_flow_speed": 40.0,
+        "current_travel_time": 318.0,
+        "free_flow_travel_time": 318.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC1",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.852,
+          18.458
+        ]
+      },
+      "properties": {
+        "point_id": "PT_031_KTJ",
+        "name": "Bharati Vidyapeeth Gate Arterial",
+        "nearest_station": "3409438",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 28.0,
+        "free_flow_speed": 28.0,
+        "current_travel_time": 765.0,
+        "free_flow_travel_time": 765.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC2",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.861,
+          18.439
+        ]
+      },
+      "properties": {
+        "point_id": "PT_032_KTJ",
+        "name": "Katraj Ghat Old Road",
+        "nearest_station": "3409438",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 35.0,
+        "free_flow_speed": 35.0,
+        "current_travel_time": 960.0,
+        "free_flow_travel_time": 960.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC3",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.761,
+          18.597
+        ]
+      },
+      "properties": {
+        "point_id": "PT_033_WKD",
+        "name": "Wakad-Hinjawadi Flyover Arterial",
+        "nearest_station": "3409436",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 23.0,
+        "free_flow_speed": 23.0,
+        "current_travel_time": 391.0,
+        "free_flow_travel_time": 391.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC4",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.778,
+          18.611
+        ]
+      },
+      "properties": {
+        "point_id": "PT_034_WKD",
+        "name": "Dange Chowk (Thergaon-Wakad Junction)",
+        "nearest_station": "3409436",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 21.0,
+        "free_flow_speed": 21.0,
+        "current_travel_time": 499.0,
+        "free_flow_travel_time": 499.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC4",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.784,
+          18.604
+        ]
+      },
+      "properties": {
+        "point_id": "PT_035_WKD",
+        "name": "Kalewadi Phata (Wakad Road)",
+        "nearest_station": "3409436",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 24.0,
+        "free_flow_speed": 24.0,
+        "current_travel_time": 673.0,
+        "free_flow_travel_time": 673.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC4",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.7505,
+          18.5995
+        ]
+      },
+      "properties": {
+        "point_id": "PT_036_WKD",
+        "name": "Bhumkar Chowk (Wakad Bypass)",
+        "nearest_station": "3409436",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 29.0,
+        "free_flow_speed": 29.0,
+        "current_travel_time": 2130.0,
+        "free_flow_travel_time": 2130.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC3",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.768,
+          18.603
+        ]
+      },
+      "properties": {
+        "point_id": "PT_037_WKD",
+        "name": "Datta Mandir Road (Wakad)",
+        "nearest_station": "3409436",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 22.0,
+        "free_flow_speed": 22.0,
+        "current_travel_time": 97.0,
+        "free_flow_travel_time": 97.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC4",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.738,
+          18.591
+        ]
+      },
+      "properties": {
+        "point_id": "PT_038_WKD",
+        "name": "Hinjawadi Phase 1 Shivaji Chowk Connector",
+        "nearest_station": "3409436",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 30.0,
+        "free_flow_speed": 30.0,
+        "current_travel_time": 1835.0,
+        "free_flow_travel_time": 1835.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC2",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.769,
+          18.583
+        ]
+      },
+      "properties": {
+        "point_id": "PT_039_WKD",
+        "name": "Wakad-Bavdhan Expressway Connector",
+        "nearest_station": "3409436",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 30.0,
+        "free_flow_speed": 30.0,
+        "current_travel_time": 1835.0,
+        "free_flow_travel_time": 1835.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC2",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.774,
+          18.596
+        ]
+      },
+      "properties": {
+        "point_id": "PT_040_WKD",
+        "name": "Kaspate Vasti Road (Wakad)",
+        "nearest_station": "3409436",
+        "timestamp": "2026-10-21 17:27:52.170132+00:00",
+        "current_speed": 23.0,
+        "free_flow_speed": 23.0,
+        "current_travel_time": 337.0,
+        "free_flow_travel_time": 337.0,
+        "confidence": 1.0,
+        "road_closure": false,
+        "frc": "FRC4",
+        "source": "tomtom",
+        "congestion_ratio": 0.0,
+        "has_data": true
+      }
+    }
+  ],
+  "metadata": {
+    "source": "UrbanTwin",
+    "layer": "traffic_points",
+    "count": 40,
+    "has_data": true
+  }
+}

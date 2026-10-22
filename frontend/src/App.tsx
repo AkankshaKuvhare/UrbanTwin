@@ -2,14 +2,16 @@ import React from 'react';
 import { AppProvider, useApp } from './context/AppContext';
 import { Shell } from './components/layout/Shell';
 import { OverviewPage } from './pages/OverviewPage';
-import { SpatialExplorerPage } from './pages/SpatialExplorerPage';
 import { AirQualityPage } from './pages/AirQualityPage';
 import { WeatherAnalyticsPage } from './pages/WeatherAnalyticsPage';
 import { TrafficAnalyticsPage } from './pages/TrafficAnalyticsPage';
-import { ParameterAnalysisPage } from './pages/ParameterAnalysisPage';
+import { FusionExplorerPage } from './pages/FusionExplorerPage';
+import { RelationshipAnalyticsPage } from './pages/RelationshipAnalyticsPage';
 import { ForecastingLabPage } from './pages/ForecastingLabPage';
-import { ResearchCausalityPage } from './pages/ResearchCausalityPage';
-import { DataQualitySourcesPage } from './pages/DataQualitySourcesPage';
+import { GISDigitalTwinPage } from './pages/GISDigitalTwinPage';
+import { DataQualityPage } from './pages/DataQualityPage';
+import { ReportsPage } from './pages/ReportsPage';
+import { SystemMonitorPage } from './pages/SystemMonitorPage';
 import { SettingsPage } from './pages/SettingsPage';
 
 const AppContent: React.FC = () => {
@@ -19,22 +21,26 @@ const AppContent: React.FC = () => {
     switch (activePage) {
       case 'overview':
         return <OverviewPage />;
-      case 'spatial':
-        return <SpatialExplorerPage />;
       case 'air-quality':
         return <AirQualityPage />;
       case 'weather':
         return <WeatherAnalyticsPage />;
       case 'traffic':
         return <TrafficAnalyticsPage />;
-      case 'parameter':
-        return <ParameterAnalysisPage />;
+      case 'fusion':
+        return <FusionExplorerPage />;
+      case 'relationships':
+        return <RelationshipAnalyticsPage />;
       case 'forecasting':
         return <ForecastingLabPage />;
-      case 'research':
-        return <ResearchCausalityPage />;
+      case 'gis':
+        return <GISDigitalTwinPage />;
       case 'data-quality':
-        return <DataQualitySourcesPage />;
+        return <DataQualityPage />;
+      case 'reports':
+        return <ReportsPage />;
+      case 'system-monitor':
+        return <SystemMonitorPage />;
       case 'settings':
         return <SettingsPage />;
       default:

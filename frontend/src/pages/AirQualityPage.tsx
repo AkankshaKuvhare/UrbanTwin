@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { PUNE_PCMC_STATIONS } from '../data/stations';
 import { DAILY_AQI_30_DAYS, LATEST_STATION_READINGS } from '../data/mockRealAQI';
 import { AQIBadge } from '../components/common/StatusBadge';
-import { SectionHeader } from '../components/common/SectionHeader';
-import { AlertTriangle } from 'lucide-react';
+import { ModuleHeader } from '../components/common/ModuleHeader';
+import { AlertTriangle, Download } from 'lucide-react';
 import {
   LineChart,
   Line,
@@ -25,16 +25,15 @@ const POLLUTANT_CONFIGS: Record<
   PollutantKey,
   { name: string; unit: string; standard24h: number; standardLabel: string; color: string; description: string }
 > = {
-  aqi: { name: 'Air Quality Index', unit: 'Sub-Index', standard24h: 100, standardLabel: 'Satisfactory Max (100)', color: '#0d9488', description: 'Composite sub-index based on maximum standardized pollutant value.' },
+  aqi: { name: 'Air Quality Index', unit: 'Sub-Index', standard24h: 100, standardLabel: 'Satisfactory Max (100)', color: '#3b82f6', description: 'Composite sub-index based on maximum standardized pollutant value.' },
   pm25: { name: 'PM2.5 (Fine Inhalable)', unit: 'µg/m³', standard24h: 60, standardLabel: 'CPCB 24h Standard (60 µg/m³)', color: '#ef4444', description: 'Fine particulate matter ≤ 2.5 µm that penetrates thoracic alveolar region.' },
-  pm10: { name: 'PM10 (Coarse Inhalable)', unit: 'µg/m³', standard24h: 100, standardLabel: 'CPCB 24h Standard (100 µg/m³)', color: '#8b5cf6', description: 'Coarse particulate matter ≤ 10 µm from road abrasion, re-suspension and construction.' },
+  pm10: { name: 'PM10 (Coarse Inhalable)', unit: 'µg/m³', standard24h: 100, standardLabel: 'CPCB 24h Standard (100 µg/m³)', color: '#a855f7', description: 'Coarse particulate matter ≤ 10 µm from road abrasion, re-suspension and construction.' },
   no2: { name: 'Nitrogen Dioxide (NO2)', unit: 'µg/m³', standard24h: 80, standardLabel: 'CPCB 24h Standard (80 µg/m³)', color: '#f97316', description: 'Key primary marker for vehicular diesel and gasoline internal combustion emissions.' },
-  co: { name: 'Carbon Monoxide (CO)', unit: 'mg/m³', standard24h: 2.0, standardLabel: 'CPCB 8h Standard (2.0 mg/m³)', color: '#3b82f6', description: 'Emitted directly from incomplete hydrocarbon fuel combustion in idling vehicles.' },
+  co: { name: 'Carbon Monoxide (CO)', unit: 'mg/m³', standard24h: 2.0, standardLabel: 'CPCB 8h Standard (2.0 mg/m³)', color: '#06b6d4', description: 'Emitted directly from incomplete hydrocarbon fuel combustion in idling vehicles.' },
   so2: { name: 'Sulfur Dioxide (SO2)', unit: 'µg/m³', standard24h: 80, standardLabel: 'CPCB 24h Standard (80 µg/m³)', color: '#10b981', description: 'Industrial boiler fuel and heavy diesel fuel combustion emissions marker.' },
   o3: { name: 'Ozone (O3 Photochemical)', unit: 'µg/m³', standard24h: 100, standardLabel: 'CPCB 8h Standard (100 µg/m³)', color: '#f59e0b', description: 'Secondary pollutant produced via solar radiation reacting with NOx and VOCs.' },
 };
 
-// NAQI distribution over the 30-day monitoring window (N = 30 days)
 const NAQI_DISTRIBUTION = [
   { name: 'Good (0-50)', count: 0, percentage: 0, color: '#10b981' },
   { name: 'Satisfactory (51-100)', count: 4, percentage: 13.3, color: '#84cc16' },
@@ -44,6 +43,14 @@ const NAQI_DISTRIBUTION = [
   { name: 'Severe (401-500)', count: 0, percentage: 0, color: '#7f1d1d' },
 ];
 
+const DARK_TOOLTIP = {
+  backgroundColor: '#0f172a',
+  borderRadius: '8px',
+  borderColor: '#334155',
+  fontSize: '12px',
+  color: '#e2e8f0',
+};
+
 export const AirQualityPage: React.FC = () => {
   const [activePollutant, setActivePollutant] = useState<PollutantKey>('pm25');
   const [selectedStation, setSelectedStation] = useState<string>('all');
@@ -51,29 +58,53 @@ export const AirQualityPage: React.FC = () => {
 
   const currentCfg = POLLUTANT_CONFIGS[activePollutant];
 
-  // Calculate percentage exceeding custom threshold
   const exceedingDays = DAILY_AQI_30_DAYS.filter((d) => {
     const val = activePollutant === 'aqi' ? d.combined_AQI : d[activePollutant as keyof typeof d];
     return typeof val === 'number' && val > thresholdInput;
   }).length;
   const exceedancePct = ((exceedingDays / DAILY_AQI_30_DAYS.length) * 100).toFixed(1);
 
+  const handleDownloadDataset = () => {
+    const headers = ['date', 'combined_AQI', 'pm25', 'pm10', 'no2', 'co', 'so2', 'o3'];
+    const csvContent = [
+      headers.join(','),
+      ...DAILY_AQI_30_DAYS.map((r) =>
+        [r.date, r.combined_AQI, r.pm25, r.pm10, r.no2, r.co, r.so2, r.o3].join(',')
+      ),
+    ].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', `urbantwin_aqi_${activePollutant}_30days.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="space-y-6">
-      {/* Page Header */}
-      <SectionHeader
+      <ModuleHeader
         title="Air Quality Dynamics & Pollutant Profiles"
         subtitle="Comprehensive atmospheric telemetry from 5 continuous monitoring stations across Pune and PCMC."
         tag="CPCB NAQI Standards"
+        what="Monitors real-time and historical air quality indices and criteria pollutant concentrations across 5 continuous monitoring stations in Pune and PCMC."
+        data="PM2.5, PM10, NO2, CO, SO2, O3 from CPCB/OpenAQ stations. Consolidated hourly and daily records."
+        outputs="Historical pollutant trends, NAQI category distribution, station cross-comparison table, exceedance calculations."
+        interactions="Filter by pollutant (AQI, PM2.5, PM10, NO2, CO, SO2, O3), select station, adjust exceedance threshold, download dataset."
         actions={
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-slate-500 font-mono">Sample: N = 720 Hours</span>
-          </div>
+          <button
+            onClick={handleDownloadDataset}
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition"
+          >
+            <Download className="w-3.5 h-3.5 text-blue-400" />
+            <span>Download AQI CSV</span>
+          </button>
         }
       />
 
       {/* Control Bar: Pollutant Selector + Station Filter + Custom Threshold */}
-      <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-4 space-y-3">
+      <div className="bg-slate-900 rounded-xl border border-slate-800 p-4 space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-3">
           {/* Pollutant Tabs */}
           <div className="flex flex-wrap items-center gap-1.5">
@@ -89,8 +120,8 @@ export const AirQualityPage: React.FC = () => {
                   }}
                   className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                     isActive
-                      ? 'bg-slate-900 text-white shadow-sm'
-                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                      ? 'bg-blue-600 text-white shadow-sm'
+                      : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
                   }`}
                 >
                   <span>{key.toUpperCase()}</span>
@@ -102,11 +133,11 @@ export const AirQualityPage: React.FC = () => {
 
           {/* Station Filter Dropdown */}
           <div className="flex items-center gap-2 text-xs">
-            <span className="text-slate-500 font-medium">Monitoring Station:</span>
+            <span className="text-slate-400 font-medium">Monitoring Station:</span>
             <select
               value={selectedStation}
               onChange={(e) => setSelectedStation(e.target.value)}
-              className="py-1.5 px-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs font-semibold text-slate-700 focus:outline-none focus:ring-1 focus:ring-teal-500"
+              className="py-1.5 px-2.5 bg-slate-800 border border-slate-700 rounded-lg text-xs font-semibold text-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-500"
             >
               <option value="all">All Stations Average (Pune Metro)</option>
               {PUNE_PCMC_STATIONS.map((st) => (
@@ -119,11 +150,11 @@ export const AirQualityPage: React.FC = () => {
         </div>
 
         {/* Selected Parameter Context Note */}
-        <div className="pt-2 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-slate-500">
+        <div className="pt-2 border-t border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-slate-400">
           <p className="leading-relaxed">
-            <strong className="text-slate-800">{currentCfg.name}</strong>: {currentCfg.description}
+            <strong className="text-white">{currentCfg.name}</strong>: {currentCfg.description}
           </p>
-          <span className="font-mono text-teal-700 font-semibold whitespace-nowrap bg-teal-50 px-2 py-0.5 rounded border border-teal-200">
+          <span className="font-mono text-blue-400 font-semibold whitespace-nowrap bg-blue-900/40 px-2 py-0.5 rounded border border-blue-800">
             Unit: {currentCfg.unit}
           </span>
         </div>
@@ -132,25 +163,25 @@ export const AirQualityPage: React.FC = () => {
       {/* Main Charts Grid: 30-Day Time-Series + Station Inter-comparison */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Time-Series with Threshold Line (8 Cols) */}
-        <div className="lg:col-span-8 bg-white rounded-xl border border-slate-200 shadow-sm p-5 space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-slate-100">
+        <div className="lg:col-span-8 bg-slate-900 rounded-xl border border-slate-800 p-5 space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-slate-800">
             <div>
-              <h3 className="text-base font-bold text-slate-900 tracking-tight">
+              <h3 className="text-base font-bold text-white tracking-tight">
                 30-Day Historical Trend: {currentCfg.name}
               </h3>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-400">
                 Preserving original source units ({currentCfg.unit}). Reference line marks CPCB standard threshold.
               </p>
             </div>
 
             {/* Configurable Threshold Input */}
-            <div className="flex items-center gap-1.5 text-xs bg-slate-50 px-2.5 py-1 rounded-lg border border-slate-200">
-              <span className="text-slate-500">Exceedance Threshold:</span>
+            <div className="flex items-center gap-1.5 text-xs bg-slate-800 px-2.5 py-1 rounded-lg border border-slate-700">
+              <span className="text-slate-400">Exceedance Threshold:</span>
               <input
                 type="number"
                 value={thresholdInput}
                 onChange={(e) => setThresholdInput(Number(e.target.value))}
-                className="w-14 px-1.5 py-0.5 text-xs font-mono font-bold text-right border border-slate-300 rounded bg-white"
+                className="w-14 px-1.5 py-0.5 text-xs font-mono font-bold text-right border border-slate-600 rounded bg-slate-900 text-white"
               />
               <span className="text-slate-400 font-mono">{currentCfg.unit}</span>
             </div>
@@ -159,18 +190,11 @@ export const AirQualityPage: React.FC = () => {
           <div className="h-72 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={DAILY_AQI_30_DAYS}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                <XAxis dataKey="date" stroke="#94a3b8" fontSize={11} tickMargin={8} />
-                <YAxis stroke="#94a3b8" fontSize={11} unit={` ${currentCfg.unit}`} tickMargin={8} />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: '#ffffff',
-                    borderRadius: '8px',
-                    borderColor: '#e2e8f0',
-                    fontSize: '12px',
-                  }}
-                />
-                <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '8px' }} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+                <XAxis dataKey="date" stroke="#64748b" fontSize={11} tickMargin={8} />
+                <YAxis stroke="#64748b" fontSize={11} unit={` ${currentCfg.unit}`} tickMargin={8} />
+                <Tooltip contentStyle={DARK_TOOLTIP} />
+                <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '8px', color: '#94a3b8' }} />
                 <ReferenceLine
                   y={thresholdInput}
                   stroke="#ef4444"
@@ -195,29 +219,29 @@ export const AirQualityPage: React.FC = () => {
           </div>
 
           {/* Exceedance Summary Pill */}
-          <div className="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between text-xs text-slate-600 gap-2">
+          <div className="pt-2 border-t border-slate-800 flex flex-wrap items-center justify-between text-xs text-slate-300 gap-2">
             <span className="flex items-center gap-1.5">
-              <AlertTriangle className="w-3.5 h-3.5 text-amber-600" />
+              <AlertTriangle className="w-3.5 h-3.5 text-amber-500" />
               <span>
-                Observations Exceeding <strong>{thresholdInput} {currentCfg.unit}</strong>:
+                Observations Exceeding <strong className="text-white">{thresholdInput} {currentCfg.unit}</strong>:
               </span>
-              <strong className="text-amber-800 font-mono">
+              <strong className="text-amber-400 font-mono">
                 {exceedingDays} / 30 Days ({exceedancePct}%)
               </strong>
             </span>
-            <span className="text-slate-400 font-mono text-[11px]">
+            <span className="text-slate-500 font-mono text-[11px]">
               Missingness: 0 null records in consolidated series
             </span>
           </div>
         </div>
 
         {/* NAQI Category Distribution (4 Cols) */}
-        <div className="lg:col-span-4 bg-white rounded-xl border border-slate-200 shadow-sm p-5 flex flex-col justify-between">
+        <div className="lg:col-span-4 bg-slate-900 rounded-xl border border-slate-800 p-5 flex flex-col justify-between">
           <div>
-            <h3 className="text-base font-bold text-slate-900 tracking-tight mb-1">
+            <h3 className="text-base font-bold text-white tracking-tight mb-1">
               NAQI Category Distribution
             </h3>
-            <p className="text-xs text-slate-500 mb-4">
+            <p className="text-xs text-slate-400 mb-4">
               Breakdown of days by national air quality category over the past 30 days.
             </p>
 
@@ -238,26 +262,19 @@ export const AirQualityPage: React.FC = () => {
                       <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Pie>
-                  <Tooltip
-                    contentStyle={{
-                      backgroundColor: '#ffffff',
-                      borderRadius: '8px',
-                      borderColor: '#e2e8f0',
-                      fontSize: '12px',
-                    }}
-                  />
+                  <Tooltip contentStyle={DARK_TOOLTIP} />
                 </PieChart>
               </ResponsiveContainer>
             </div>
 
             <div className="space-y-1.5 mt-2">
               {NAQI_DISTRIBUTION.map((cat, idx) => (
-                <div key={idx} className="flex items-center justify-between text-xs py-1 border-b border-slate-50 last:border-0">
+                <div key={idx} className="flex items-center justify-between text-xs py-1 border-b border-slate-800 last:border-0">
                   <div className="flex items-center gap-2">
                     <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: cat.color }} />
-                    <span className="text-slate-700">{cat.name}</span>
+                    <span className="text-slate-300">{cat.name}</span>
                   </div>
-                  <span className="font-mono font-semibold text-slate-900">
+                  <span className="font-mono font-semibold text-white">
                     {cat.count} days ({cat.percentage}%)
                   </span>
                 </div>
@@ -265,24 +282,24 @@ export const AirQualityPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="mt-3 pt-2 border-t border-slate-100 text-[11px] text-slate-400">
+          <div className="mt-3 pt-2 border-t border-slate-800 text-[11px] text-slate-500">
             Source: CPCB National Ambient Air Quality Standards (NAAQS), Gazette of India.
           </div>
         </div>
       </div>
 
-      {/* Station Comparison Matrix & Missing Data Inventory */}
-      <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5 space-y-4">
+      {/* Station Comparison Matrix */}
+      <div className="bg-slate-900 rounded-xl border border-slate-800 p-5 space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-base font-bold text-slate-900 tracking-tight">
+            <h3 className="text-base font-bold text-white tracking-tight">
               Verified Station In-Situ Measurements (Current Synchronized Window)
             </h3>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-slate-400">
               Station-specific observations directly received from OpenAQ continuous monitors. Missing channels are preserved as null.
             </p>
           </div>
-          <span className="text-xs font-mono font-semibold text-teal-700 bg-teal-50 px-2.5 py-1 rounded-md border border-teal-200">
+          <span className="text-xs font-mono font-semibold text-blue-400 bg-blue-900/40 px-2.5 py-1 rounded-md border border-blue-800">
             5 Verified Stations
           </span>
         </div>
@@ -290,7 +307,7 @@ export const AirQualityPage: React.FC = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-xs text-left border-collapse">
             <thead>
-              <tr className="border-b border-slate-200 bg-slate-50 text-slate-600 font-semibold uppercase tracking-wider text-[11px]">
+              <tr className="border-b border-slate-800 bg-slate-800/60 text-slate-400 font-semibold uppercase tracking-wider text-[11px]">
                 <th className="py-2.5 px-3">Station Name & Area</th>
                 <th className="py-2.5 px-3">Operator</th>
                 <th className="py-2.5 px-3 font-mono">PM2.5 (µg/m³)</th>
@@ -302,36 +319,36 @@ export const AirQualityPage: React.FC = () => {
                 <th className="py-2.5 px-3">Completeness</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 font-mono">
+            <tbody className="divide-y divide-slate-800 font-mono">
               {PUNE_PCMC_STATIONS.map((station) => {
                 const reading = LATEST_STATION_READINGS[station.id];
                 const aqi = reading?.aqi;
                 return (
-                  <tr key={station.id} className="hover:bg-slate-50/80 transition-colors">
-                    <td className="py-2.5 px-3 font-sans font-medium text-slate-900">
+                  <tr key={station.id} className="hover:bg-slate-800/40 transition-colors">
+                    <td className="py-2.5 px-3 font-sans font-medium text-white">
                       <div>{station.name}</div>
-                      <span className="text-[10px] text-slate-400 uppercase font-sans">{station.stationType}</span>
+                      <span className="text-[10px] text-slate-500 uppercase font-sans">{station.stationType}</span>
                     </td>
-                    <td className="py-2.5 px-3 font-sans text-slate-600">{station.operator}</td>
-                    <td className="py-2.5 px-3 font-semibold text-slate-900">
-                      {reading?.pm25 !== null ? reading?.pm25 : <span className="text-slate-400 font-normal">NULL</span>}
+                    <td className="py-2.5 px-3 font-sans text-slate-400">{station.operator}</td>
+                    <td className="py-2.5 px-3 font-semibold text-white">
+                      {reading?.pm25 !== null ? reading?.pm25 : <span className="text-slate-500 font-normal">NULL</span>}
                     </td>
-                    <td className="py-2.5 px-3 font-semibold text-slate-900">
-                      {reading?.pm10 !== null ? reading?.pm10 : <span className="text-amber-600 font-normal text-[10px]">NULL (Offline)</span>}
+                    <td className="py-2.5 px-3 font-semibold text-white">
+                      {reading?.pm10 !== null ? reading?.pm10 : <span className="text-amber-400 font-normal text-[10px]">NULL (Offline)</span>}
                     </td>
-                    <td className="py-2.5 px-3 font-semibold text-slate-900">
-                      {reading?.no2 !== null ? reading?.no2 : <span className="text-slate-400 font-normal">NULL</span>}
+                    <td className="py-2.5 px-3 font-semibold text-white">
+                      {reading?.no2 !== null ? reading?.no2 : <span className="text-slate-500 font-normal">NULL</span>}
                     </td>
-                    <td className="py-2.5 px-3 font-semibold text-slate-900">
-                      {reading?.co !== null ? reading?.co : <span className="text-slate-400 font-normal">NULL</span>}
+                    <td className="py-2.5 px-3 font-semibold text-white">
+                      {reading?.co !== null ? reading?.co : <span className="text-slate-500 font-normal">NULL</span>}
                     </td>
-                    <td className="py-2.5 px-3 font-semibold text-slate-900">
-                      {reading?.so2 !== null ? reading?.so2 : <span className="text-slate-400 font-normal text-[10px]">Not Measured</span>}
+                    <td className="py-2.5 px-3 font-semibold text-white">
+                      {reading?.so2 !== null ? reading?.so2 : <span className="text-slate-500 font-normal text-[10px]">Not Measured</span>}
                     </td>
                     <td className="py-2.5 px-3 font-sans">
                       <AQIBadge aqiValue={aqi ?? null} size="sm" />
                     </td>
-                    <td className="py-2.5 px-3 font-semibold text-emerald-700">
+                    <td className="py-2.5 px-3 font-semibold text-emerald-400">
                       {station.completenessRate}%
                     </td>
                   </tr>

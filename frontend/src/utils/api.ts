@@ -183,4 +183,62 @@ export const UrbanTwinAPI = {
     if (!res.ok) throw new Error(`Time-series fetch failed: ${res.statusText}`);
     return res.json();
   },
+
+  /** Fetch map metadata and coverage */
+  async getMapMetadata(): Promise<any> {
+    const res = await fetch('/api/v1/map');
+    if (!res.ok) throw new Error(`Map metadata fetch failed: ${res.statusText}`);
+    return res.json();
+  },
+
+  /** Fetch all stations latest readings */
+  async getStations(stationId?: string): Promise<any> {
+    const url = new URL('/api/v1/stations', window.location.origin);
+    if (stationId && stationId !== 'all') url.searchParams.set('station_id', stationId);
+    const res = await fetch(url.toString());
+    if (!res.ok) throw new Error(`Stations fetch failed: ${res.statusText}`);
+    return res.json();
+  },
+
+  /** Fetch H3 zones */
+  async getZones(limit: number = 251, minAqi?: number): Promise<any> {
+    const url = new URL('/api/v1/zones', window.location.origin);
+    url.searchParams.set('limit', limit.toString());
+    if (minAqi !== undefined) url.searchParams.set('min_aqi', minAqi.toString());
+    const res = await fetch(url.toString());
+    if (!res.ok) throw new Error(`Zones fetch failed: ${res.statusText}`);
+    return res.json();
+  },
+
+  /** Fetch detailed health and db status */
+  async getDetailedHealth(): Promise<any> {
+    const res = await fetch('/api/v1/health');
+    if (!res.ok) throw new Error(`Detailed health check failed: ${res.statusText}`);
+    return res.json();
+  },
+
+  /** Fetch simulator preset scenarios */
+  async getSimulatorScenarios(): Promise<any> {
+    const res = await fetch('/api/v1/simulator/scenarios');
+    if (!res.ok) throw new Error(`Simulator scenarios fetch failed: ${res.statusText}`);
+    return res.json();
+  },
+
+  /** Run simulator prediction */
+  async predictSimulator(params: Record<string, any>): Promise<any> {
+    const res = await fetch('/api/v1/simulator/predict', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(params),
+    });
+    if (!res.ok) throw new Error(`Simulator prediction failed: ${res.statusText}`);
+    return res.json();
+  },
+
+  /** Reset simulator */
+  async resetSimulator(): Promise<any> {
+    const res = await fetch('/api/v1/simulator/reset', { method: 'POST' });
+    if (!res.ok) throw new Error(`Simulator reset failed: ${res.statusText}`);
+    return res.json();
+  },
 };

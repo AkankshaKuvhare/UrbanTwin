@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>UrbanTwin – Scenario Simulation Report</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+  body { font-family: 'Inter', sans-serif; background: #020617; color: #e2e8f0; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { border: 1px solid #1e293b; padding: 10px 14px; text-align: left; }
+  th { background: #0f172a; color: #94a3b8; font-size: 11px; text-transform: uppercase; }
+  tr:nth-child(even) { background: #090d16; }
+</style>
+</head>
+<body class="p-8 max-w-6xl mx-auto">
+  <div class="border-b border-slate-800 pb-6 mb-8 flex justify-between items-center">
+    <div>
+      <h1 class="text-3xl font-extrabold text-white">UrbanTwin Scenario Simulator Report</h1>
+      <p class="text-sm text-slate-400 mt-1">Pune & PCMC Digital Twin Policy Intervention & Environmental Sensitivity Analysis</p>
+    </div>
+    <span class="px-3 py-1 bg-blue-500/10 text-blue-400 border border-blue-500/30 rounded text-xs font-semibold">MILESTONE 10</span>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-slate-900 border border-slate-800 rounded-xl p-5">
+      <div class="text-xs uppercase text-slate-500 font-semibold">Total Scenarios Evaluated</div>
+      <div class="text-3xl font-bold text-blue-400 mt-2">8</div>
+    </div>
+    <div class="bg-slate-900 border border-slate-800 rounded-xl p-5">
+      <div class="text-xs uppercase text-slate-500 font-semibold">Max Improvement (AQI drop)</div>
+      <div class="text-3xl font-bold text-emerald-400 mt-2">-30.2 pts</div>
+    </div>
+    <div class="bg-slate-900 border border-slate-800 rounded-xl p-5">
+      <div class="text-xs uppercase text-slate-500 font-semibold">Max Deterioration (AQI rise)</div>
+      <div class="text-3xl font-bold text-rose-400 mt-2">+29.8 pts</div>
+    </div>
+  </div>
+
+  <h2 class="text-xl font-bold text-white mb-4">Simulation Outcomes Summary</h2>
+  <div class="overflow-x-auto bg-slate-900 border border-slate-800 rounded-xl mb-8">
+    <table>
+      <thead>
+        <tr>
+          <th>Scenario</th>
+          <th>Category</th>
+          <th>Predicted AQI</th>
+          <th>Baseline</th>
+          <th>Delta</th>
+          <th>% Change</th>
+          <th>Category</th>
+          <th>Confidence</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="font-semibold text-white">Baseline Normal</td>
+          <td class="text-slate-400 text-xs">Baseline</td>
+          <td class="font-bold" style="color:#84cc16;">89.7</td>
+          <td class="text-slate-400">89.7</td>
+          <td class="font-semibold text-emerald-400">0.0</td>
+          <td class="text-xs text-emerald-400">0.0%</td>
+          <td><span class="px-2 py-0.5 rounded text-xs" style="background:#84cc1620;color:#84cc16;border:1px solid #84cc1640;">Satisfactory</span></td>
+          <td class="text-xs text-slate-300 font-semibold">70.0%</td>
+        </tr><tr>
+          <td class="font-semibold text-white">Traffic Reduction</td>
+          <td class="text-slate-400 text-xs">Traffic Policy</td>
+          <td class="font-bold" style="color:#84cc16;">76.5</td>
+          <td class="text-slate-400">89.7</td>
+          <td class="font-semibold text-emerald-400">-13.2</td>
+          <td class="text-xs text-emerald-400">-14.7%</td>
+          <td><span class="px-2 py-0.5 rounded text-xs" style="background:#84cc1620;color:#84cc16;border:1px solid #84cc1640;">Satisfactory</span></td>
+          <td class="text-xs text-slate-300 font-semibold">70.0%</td>
+        </tr><tr>
+          <td class="font-semibold text-white">Heavy Rain</td>
+          <td class="text-slate-400 text-xs">Environmental</td>
+          <td class="font-bold" style="color:#84cc16;">59.5</td>
+          <td class="text-slate-400">89.7</td>
+          <td class="font-semibold text-emerald-400">-30.2</td>
+          <td class="text-xs text-emerald-400">-33.7%</td>
+          <td><span class="px-2 py-0.5 rounded text-xs" style="background:#84cc1620;color:#84cc16;border:1px solid #84cc1640;">Satisfactory</span></td>
+          <td class="text-xs text-slate-300 font-semibold">70.0%</td>
+        </tr><tr>
+          <td class="font-semibold text-white">Heatwave</td>
+          <td class="text-slate-400 text-xs">Environmental</td>
+          <td class="font-bold" style="color:#84cc16;">83.9</td>
+          <td class="text-slate-400">89.7</td>
+          <td class="font-semibold text-emerald-400">-5.8</td>
+          <td class="text-xs text-emerald-400">-6.5%</td>
+          <td><span class="px-2 py-0.5 rounded text-xs" style="background:#84cc1620;color:#84cc16;border:1px solid #84cc1640;">Satisfactory</span></td>
+          <td class="text-xs text-slate-300 font-semibold">70.0%</td>
+        </tr><tr>
+          <td class="font-semibold text-white">High Congestion</td>
+          <td class="text-slate-400 text-xs">Traffic Scenario</td>
+          <td class="font-bold" style="color:#f59e0b;">119.5</td>
+          <td class="text-slate-400">89.7</td>
+          <td class="font-semibold text-rose-400">+29.8</td>
+          <td class="text-xs text-rose-400">+33.2%</td>
+          <td><span class="px-2 py-0.5 rounded text-xs" style="background:#f59e0b20;color:#f59e0b;border:1px solid #f59e0b40;">Moderate</span></td>
+          <td class="text-xs text-slate-300 font-semibold">70.0%</td>
+        </tr><tr>
+          <td class="font-semibold text-white">Low Congestion</td>
+          <td class="text-slate-400 text-xs">Traffic Scenario</td>
+          <td class="font-bold" style="color:#84cc16;">69.3</td>
+          <td class="text-slate-400">89.7</td>
+          <td class="font-semibold text-emerald-400">-20.4</td>
+          <td class="text-xs text-emerald-400">-22.7%</td>
+          <td><span class="px-2 py-0.5 rounded text-xs" style="background:#84cc1620;color:#84cc16;border:1px solid #84cc1640;">Satisfactory</span></td>
+          <td class="text-xs text-slate-300 font-semibold">70.0%</td>
+        </tr><tr>
+          <td class="font-semibold text-white">Strong Wind</td>
+          <td class="text-slate-400 text-xs">Environmental</td>
+          <td class="font-bold" style="color:#84cc16;">85.8</td>
+          <td class="text-slate-400">89.7</td>
+          <td class="font-semibold text-emerald-400">-3.9</td>
+          <td class="text-xs text-emerald-400">-4.3%</td>
+          <td><span class="px-2 py-0.5 rounded text-xs" style="background:#84cc1620;color:#84cc16;border:1px solid #84cc1640;">Satisfactory</span></td>
+          <td class="text-xs text-slate-300 font-semibold">70.0%</td>
+        </tr><tr>
+          <td class="font-semibold text-white">Custom Scenario</td>
+          <td class="text-slate-400 text-xs">Custom</td>
+          <td class="font-bold" style="color:#84cc16;">89.7</td>
+          <td class="text-slate-400">89.7</td>
+          <td class="font-semibold text-emerald-400">0.0</td>
+          <td class="text-xs text-emerald-400">0.0%</td>
+          <td><span class="px-2 py-0.5 rounded text-xs" style="background:#84cc1620;color:#84cc16;border:1px solid #84cc1640;">Satisfactory</span></td>
+          <td class="text-xs text-slate-300 font-semibold">70.0%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+    <div class="bg-slate-900 border border-slate-800 rounded-xl p-4">
+      <h3 class="font-bold text-slate-200 mb-3 text-sm">Scenario AQI Comparison</h3>
+      <img src="scenario_comparison.png" class="w-full rounded"/>
+    </div>
+    <div class="bg-slate-900 border border-slate-800 rounded-xl p-4">
+      <h3 class="font-bold text-slate-200 mb-3 text-sm">Multi-Pollutant Profiles</h3>
+      <img src="radar_pollutants.png" class="w-full rounded"/>
+    </div>
+  </div>
+</body>
+</html>

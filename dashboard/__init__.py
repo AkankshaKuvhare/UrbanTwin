@@ -27,6 +27,16 @@ from analytics.dashboard import (
     build_relationships_dashboard_html,
     export_relationships_dashboard_html,
 )
+from gis.dashboard import (
+    router as gis_router,
+    build_gis_dashboard_html,
+    export_gis_dashboard_html,
+)
+from simulator.dashboard import (
+    router as simulator_router,
+    build_simulator_dashboard_html,
+    generate_simulation_reports,
+)
 
 __all__ = [
     "DashboardManager",
@@ -35,6 +45,8 @@ __all__ = [
     "forecasting_router",
     "traffic_router",
     "relationships_router",
+    "gis_router",
+    "simulator_router",
     "build_historical_aqi_dashboard_html",
     "get_dashboard_data",
     "export_standalone_dashboard",
@@ -46,4 +58,8 @@ __all__ = [
     "export_traffic_dashboard_html",
     "build_relationships_dashboard_html",
     "export_relationships_dashboard_html",
+    "build_gis_dashboard_html",
+    "export_gis_dashboard_html",
+    "build_simulator_dashboard_html",
+    "generate_simulation_reports",
 ]

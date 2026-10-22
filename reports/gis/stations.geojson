@@ -1,0 +1,135 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.8446,
+          18.5314
+        ]
+      },
+      "properties": {
+        "station_id": "11613",
+        "name": "Revenue Colony-Shivajinagar, Pune - IITM",
+        "aqi": 69.6,
+        "pm25": null,
+        "pm10": null,
+        "no2": 54.6,
+        "co": 1.4,
+        "so2": 5.4,
+        "o3": 18.4,
+        "aqi_color": "#84cc16",
+        "aqi_category": "Satisfactory",
+        "last_updated": "2026-01-28 00:00:00+05:30",
+        "record_count": 947
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.826,
+          18.5529
+        ]
+      },
+      "properties": {
+        "station_id": "3409439",
+        "name": "Savitribai Phule Pune University, Pune - MPCB",
+        "aqi": 92.3,
+        "pm25": 49.5,
+        "pm10": 92.3,
+        "no2": null,
+        "co": null,
+        "so2": null,
+        "o3": null,
+        "aqi_color": "#84cc16",
+        "aqi_category": "Satisfactory",
+        "last_updated": "2026-01-26 00:00:00+05:30",
+        "record_count": 343
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.827,
+          18.502
+        ]
+      },
+      "properties": {
+        "station_id": "5661",
+        "name": "Karve Road Pune, Pune - MPCB",
+        "aqi": 100.0,
+        "pm25": null,
+        "pm10": null,
+        "no2": null,
+        "co": 2.0,
+        "so2": 33.3,
+        "o3": 80.0,
+        "aqi_color": "#84cc16",
+        "aqi_category": "Satisfactory",
+        "last_updated": "2025-05-23 00:00:00+05:30",
+        "record_count": 1772
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.858,
+          18.455
+        ]
+      },
+      "properties": {
+        "station_id": "3409438",
+        "name": "Katraj Dairy, Pune - MPCB",
+        "aqi": 88.0,
+        "pm25": 23.4,
+        "pm10": 88.0,
+        "no2": 19.4,
+        "co": 1.0,
+        "so2": 4.6,
+        "o3": 36.6,
+        "aqi_color": "#84cc16",
+        "aqi_category": "Satisfactory",
+        "last_updated": "2026-01-28 00:00:00+05:30",
+        "record_count": 344
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.7645,
+          18.6015
+        ]
+      },
+      "properties": {
+        "station_id": "3409436",
+        "name": "Park Street Wakad, Pimpri Chinchwad - MPCB",
+        "aqi": 102.5,
+        "pm25": 43.2,
+        "pm10": 103.2,
+        "no2": 40.1,
+        "co": 1.1,
+        "so2": 1.5,
+        "o3": 26.9,
+        "aqi_color": "#f59e0b",
+        "aqi_category": "Moderate",
+        "last_updated": "2026-01-28 00:00:00+05:30",
+        "record_count": 345
+      }
+    }
+  ],
+  "metadata": {
+    "source": "UrbanTwin",
+    "layer": "aqi_stations",
+    "count": 5
+  }
+}

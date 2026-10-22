@@ -1,13 +1,15 @@
 export type PageId =
   | 'overview'
-  | 'spatial'
   | 'air-quality'
   | 'weather'
   | 'traffic'
-  | 'parameter'
+  | 'fusion'
+  | 'relationships'
   | 'forecasting'
-  | 'research'
+  | 'gis'
   | 'data-quality'
+  | 'reports'
+  | 'system-monitor'
   | 'settings';
 
 export type StudyArea = 'pune' | 'pcmc' | 'combined';

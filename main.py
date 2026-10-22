@@ -64,6 +64,10 @@ from dashboard.forecasting import router as forecasting_router
 from dashboard.traffic import router as traffic_router
 from analytics.dashboard import router as relationships_dashboard_router
 from analytics.api import api_router as relationships_api_router
+from gis.dashboard import router as gis_dashboard_router
+from gis.dashboard import api_router as gis_api_router
+from simulator.dashboard import router as simulator_dashboard_router
+from simulator.dashboard import api_router as simulator_api_router
 
 app.include_router(dashboard_router)
 app.include_router(fusion_router)
@@ -71,6 +75,10 @@ app.include_router(forecasting_router)
 app.include_router(traffic_router)
 app.include_router(relationships_dashboard_router)
 app.include_router(relationships_api_router)
+app.include_router(gis_dashboard_router)
+app.include_router(gis_api_router)
+app.include_router(simulator_dashboard_router)
+app.include_router(simulator_api_router)
 
 
 @app.get("/", tags=["General"])

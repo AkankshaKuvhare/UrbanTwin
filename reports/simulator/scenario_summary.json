@@ -1,0 +1,338 @@
+[
+  {
+    "scenario_name": "baseline",
+    "predicted_aqi": 89.7,
+    "aqi_color": "#84cc16",
+    "aqi_category": "Satisfactory",
+    "baseline_aqi": 89.7,
+    "delta_aqi": 0.0,
+    "pct_change": 0.0,
+    "confidence": 70.0,
+    "pollutants": {
+      "pm25": 56.3,
+      "pm10": 86.7,
+      "no2": 27.8,
+      "co": 1.26,
+      "so2": 6.0,
+      "o3": 48.4
+    },
+    "feature_contributions": {
+      "Temperature": 0.0,
+      "Humidity": 0.0,
+      "Wind Speed": -0.0,
+      "Precipitation": -0.0,
+      "Boundary Layer": -0.0,
+      "Traffic Congestion": 0.0
+    },
+    "warnings": [],
+    "parameters": {
+      "temperature_2m": 22.1,
+      "relative_humidity_2m": 74.7,
+      "wind_speed_10m": 8.7,
+      "wind_direction_10m": 220.0,
+      "surface_pressure": 947.7,
+      "precipitation": 0.1,
+      "boundary_layer_height": 242.0,
+      "traffic_speed": 32.5,
+      "traffic_congestion": 0.35,
+      "travel_time": 240.0
+    },
+    "code": "baseline",
+    "name": "Baseline Normal",
+    "category": "Baseline"
+  },
+  {
+    "scenario_name": "traffic_reduction",
+    "predicted_aqi": 76.5,
+    "aqi_color": "#84cc16",
+    "aqi_category": "Satisfactory",
+    "baseline_aqi": 89.7,
+    "delta_aqi": -13.2,
+    "pct_change": -14.7,
+    "confidence": 70.0,
+    "pollutants": {
+      "pm25": 48.0,
+      "pm10": 73.9,
+      "no2": 21.6,
+      "co": 0.97,
+      "so2": 5.1,
+      "o3": 41.3
+    },
+    "feature_contributions": {
+      "Temperature": 0.0,
+      "Humidity": 0.0,
+      "Wind Speed": -0.0,
+      "Precipitation": -0.0,
+      "Boundary Layer": -0.0,
+      "Traffic Congestion": -13.2
+    },
+    "warnings": [],
+    "parameters": {
+      "temperature_2m": 22.1,
+      "relative_humidity_2m": 74.7,
+      "wind_speed_10m": 8.7,
+      "wind_direction_10m": 220.0,
+      "surface_pressure": 947.7,
+      "precipitation": 0.1,
+      "boundary_layer_height": 242.0,
+      "traffic_speed": 45.0,
+      "traffic_congestion": 0.15,
+      "travel_time": 150.0
+    },
+    "code": "traffic_reduction",
+    "name": "Traffic Reduction",
+    "category": "Traffic Policy"
+  },
+  {
+    "scenario_name": "heavy_rain",
+    "predicted_aqi": 59.5,
+    "aqi_color": "#84cc16",
+    "aqi_category": "Satisfactory",
+    "baseline_aqi": 89.7,
+    "delta_aqi": -30.2,
+    "pct_change": -33.7,
+    "confidence": 70.0,
+    "pollutants": {
+      "pm25": 15.0,
+      "pm10": 23.1,
+      "no2": 21.4,
+      "co": 0.96,
+      "so2": 4.0,
+      "o3": 25.7
+    },
+    "feature_contributions": {
+      "Temperature": -0.36,
+      "Humidity": 1.74,
+      "Wind Speed": -0.0,
+      "Precipitation": -24.42,
+      "Boundary Layer": 0.34,
+      "Traffic Congestion": 3.34
+    },
+    "warnings": [],
+    "parameters": {
+      "temperature_2m": 21.0,
+      "relative_humidity_2m": 96.0,
+      "wind_speed_10m": 8.7,
+      "wind_direction_10m": 220.0,
+      "surface_pressure": 947.7,
+      "precipitation": 18.0,
+      "boundary_layer_height": 180.0,
+      "traffic_speed": 18.0,
+      "traffic_congestion": 0.7,
+      "travel_time": 420.0
+    },
+    "code": "heavy_rain",
+    "name": "Heavy Rain",
+    "category": "Environmental"
+  },
+  {
+    "scenario_name": "heatwave",
+    "predicted_aqi": 83.9,
+    "aqi_color": "#84cc16",
+    "aqi_category": "Satisfactory",
+    "baseline_aqi": 89.7,
+    "delta_aqi": -5.8,
+    "pct_change": -6.5,
+    "confidence": 70.0,
+    "pollutants": {
+      "pm25": 52.9,
+      "pm10": 81.4,
+      "no2": 26.0,
+      "co": 1.17,
+      "so2": 5.6,
+      "o3": 65.1
+    },
+    "feature_contributions": {
+      "Temperature": 1.92,
+      "Humidity": -1.58,
+      "Wind Speed": 0.78,
+      "Precipitation": 0.05,
+      "Boundary Layer": -1.47,
+      "Traffic Congestion": 0.0
+    },
+    "warnings": [],
+    "parameters": {
+      "temperature_2m": 37.5,
+      "relative_humidity_2m": 24.0,
+      "wind_speed_10m": 6.0,
+      "wind_direction_10m": 220.0,
+      "surface_pressure": 947.7,
+      "precipitation": 0.0,
+      "boundary_layer_height": 950.0,
+      "traffic_speed": 32.5,
+      "traffic_congestion": 0.35,
+      "travel_time": 240.0
+    },
+    "code": "heatwave",
+    "name": "Heatwave",
+    "category": "Environmental"
+  },
+  {
+    "scenario_name": "high_congestion",
+    "predicted_aqi": 119.5,
+    "aqi_color": "#f59e0b",
+    "aqi_category": "Moderate",
+    "baseline_aqi": 89.7,
+    "delta_aqi": 29.8,
+    "pct_change": 33.2,
+    "confidence": 70.0,
+    "pollutants": {
+      "pm25": 75.0,
+      "pm10": 115.5,
+      "no2": 45.9,
+      "co": 2.07,
+      "so2": 8.0,
+      "o3": 64.5
+    },
+    "feature_contributions": {
+      "Temperature": 0.0,
+      "Humidity": 0.0,
+      "Wind Speed": -0.0,
+      "Precipitation": -0.0,
+      "Boundary Layer": -0.0,
+      "Traffic Congestion": 29.8
+    },
+    "warnings": [],
+    "parameters": {
+      "temperature_2m": 22.1,
+      "relative_humidity_2m": 74.7,
+      "wind_speed_10m": 8.7,
+      "wind_direction_10m": 220.0,
+      "surface_pressure": 947.7,
+      "precipitation": 0.1,
+      "boundary_layer_height": 242.0,
+      "traffic_speed": 11.0,
+      "traffic_congestion": 0.88,
+      "travel_time": 560.0
+    },
+    "code": "high_congestion",
+    "name": "High Congestion",
+    "category": "Traffic Scenario"
+  },
+  {
+    "scenario_name": "low_congestion",
+    "predicted_aqi": 69.3,
+    "aqi_color": "#84cc16",
+    "aqi_category": "Satisfactory",
+    "baseline_aqi": 89.7,
+    "delta_aqi": -20.4,
+    "pct_change": -22.7,
+    "confidence": 70.0,
+    "pollutants": {
+      "pm25": 43.5,
+      "pm10": 67.0,
+      "no2": 18.9,
+      "co": 0.85,
+      "so2": 4.6,
+      "o3": 37.4
+    },
+    "feature_contributions": {
+      "Temperature": 0.0,
+      "Humidity": 0.0,
+      "Wind Speed": -0.0,
+      "Precipitation": -0.0,
+      "Boundary Layer": -0.0,
+      "Traffic Congestion": -20.4
+    },
+    "warnings": [],
+    "parameters": {
+      "temperature_2m": 22.1,
+      "relative_humidity_2m": 74.7,
+      "wind_speed_10m": 8.7,
+      "wind_direction_10m": 220.0,
+      "surface_pressure": 947.7,
+      "precipitation": 0.1,
+      "boundary_layer_height": 242.0,
+      "traffic_speed": 55.0,
+      "traffic_congestion": 0.08,
+      "travel_time": 110.0
+    },
+    "code": "low_congestion",
+    "name": "Low Congestion",
+    "category": "Traffic Scenario"
+  },
+  {
+    "scenario_name": "strong_wind",
+    "predicted_aqi": 85.8,
+    "aqi_color": "#84cc16",
+    "aqi_category": "Satisfactory",
+    "baseline_aqi": 89.7,
+    "delta_aqi": -3.9,
+    "pct_change": -4.3,
+    "confidence": 70.0,
+    "pollutants": {
+      "pm25": 34.7,
+      "pm10": 53.4,
+      "no2": 17.1,
+      "co": 0.77,
+      "so2": 3.7,
+      "o3": 46.3
+    },
+    "feature_contributions": {
+      "Temperature": 0.0,
+      "Humidity": 0.0,
+      "Wind Speed": -3.27,
+      "Precipitation": -0.0,
+      "Boundary Layer": -0.63,
+      "Traffic Congestion": 0.0
+    },
+    "warnings": [],
+    "parameters": {
+      "temperature_2m": 22.1,
+      "relative_humidity_2m": 74.7,
+      "wind_speed_10m": 26.5,
+      "wind_direction_10m": 220.0,
+      "surface_pressure": 947.7,
+      "precipitation": 0.1,
+      "boundary_layer_height": 720.0,
+      "traffic_speed": 32.5,
+      "traffic_congestion": 0.35,
+      "travel_time": 240.0
+    },
+    "code": "strong_wind",
+    "name": "Strong Wind",
+    "category": "Environmental"
+  },
+  {
+    "scenario_name": "custom",
+    "predicted_aqi": 89.7,
+    "aqi_color": "#84cc16",
+    "aqi_category": "Satisfactory",
+    "baseline_aqi": 89.7,
+    "delta_aqi": 0.0,
+    "pct_change": 0.0,
+    "confidence": 70.0,
+    "pollutants": {
+      "pm25": 56.3,
+      "pm10": 86.7,
+      "no2": 27.8,
+      "co": 1.26,
+      "so2": 6.0,
+      "o3": 48.4
+    },
+    "feature_contributions": {
+      "Temperature": 0.0,
+      "Humidity": 0.0,
+      "Wind Speed": -0.0,
+      "Precipitation": -0.0,
+      "Boundary Layer": -0.0,
+      "Traffic Congestion": 0.0
+    },
+    "warnings": [],
+    "parameters": {
+      "temperature_2m": 22.1,
+      "relative_humidity_2m": 74.7,
+      "wind_speed_10m": 8.7,
+      "wind_direction_10m": 220.0,
+      "surface_pressure": 947.7,
+      "precipitation": 0.1,
+      "boundary_layer_height": 242.0,
+      "traffic_speed": 32.5,
+      "traffic_congestion": 0.35,
+      "travel_time": 240.0
+    },
+    "code": "custom",
+    "name": "Custom Scenario",
+    "category": "Custom"
+  }
+]
