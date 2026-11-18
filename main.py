@@ -59,9 +59,9 @@ app.add_middleware(
 
 # Include Dashboard Routers
 from dashboard.historical_aqi import router as dashboard_router
-from dashboard.fusion import router as fusion_router
-from dashboard.forecasting import router as forecasting_router
-from dashboard.traffic import router as traffic_router
+from dashboard.fusion import router as fusion_router, api_router as fusion_api_router
+from dashboard.forecasting import router as forecasting_router, api_router as forecasting_api_router
+from dashboard.traffic import router as traffic_router, api_router as traffic_api_router
 from analytics.dashboard import router as relationships_dashboard_router
 from analytics.api import api_router as relationships_api_router
 from gis.dashboard import router as gis_dashboard_router
@@ -71,8 +71,11 @@ from simulator.dashboard import api_router as simulator_api_router
 
 app.include_router(dashboard_router)
 app.include_router(fusion_router)
+app.include_router(fusion_api_router)
 app.include_router(forecasting_router)
+app.include_router(forecasting_api_router)
 app.include_router(traffic_router)
+app.include_router(traffic_api_router)
 app.include_router(relationships_dashboard_router)
 app.include_router(relationships_api_router)
 app.include_router(gis_dashboard_router)

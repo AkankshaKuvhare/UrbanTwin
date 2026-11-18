@@ -21,6 +21,7 @@ from fastapi.responses import HTMLResponse
 from config.settings import settings
 
 router = APIRouter(prefix="/dashboard", tags=["traffic_dashboard"])
+api_router = APIRouter(prefix="/api/v1", tags=["traffic_api"])
 
 TRAFFIC_DATA_PATH = settings.DATA_DIR / "traffic" / "traffic_observations.parquet"
 POINTS_PATH = settings.BASE_DIR / "config" / "traffic_points.json"
@@ -295,3 +296,73 @@ def export_traffic_dashboard_html(output_path: Optional[Path] = None) -> Path:
 def get_traffic_dashboard():
     """Serve the interactive traffic dashboard."""
     return HTMLResponse(content=build_traffic_dashboard_html())
+
+
+def _get_traffic_summary_payload() -> Dict[str, Any]:
+    """Build summary payload for API endpoints."""
+    df = load_latest_traffic_data()
+    total_records = 0
+    if TRAFFIC_DATA_PATH.exists():
+        try:
+            raw_df = pd.read_parquet(TRAFFIC_DATA_PATH)
+            total_records = len(raw_df)
+        except Exception:
+            pass
+
+    if df.empty:
+        return {
+            "status": "active_polling",
+            "monitored_segments": 40,
+            "observation_count": total_records,
+            "corridors": [],
+            "avg_speed": 0.0,
+            "avg_free_flow": 0.0,
+            "avg_congestion": 0.0,
+            "latest_poll": None,
+        }
+
+    corridors = []
+    for _, row in df.iterrows():
+        curr = float(row.get("current_speed", 0.0))
+        free = float(row.get("free_flow_speed", 0.0))
+        cong = max(0.0, (free - curr) / max(free, 1.0) * 100.0) if free > 0 else 0.0
+        corridors.append({
+            "point_id": str(row.get("point_id", "")),
+            "name": str(row.get("name", "")),
+            "current_speed": round(curr, 1),
+            "free_flow_speed": round(free, 1),
+            "congestion_pct": round(cong, 1),
+            "travel_time": round(float(row.get("current_travel_time", 0.0)), 1),
+            "road_closure": bool(row.get("road_closure", False)),
+            "latitude": float(row.get("latitude", 0.0)) if "latitude" in row else None,
+            "longitude": float(row.get("longitude", 0.0)) if "longitude" in row else None,
+            "timestamp": str(row.get("timestamp", ""))[:19],
+        })
+
+    avg_curr = float(df["current_speed"].mean()) if "current_speed" in df.columns else 0.0
+    avg_free = float(df["free_flow_speed"].mean()) if "free_flow_speed" in df.columns else 0.0
+    avg_cong = max(0.0, (avg_free - avg_curr) / max(avg_free, 1.0) * 100.0) if avg_free > 0 else 0.0
+    latest_ts = str(df["timestamp"].max())[:19] if "timestamp" in df.columns else None
+
+    return {
+        "status": "active_polling",
+        "monitored_segments": len(corridors),
+        "observation_count": total_records,
+        "avg_speed": round(avg_curr, 1),
+        "avg_free_flow": round(avg_free, 1),
+        "avg_congestion": round(avg_cong, 1),
+        "latest_poll": latest_ts,
+        "corridors": corridors,
+    }
+
+
+@router.get("/traffic/data")
+def get_traffic_data_dashboard():
+    """Return JSON traffic data."""
+    return _get_traffic_summary_payload()
+
+
+@api_router.get("/traffic")
+def get_traffic_data_api():
+    """API endpoint returning live TomTom traffic telemetry."""
+    return _get_traffic_summary_payload()

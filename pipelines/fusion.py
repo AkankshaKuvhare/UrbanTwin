@@ -11,13 +11,11 @@ downstream causal discovery and forecasting models.
 """
 
 from datetime import datetime, timezone
+import json
 from pathlib import Path
 import sys
 from typing import Any, Dict, List, Optional, Tuple, Union
 
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from sqlalchemy import create_engine, select
@@ -34,7 +32,7 @@ if str(project_root) not in sys.path:
 from config.logging import get_logger
 from config.settings import settings
 from database.base import Base
-from database.models import AQIObservation, FusedZoneTime, Station
+from database.models import AQIObservation, FusedZoneTime, Station, TrafficObservation
 from pipelines.base import BasePipeline, PipelineResult
 from spatial.snapping import PUNE_STATION_COORDINATES, SpatialEntityResolver
 
@@ -175,24 +173,180 @@ class SpaceTimeFusionEngine:
 
         return df
 
+    def load_traffic_data(
+        self, traffic_source: Optional[Union[pd.DataFrame, str, Path]] = None
+    ) -> pd.DataFrame:
+        """Load arterial traffic observations from Database (primary source of truth) or fallback.
+
+        Args:
+            traffic_source: Optional DataFrame, CSV/Parquet path, or None to query database.
+
+        Returns:
+            DataFrame containing prepared traffic records aggregated by (zone_id, traffic_datetime).
+        """
+        if isinstance(traffic_source, pd.DataFrame):
+            df = traffic_source.copy()
+        elif traffic_source is not None and Path(traffic_source).exists():
+            p = Path(traffic_source)
+            df = pd.read_parquet(p) if p.suffix == ".parquet" else pd.read_csv(p)
+        else:
+            # Query primary source of truth: PostgreSQL/SQLite database
+            try:
+                engine = create_engine(self.db_url)
+                with engine.connect() as conn:
+                    query = "SELECT * FROM traffic_observations ORDER BY timestamp ASC"
+                    df = pd.read_sql(query, conn)
+                if df.empty:
+                    raise ValueError("Database traffic_observations table is empty.")
+            except Exception as exc:
+                logger.warning(
+                    "Could not read traffic from database, checking fallback artifact",
+                    error=str(exc),
+                )
+                parquet_path = settings.DATA_DIR / "traffic" / "traffic_observations.parquet"
+                if parquet_path.exists():
+                    df = pd.read_parquet(parquet_path)
+                else:
+                    return pd.DataFrame()
+
+        if df.empty:
+            return pd.DataFrame()
+
+        return self.prepare_traffic_data(df)
+
+    def prepare_traffic_data(self, df: pd.DataFrame) -> pd.DataFrame:
+        """Prepare, snap, normalize, and aggregate traffic observations to H3 Resolution 7 zones.
+
+        Reuses existing H3 utilities (self.resolver) and traffic points configuration.
+        """
+        if df.empty:
+            return pd.DataFrame()
+
+        traffic = df.copy()
+
+        # Deduplicate on (point_id, timestamp) if columns exist
+        if "point_id" in traffic.columns and "timestamp" in traffic.columns:
+            traffic = traffic.drop_duplicates(subset=["point_id", "timestamp"], keep="last")
+
+        # Temporal standardization (Asia/Kolkata timezone)
+        t_col = next(
+            (c for c in ["traffic_datetime", "timestamp", "observation_datetime", "datetime", "date"] if c in traffic.columns),
+            None,
+        )
+        if t_col is None:
+            logger.warning("No valid timestamp column found in traffic dataset")
+            return pd.DataFrame()
+
+        parsed_ts = pd.to_datetime(traffic[t_col])
+        if parsed_ts.dt.tz is None:
+            traffic["traffic_datetime"] = parsed_ts.dt.tz_localize("Asia/Kolkata")
+        else:
+            traffic["traffic_datetime"] = parsed_ts.dt.tz_convert("Asia/Kolkata")
+
+        # Spatial resolution: Map traffic points to H3 Resolution 7 zones
+        if "zone_id" not in traffic.columns:
+            if "latitude" not in traffic.columns or "longitude" not in traffic.columns:
+                points_cfg = settings.BASE_DIR / "config" / "traffic_points.json"
+                if points_cfg.exists():
+                    try:
+                        with open(points_cfg, "r", encoding="utf-8") as f:
+                            pts = json.load(f)
+                        coords_map = {p["id"]: (p.get("latitude"), p.get("longitude")) for p in pts if "id" in p}
+                        if "point_id" in traffic.columns:
+                            traffic["latitude"] = traffic["point_id"].map(lambda pid: coords_map.get(pid, (np.nan, np.nan))[0])
+                            traffic["longitude"] = traffic["point_id"].map(lambda pid: coords_map.get(pid, (np.nan, np.nan))[1])
+                    except Exception as exc:
+                        logger.warning("Failed loading traffic points config for spatial snapping", error=str(exc))
+
+            if "latitude" in traffic.columns and "longitude" in traffic.columns:
+                unique_pts = traffic[["latitude", "longitude"]].dropna().drop_duplicates()
+                pt_to_zone = {}
+                for _, pt_row in unique_pts.iterrows():
+                    res = self.resolver.resolve_point(pt_row["latitude"], pt_row["longitude"])
+                    pt_to_zone[(pt_row["latitude"], pt_row["longitude"])] = res["zone_id"]
+                traffic["zone_id"] = [
+                    pt_to_zone.get((lat, lon)) for lat, lon in zip(traffic["latitude"], traffic["longitude"])
+                ]
+
+        traffic = traffic.dropna(subset=["zone_id"]).copy()
+        if traffic.empty:
+            return pd.DataFrame()
+
+        traffic["zone_id"] = traffic["zone_id"].astype(str)
+
+        # Standardize traffic feature columns
+        # 1. Speed (km/h)
+        if "traffic_speed" not in traffic.columns and "current_speed" in traffic.columns:
+            traffic["traffic_speed"] = pd.to_numeric(traffic["current_speed"], errors="coerce")
+        elif "traffic_speed" in traffic.columns:
+            traffic["traffic_speed"] = pd.to_numeric(traffic["traffic_speed"], errors="coerce")
+        else:
+            traffic["traffic_speed"] = np.nan
+
+        # 2. Travel Time (seconds)
+        if "traffic_travel_time" not in traffic.columns and "current_travel_time" in traffic.columns:
+            traffic["traffic_travel_time"] = pd.to_numeric(traffic["current_travel_time"], errors="coerce")
+        elif "traffic_travel_time" in traffic.columns:
+            traffic["traffic_travel_time"] = pd.to_numeric(traffic["traffic_travel_time"], errors="coerce")
+        else:
+            traffic["traffic_travel_time"] = np.nan
+
+        # 3. Confidence (0.0 to 1.0)
+        if "traffic_confidence" not in traffic.columns and "confidence" in traffic.columns:
+            traffic["traffic_confidence"] = pd.to_numeric(traffic["confidence"], errors="coerce")
+        elif "traffic_confidence" in traffic.columns:
+            traffic["traffic_confidence"] = pd.to_numeric(traffic["traffic_confidence"], errors="coerce")
+        else:
+            traffic["traffic_confidence"] = np.nan
+
+        # 4. Congestion ratio (0.0 to 1.0)
+        if "traffic_congestion" not in traffic.columns:
+            if "free_flow_speed" in traffic.columns and "traffic_speed" in traffic.columns:
+                ff = pd.to_numeric(traffic["free_flow_speed"], errors="coerce").replace(0, np.nan)
+                cong = (ff - traffic["traffic_speed"]) / ff
+                traffic["traffic_congestion"] = cong.clip(lower=0.0, upper=1.0)
+            else:
+                traffic["traffic_congestion"] = np.nan
+        else:
+            traffic["traffic_congestion"] = pd.to_numeric(traffic["traffic_congestion"], errors="coerce").clip(lower=0.0, upper=1.0)
+
+        # Zone-level aggregation: reconciles multiple sensor points falling inside the same H3 zone
+        traffic["traffic_datetime_agg"] = traffic["traffic_datetime"].dt.round("1min")
+        agg_df = (
+            traffic.groupby(["zone_id", "traffic_datetime_agg"], as_index=False)
+            .agg({
+                "traffic_speed": "mean",
+                "traffic_congestion": "mean",
+                "traffic_travel_time": "mean",
+                "traffic_confidence": "mean",
+            })
+            .rename(columns={"traffic_datetime_agg": "traffic_datetime"})
+        )
+        agg_df = agg_df.sort_values("traffic_datetime").reset_index(drop=True)
+        return agg_df
+
     def fuse(
         self,
         aqi_df: pd.DataFrame,
         weather_df: pd.DataFrame,
+        traffic_df: Optional[pd.DataFrame] = None,
         tolerance: pd.Timedelta = pd.Timedelta("12h"),
+        traffic_tolerance: pd.Timedelta = pd.Timedelta("1h"),
     ) -> pd.DataFrame:
-        """Execute space-time join uniting AQI, H3 Spatial Zones, and Weather covariates.
+        """Execute space-time join uniting AQI, H3 Spatial Zones, Weather, and Traffic covariates.
 
         Logic:
             1. Map each AQI station to its H3 zone via spatial correspondence.
             2. Match observations to hourly weather via nearest-timestamp alignment (merge_asof).
-            3. Populate traffic columns explicitly as NULL.
-            4. Compute missingness indicator flags.
+            3. Match observations to arterial traffic via nearest-timestamp alignment (merge_asof).
+            4. Compute missingness indicator flags with strict NULL fallback safety.
 
         Args:
             aqi_df: Prepared AQI DataFrame.
             weather_df: Prepared hourly weather DataFrame.
+            traffic_df: Optional prepared traffic DataFrame.
             tolerance: Max allowable timestamp delta for nearest-neighbour weather alignment.
+            traffic_tolerance: Max allowable timestamp delta for nearest-neighbour traffic alignment.
 
         Returns:
             Master analytical DataFrame matching fused_zone_time schema.
@@ -220,6 +374,8 @@ class SpaceTimeFusionEngine:
             # Default to Pune center zone
             fused.loc[unmapped_mask, "zone_id"] = self.resolver.zones_gdf.iloc[0]["zone_id"]
 
+        fused["zone_id"] = fused["zone_id"].astype(str)
+
         # 2. Temporal Alignment: Nearest-timestamp merge_asof with weather
         fused_sorted = fused.sort_values("observation_datetime").reset_index(drop=True)
         weather_sorted = weather_prep.sort_values("weather_datetime").reset_index(drop=True)
@@ -237,14 +393,42 @@ class SpaceTimeFusionEngine:
             tolerance=tolerance,
         )
 
-        # 3. Handle Traffic Columns (Strictly NULL - traffic data is not available yet)
-        for t_col in TRAFFIC_PLACEHOLDER_FIELDS:
-            merged[t_col] = np.nan
+        # 3. Temporal Alignment: Nearest-timestamp merge_asof with traffic
+        has_traffic = False
+        if traffic_df is not None and not traffic_df.empty:
+            if "traffic_datetime" not in traffic_df.columns or "zone_id" not in traffic_df.columns:
+                traffic_prep = self.prepare_traffic_data(traffic_df)
+            else:
+                traffic_prep = traffic_df.copy()
+
+            if not traffic_prep.empty:
+                has_traffic = True
+                traffic_prep["zone_id"] = traffic_prep["zone_id"].astype(str)
+                traffic_sorted = traffic_prep.sort_values("traffic_datetime").reset_index(drop=True)
+                merged_sorted = merged.sort_values("observation_datetime").reset_index(drop=True)
+
+                traffic_cols_to_merge = ["traffic_datetime", "zone_id"] + [
+                    c for c in TRAFFIC_PLACEHOLDER_FIELDS if c in traffic_sorted.columns
+                ]
+
+                merged = pd.merge_asof(
+                    merged_sorted,
+                    traffic_sorted[traffic_cols_to_merge],
+                    left_on="observation_datetime",
+                    right_on="traffic_datetime",
+                    by="zone_id",
+                    direction="nearest",
+                    tolerance=traffic_tolerance,
+                )
+
+        if not has_traffic:
+            for t_col in TRAFFIC_PLACEHOLDER_FIELDS:
+                merged[t_col] = np.nan
 
         # 4. Missingness indicators
         merged["weather_missing"] = merged["weather_datetime"].isna() | merged["temperature_2m"].isna()
         merged["aqi_missing"] = merged["aqi"].isna()
-        merged["traffic_missing"] = True  # Traffic is strictly unavailable
+        merged["traffic_missing"] = merged["traffic_speed"].isna()
 
         # Select & order canonical columns matching fused_zone_time
         canonical_columns = [
@@ -309,6 +493,10 @@ class SpaceTimeFusionEngine:
             round((1.0 - (fused_df["aqi_missing"].sum() / total_records)) * 100, 2)
             if total_records > 0 else 0.0
         )
+        traffic_completeness = (
+            round((1.0 - (fused_df["traffic_missing"].sum() / total_records)) * 100, 2)
+            if total_records > 0 else 0.0
+        )
         overall_coverage = round((weather_completeness + aqi_completeness) / 2.0, 2)
 
         # Per-zone completeness
@@ -317,6 +505,7 @@ class SpaceTimeFusionEngine:
             z_total = len(grp)
             z_w_valid = int((~grp["weather_missing"]).sum())
             z_a_valid = int((~grp["aqi_missing"]).sum())
+            z_t_valid = int((~grp["traffic_missing"]).sum())
             zone_records.append({
                 "zone_id": str(z_id),
                 "total_records": z_total,
@@ -324,8 +513,11 @@ class SpaceTimeFusionEngine:
                 "weather_completeness_pct": round((z_w_valid / z_total) * 100, 2),
                 "aqi_valid_count": z_a_valid,
                 "aqi_completeness_pct": round((z_a_valid / z_total) * 100, 2),
+                "traffic_valid_count": z_t_valid,
+                "traffic_completeness_pct": round((z_t_valid / z_total) * 100, 2),
                 "mean_aqi": round(float(grp["aqi"].mean()), 2) if grp["aqi"].notna().any() else None,
                 "mean_temp": round(float(grp["temperature_2m"].mean()), 2) if grp["temperature_2m"].notna().any() else None,
+                "mean_traffic_speed": round(float(grp["traffic_speed"].mean()), 2) if grp["traffic_speed"].notna().any() else None,
             })
         zone_completeness_df = pd.DataFrame(zone_records)
 
@@ -347,6 +539,7 @@ class SpaceTimeFusionEngine:
             "temporal_range": f"{min_dt} to {max_dt}",
             "weather_completeness_pct": weather_completeness,
             "aqi_completeness_pct": aqi_completeness,
+            "traffic_completeness_pct": traffic_completeness,
             "fusion_coverage_pct": overall_coverage,
             "zone_completeness": zone_completeness_df,
             "missingness_matrix": missing_df,
@@ -377,12 +570,17 @@ class SpaceTimeFusionEngine:
             {"metric": "temporal_range", "value": metrics["temporal_range"]},
             {"metric": "weather_completeness_pct", "value": metrics["weather_completeness_pct"]},
             {"metric": "aqi_completeness_pct", "value": metrics["aqi_completeness_pct"]},
+            {"metric": "traffic_completeness_pct", "value": metrics["traffic_completeness_pct"]},
             {"metric": "fusion_coverage_pct", "value": metrics["fusion_coverage_pct"]},
         ]
         fusion_summary_path = out_path / "fusion_report.csv"
         pd.DataFrame(summary_data).to_csv(fusion_summary_path, index=False)
 
         # 2. Diagnostic Figures
+        import matplotlib
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
+
         plt.style.use("seaborn-v0_8-whitegrid" if "seaborn-v0_8-whitegrid" in plt.style.available else "default")
 
         # Plot 1: AQI vs Temperature
@@ -478,13 +676,15 @@ class SpaceTimeFusionEngine:
 def run_space_time_fusion_pipeline(
     output_dir: Optional[Union[str, Path]] = None,
     save_db: bool = False,
+    traffic_source: Optional[Union[pd.DataFrame, str, Path]] = None,
 ) -> Tuple[pd.DataFrame, Dict[str, Any]]:
     """Execute complete Milestone 5 Space-Time Data Fusion pipeline."""
     engine = SpaceTimeFusionEngine()
     aqi_df = engine.load_aqi_data()
     weather_df = engine.load_weather_data()
+    traffic_df = engine.load_traffic_data(traffic_source=traffic_source)
 
-    fused_df = engine.fuse(aqi_df, weather_df)
+    fused_df = engine.fuse(aqi_df, weather_df, traffic_df=traffic_df)
 
     # Save to data/master and parquet
     out_dir = Path(output_dir) if output_dir else settings.BASE_DIR / "data"
@@ -525,4 +725,5 @@ if __name__ == "__main__":
     print(f"Active H3 Zones:        {metrics['total_zones']}")
     print(f"Weather Completeness:   {metrics['weather_completeness_pct']}%")
     print(f"AQI Completeness:       {metrics['aqi_completeness_pct']}%")
+    print(f"Traffic Completeness:   {metrics['traffic_completeness_pct']}%")
     print(f"Overall Fusion Coverage:{metrics['fusion_coverage_pct']}%")

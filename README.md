@@ -123,9 +123,14 @@ pip install -r requirements.txt
 ```
 
 ### 2. Configure Environment
+Copy the example environment configuration template to create your local `.env` file, and populate your API credentials:
 ```bash
+# Windows:
+copy .env.example .env
+# Linux/macOS:
 cp .env.example .env
 ```
+> **Security Notice**: Never commit your `.env` file to version control. The repository `.gitignore` is configured to ignore `.env`. Update `TOMTOM_API_KEY` and database passwords inside `.env` with your secure credentials.
 
 ### 3. Start Database via Docker
 ```bash

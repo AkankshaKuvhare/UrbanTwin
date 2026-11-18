@@ -17,12 +17,13 @@ if str(project_root) not in sys.path:
 
 import numpy as np
 import pandas as pd
-from fastapi import APIRouter
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, HTTPException
+from fastapi.responses import HTMLResponse, FileResponse, StreamingResponse
 
 from config.settings import settings
 
 router = APIRouter(prefix="/dashboard", tags=["Dashboard"])
+api_router = APIRouter(prefix="/api/v1", tags=["Fusion API"])
 
 
 def load_fusion_data(
@@ -542,6 +543,32 @@ async def get_fusion_dashboard() -> HTMLResponse:
     df, summary = load_fusion_data()
     html_content = build_fusion_dashboard_html(df, summary)
     return HTMLResponse(content=html_content)
+
+
+@api_router.get("/fusion/download")
+async def download_fused_dataset():
+    """Stream or return the real production master fused dataset (fused_zone_time.csv)."""
+    base_dir = settings.BASE_DIR
+    csv_path = base_dir / "data" / "fused_zone_time.csv"
+    parquet_path = base_dir / "data" / "fused_zone_time.parquet"
+
+    if csv_path.exists():
+        return FileResponse(
+            path=str(csv_path),
+            filename="fused_zone_time.csv",
+            media_type="text/csv",
+        )
+    elif parquet_path.exists():
+        # Fallback: convert parquet to CSV stream if CSV is missing
+        df = pd.read_parquet(parquet_path)
+        csv_data = df.to_csv(index=False)
+        return StreamingResponse(
+            iter([csv_data]),
+            media_type="text/csv",
+            headers={"Content-Disposition": "attachment; filename=fused_zone_time.csv"},
+        )
+    else:
+        raise HTTPException(status_code=404, detail="Master fused dataset (fused_zone_time.csv) not found on server.")
 
 
 def export_fusion_dashboard_html(

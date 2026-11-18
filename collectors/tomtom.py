@@ -322,6 +322,14 @@ class TomTomCollector(BaseCollector):
 
         from database.session import engine, SessionLocal
         from database.models import TrafficObservation
+        from sqlalchemy import text
+
+        try:
+            with engine.connect() as conn:
+                conn.execute(text("SELECT 1"))
+        except Exception as exc:
+            logger.info("Database connection unavailable, stored safely in parquet", error=str(exc))
+            return 0
 
         try:
             TrafficObservation.__table__.create(bind=engine, checkfirst=True)

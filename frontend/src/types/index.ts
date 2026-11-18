@@ -9,7 +9,6 @@ export type PageId =
   | 'gis'
   | 'data-quality'
   | 'reports'
-  | 'system-monitor'
   | 'settings';
 
 export type StudyArea = 'pune' | 'pcmc' | 'combined';

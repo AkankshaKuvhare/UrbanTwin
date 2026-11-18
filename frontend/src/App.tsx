@@ -11,7 +11,6 @@ import { ForecastingLabPage } from './pages/ForecastingLabPage';
 import { GISDigitalTwinPage } from './pages/GISDigitalTwinPage';
 import { DataQualityPage } from './pages/DataQualityPage';
 import { ReportsPage } from './pages/ReportsPage';
-import { SystemMonitorPage } from './pages/SystemMonitorPage';
 import { SettingsPage } from './pages/SettingsPage';
 
 const AppContent: React.FC = () => {
@@ -39,8 +38,6 @@ const AppContent: React.FC = () => {
         return <DataQualityPage />;
       case 'reports':
         return <ReportsPage />;
-      case 'system-monitor':
-        return <SystemMonitorPage />;
       case 'settings':
         return <SettingsPage />;
       default:

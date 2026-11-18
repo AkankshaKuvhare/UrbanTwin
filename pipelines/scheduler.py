@@ -29,8 +29,9 @@ class TaskScheduler:
 
     def start(self) -> None:
         """Start background scheduler if enabled in settings."""
-        if not settings.ENABLE_SCHEDULER:
-            logger.info("Scheduler is disabled by configuration (ENABLE_SCHEDULER=False)")
+        from config.settings import EnvironmentType
+        if settings.ENVIRONMENT == EnvironmentType.TESTING or not settings.ENABLE_SCHEDULER:
+            logger.info("Scheduler is disabled by configuration or in test environment")
             return
 
         if not HAS_APSCHEDULER:

@@ -184,6 +184,27 @@ export const UrbanTwinAPI = {
     return res.json();
   },
 
+  /** Fetch live TomTom traffic telemetry */
+  async getTrafficData(): Promise<any> {
+    const res = await fetch('/api/v1/traffic');
+    if (!res.ok) throw new Error(`Traffic fetch failed: ${res.statusText}`);
+    return res.json();
+  },
+
+  /** Fetch forecasting model leaderboard and evaluation metrics */
+  async getForecastingData(): Promise<any> {
+    const res = await fetch('/api/v1/forecasting');
+    if (!res.ok) throw new Error(`Forecasting fetch failed: ${res.statusText}`);
+    return res.json();
+  },
+
+  /** Download production fused master dataset */
+  async downloadFusedDataset(): Promise<Blob> {
+    const res = await fetch('/api/v1/fusion/download');
+    if (!res.ok) throw new Error(`Fusion download failed: ${res.statusText}`);
+    return res.blob();
+  },
+
   /** Fetch map metadata and coverage */
   async getMapMetadata(): Promise<any> {
     const res = await fetch('/api/v1/map');

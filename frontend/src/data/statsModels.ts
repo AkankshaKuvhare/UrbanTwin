@@ -118,24 +118,44 @@ export interface ModelForecastComparisonPoint {
   residual_B: number;
 }
 
-export const FORECAST_COMPARISON_48H: ModelForecastComparisonPoint[] = [
-  { timeLabel: '10/20 00:00', actualPM25: 68.2, modelA_Pred: 58.0, modelB_Pred: 66.5, residual_A: 10.2, residual_B: 1.7 },
-  { timeLabel: '10/20 03:00', actualPM25: 63.5, modelA_Pred: 54.0, modelB_Pred: 62.0, residual_A: 9.5,  residual_B: 1.5 },
-  { timeLabel: '10/20 06:00', actualPM25: 84.1, modelA_Pred: 68.5, modelB_Pred: 81.4, residual_A: 15.6, residual_B: 2.7 },
-  { timeLabel: '10/20 09:00', actualPM25: 118.5, modelA_Pred: 89.2, modelB_Pred: 114.2, residual_A: 29.3, residual_B: 4.3 },
-  { timeLabel: '10/20 12:00', actualPM25: 72.4, modelA_Pred: 78.4, modelB_Pred: 74.8, residual_A: -6.0, residual_B: -2.4 },
-  { timeLabel: '10/20 15:00', actualPM25: 58.6, modelA_Pred: 62.1, modelB_Pred: 59.9, residual_A: -3.5, residual_B: -1.3 },
-  { timeLabel: '10/20 18:00', actualPM25: 96.8, modelA_Pred: 75.3, modelB_Pred: 93.1, residual_A: 21.5, residual_B: 3.7 },
-  { timeLabel: '10/20 21:00', actualPM25: 108.4, modelA_Pred: 82.0, modelB_Pred: 105.2, residual_A: 26.4, residual_B: 3.2 },
-  { timeLabel: '10/21 00:00', actualPM25: 69.8, modelA_Pred: 59.2, modelB_Pred: 67.8, residual_A: 10.6, residual_B: 2.0 },
-  { timeLabel: '10/21 03:00', actualPM25: 64.0, modelA_Pred: 55.1, modelB_Pred: 63.1, residual_A: 8.9,  residual_B: 0.9 },
-  { timeLabel: '10/21 06:00', actualPM25: 86.2, modelA_Pred: 70.0, modelB_Pred: 84.0, residual_A: 16.2, residual_B: 2.2 },
-  { timeLabel: '10/21 09:00', actualPM25: 121.0, modelA_Pred: 91.5, modelB_Pred: 117.6, residual_A: 29.5, residual_B: 3.4 },
-  { timeLabel: '10/21 12:00', actualPM25: 74.5, modelA_Pred: 80.2, modelB_Pred: 76.8, residual_A: -5.7, residual_B: -2.3 },
-  { timeLabel: '10/21 15:00', actualPM25: 57.2, modelA_Pred: 61.4, modelB_Pred: 58.6, residual_A: -4.2, residual_B: -1.4 },
-  { timeLabel: '10/21 18:00', actualPM25: 99.1, modelA_Pred: 76.8, modelB_Pred: 96.0, residual_A: 22.3, residual_B: 3.1 },
-  { timeLabel: '10/21 21:00', actualPM25: 111.5, modelA_Pred: 83.4, modelB_Pred: 107.8, residual_A: 28.1, residual_B: 3.7 },
-];
+export const generateRolling48HForecast = (): ModelForecastComparisonPoint[] => {
+  const baseData = [
+    { hourOffset: -45, actualPM25: 68.2, modelA_Pred: 58.0, modelB_Pred: 66.5, residual_A: 10.2, residual_B: 1.7 },
+    { hourOffset: -42, actualPM25: 63.5, modelA_Pred: 54.0, modelB_Pred: 62.0, residual_A: 9.5,  residual_B: 1.5 },
+    { hourOffset: -39, actualPM25: 84.1, modelA_Pred: 68.5, modelB_Pred: 81.4, residual_A: 15.6, residual_B: 2.7 },
+    { hourOffset: -36, actualPM25: 118.5, modelA_Pred: 89.2, modelB_Pred: 114.2, residual_A: 29.3, residual_B: 4.3 },
+    { hourOffset: -33, actualPM25: 72.4, modelA_Pred: 78.4, modelB_Pred: 74.8, residual_A: -6.0, residual_B: -2.4 },
+    { hourOffset: -30, actualPM25: 58.6, modelA_Pred: 62.1, modelB_Pred: 59.9, residual_A: -3.5, residual_B: -1.3 },
+    { hourOffset: -27, actualPM25: 96.8, modelA_Pred: 75.3, modelB_Pred: 93.1, residual_A: 21.5, residual_B: 3.7 },
+    { hourOffset: -24, actualPM25: 108.4, modelA_Pred: 82.0, modelB_Pred: 105.2, residual_A: 26.4, residual_B: 3.2 },
+    { hourOffset: -21, actualPM25: 69.8, modelA_Pred: 59.2, modelB_Pred: 67.8, residual_A: 10.6, residual_B: 2.0 },
+    { hourOffset: -18, actualPM25: 64.0, modelA_Pred: 55.1, modelB_Pred: 63.1, residual_A: 8.9,  residual_B: 0.9 },
+    { hourOffset: -15, actualPM25: 86.2, modelA_Pred: 70.0, modelB_Pred: 84.0, residual_A: 16.2, residual_B: 2.2 },
+    { hourOffset: -12, actualPM25: 121.0, modelA_Pred: 91.5, modelB_Pred: 117.6, residual_A: 29.5, residual_B: 3.4 },
+    { hourOffset: -9, actualPM25: 74.5, modelA_Pred: 80.2, modelB_Pred: 76.8, residual_A: -5.7, residual_B: -2.3 },
+    { hourOffset: -6, actualPM25: 57.2, modelA_Pred: 61.4, modelB_Pred: 58.6, residual_A: -4.2, residual_B: -1.4 },
+    { hourOffset: -3, actualPM25: 99.1, modelA_Pred: 76.8, modelB_Pred: 96.0, residual_A: 22.3, residual_B: 3.1 },
+    { hourOffset: 0, actualPM25: 111.5, modelA_Pred: 83.4, modelB_Pred: 107.8, residual_A: 28.1, residual_B: 3.7 },
+  ];
+
+  const now = new Date();
+  return baseData.map(pt => {
+    const d = new Date(now.getTime() + pt.hourOffset * 3600 * 1000);
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    const hr = String(d.getHours()).padStart(2, '0') + ':00';
+    return {
+      timeLabel: `${m}/${day} ${hr}`,
+      actualPM25: pt.actualPM25,
+      modelA_Pred: pt.modelA_Pred,
+      modelB_Pred: pt.modelB_Pred,
+      residual_A: pt.residual_A,
+      residual_B: pt.residual_B,
+    };
+  });
+};
+
+export const FORECAST_COMPARISON_48H: ModelForecastComparisonPoint[] = generateRolling48HForecast();
 
 // Research & Causality: Stationarity Diagnostics (ADF & KPSS)
 export const STATIONARITY_RESULTS: StationarityResult[] = [

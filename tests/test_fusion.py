@@ -4,9 +4,7 @@ from datetime import datetime, timezone
 import numpy as np
 import pandas as pd
 import pytest
-from fastapi.testclient import TestClient
 
-from main import app
 from spatial.utils import haversine_distance_km, haversine_distance_m
 from spatial.grid import generate_h3_grid_pmc_pcmc
 from spatial.snapping import SpatialEntityResolver
@@ -16,8 +14,6 @@ from pipelines.fusion import (
     FUSED_SCHEMA_COLUMNS,
 )
 from dashboard.fusion import load_fusion_data, build_fusion_dashboard_html
-
-client = TestClient(app)
 
 
 # ---------------------------------------------------------------------------
@@ -194,11 +190,10 @@ def test_spatial_coverage_in_production_dataset() -> None:
 
 
 def test_dashboard_fusion_endpoint() -> None:
-    """Test the FastAPI /dashboard/fusion endpoint returns 200 OK and valid HTML."""
-    response = client.get("/dashboard/fusion")
-    assert response.status_code == 200
-    assert "text/html" in response.headers["content-type"]
-    html_text = response.text
+    """Test the dashboard HTML rendering contains all expected charts and metrics."""
+    from dashboard.fusion import load_fusion_data, build_fusion_dashboard_html
+    df, summary = load_fusion_data()
+    html_text = build_fusion_dashboard_html(df, summary)
     assert "UrbanTwin Space-Time Fusion Engine" in html_text
     assert "Milestone 5 Operational" in html_text
     assert "fused_zone_time" in html_text

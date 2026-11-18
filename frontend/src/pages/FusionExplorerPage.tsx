@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ModuleHeader } from '../components/common/ModuleHeader';
 import { KPICard } from '../components/common/KPICard';
+import { UrbanTwinAPI } from '../utils/api';
 import {
   Layers,
   Database,
@@ -13,6 +14,8 @@ import {
   MapPin,
   Clock,
   Sparkles,
+  Loader2,
+  AlertCircle,
 } from 'lucide-react';
 import {
   AreaChart,
@@ -60,23 +63,64 @@ const PREVIEW_RECORDS = [
 
 export const FusionExplorerPage: React.FC = () => {
   const [selectedZone, setSelectedZone] = useState<string>('all');
+  const [downloadStatus, setDownloadStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [downloadMsg, setDownloadMsg] = useState<string>('');
 
-  const handleDownloadCSV = () => {
-    const csvContent = "data:text/csv;charset=utf-8," + 
-      ["zone_id,observation_datetime,station_id,aqi,pm25,pm10,temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation,traffic_speed,traffic_congestion"]
-      .concat(PREVIEW_RECORDS.map(r => `${r.zone_id},${r.time},${r.station},${r.aqi},${r.pm25},${r.pm10},${r.temp},${r.rh},${r.wind},${r.rain},${r.speed},${r.cong}`))
-      .join("\n");
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "urbantwin_fused_master_dataset.csv");
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const handleDownloadCSV = async () => {
+    if (downloadStatus === 'loading') return;
+    setDownloadStatus('loading');
+    setDownloadMsg('');
+
+    try {
+      const blob = await UrbanTwinAPI.downloadFusedDataset();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'fused_zone_time.csv');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
+      setDownloadStatus('success');
+      setDownloadMsg('Downloaded master dataset (3,751 records × 25 columns).');
+      setTimeout(() => {
+        setDownloadStatus('idle');
+        setDownloadMsg('');
+      }, 5000);
+    } catch (err: any) {
+      console.error('Download error:', err);
+      setDownloadStatus('error');
+      setDownloadMsg('Failed to download dataset from server. Please verify backend is running.');
+      setTimeout(() => {
+        setDownloadStatus('idle');
+      }, 7000);
+    }
   };
 
   return (
     <div className="space-y-6 animate-fadeIn">
+      {/* Toast Notification for Download Status */}
+      {downloadStatus === 'success' && (
+        <div className="p-3 bg-emerald-950/80 border border-emerald-500/40 rounded-xl flex items-center justify-between text-emerald-200 text-xs shadow-lg animate-fadeIn">
+          <div className="flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+            <span>{downloadMsg}</span>
+          </div>
+          <span className="font-mono text-[10px] text-emerald-400 font-semibold bg-emerald-900/60 px-2 py-0.5 rounded">200 OK</span>
+        </div>
+      )}
+
+      {downloadStatus === 'error' && (
+        <div className="p-3 bg-rose-950/80 border border-rose-500/40 rounded-xl flex items-center justify-between text-rose-200 text-xs shadow-lg animate-fadeIn">
+          <div className="flex items-center gap-2">
+            <AlertCircle className="w-4 h-4 text-rose-400 flex-shrink-0" />
+            <span>{downloadMsg}</span>
+          </div>
+          <span className="font-mono text-[10px] text-rose-400 font-semibold bg-rose-900/60 px-2 py-0.5 rounded">ERROR</span>
+        </div>
+      )}
+
       <ModuleHeader
         title="Space-Time Fusion Explorer"
         badge="Core Pipeline"
@@ -89,10 +133,15 @@ export const FusionExplorerPage: React.FC = () => {
         actions={
           <button
             onClick={handleDownloadCSV}
-            className="text-xs bg-purple-600 hover:bg-purple-500 text-white font-semibold px-3.5 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 shadow-sm"
+            disabled={downloadStatus === 'loading'}
+            className="text-xs bg-purple-600 hover:bg-purple-500 disabled:bg-purple-900/60 text-white font-semibold px-3.5 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 shadow-sm cursor-pointer disabled:cursor-not-allowed"
           >
-            <Download className="w-3.5 h-3.5" />
-            <span>Download Master CSV</span>
+            {downloadStatus === 'loading' ? (
+              <Loader2 className="w-3.5 h-3.5 animate-spin text-purple-200" />
+            ) : (
+              <Download className="w-3.5 h-3.5" />
+            )}
+            <span>{downloadStatus === 'loading' ? 'Streaming Dataset...' : 'Download Master CSV'}</span>
           </button>
         }
       />
@@ -239,10 +288,15 @@ export const FusionExplorerPage: React.FC = () => {
           </div>
           <button
             onClick={handleDownloadCSV}
-            className="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 self-start"
+            disabled={downloadStatus === 'loading'}
+            className="text-xs bg-slate-800 hover:bg-slate-700 disabled:bg-slate-800/50 text-slate-300 border border-slate-700 px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 self-start cursor-pointer disabled:cursor-not-allowed"
           >
-            <Download className="w-3.5 h-3.5 text-purple-400" />
-            <span>Export CSV</span>
+            {downloadStatus === 'loading' ? (
+              <Loader2 className="w-3.5 h-3.5 animate-spin text-purple-400" />
+            ) : (
+              <Download className="w-3.5 h-3.5 text-purple-400" />
+            )}
+            <span>{downloadStatus === 'loading' ? 'Exporting...' : 'Export CSV'}</span>
           </button>
         </div>
 

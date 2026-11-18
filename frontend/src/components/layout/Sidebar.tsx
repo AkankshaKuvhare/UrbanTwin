@@ -12,7 +12,6 @@ import {
   MapPin,
   CheckCircle2,
   FileText,
-  Activity,
   Settings,
   ChevronLeft,
   ChevronRight,
@@ -60,7 +59,6 @@ const NAV_SECTIONS: NavSection[] = [
     items: [
       { id: 'data-quality', label: 'Data Quality', icon: CheckCircle2 },
       { id: 'reports', label: 'Reports', icon: FileText, tag: 'Export', tagColor: 'bg-emerald-900/60 text-emerald-300' },
-      { id: 'system-monitor', label: 'System Monitor', icon: Activity },
     ],
   },
   {

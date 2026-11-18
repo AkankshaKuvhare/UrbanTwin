@@ -4,10 +4,16 @@ Uses pydantic-settings to validate and parse environment variables.
 """
 
 from enum import Enum
+import os
 from pathlib import Path
 from typing import Optional
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+# Ensure writable matplotlib cache directory to prevent redundant font cache rebuilds
+_mpl_cache = Path(__file__).resolve().parent.parent / ".cache" / "matplotlib"
+_mpl_cache.mkdir(parents=True, exist_ok=True)
+os.environ.setdefault("MPLCONFIGDIR", str(_mpl_cache))
 
 
 class EnvironmentType(str, Enum):
@@ -78,8 +84,8 @@ class Settings(BaseSettings):
     SYNTHETIC_DATA_DIR: Path = BASE_DIR / "data" / "synthetic"
 
     # Scheduler Configuration
-    ENABLE_SCHEDULER: bool = False
-    POLLING_INTERVAL_MINUTES: int = 60
+    ENABLE_SCHEDULER: bool = True
+    POLLING_INTERVAL_MINUTES: int = 15
 
     @property
     def active_data_dir(self) -> Path:

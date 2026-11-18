@@ -43,49 +43,69 @@ export interface DailyWeatherTrendItem {
   tempMax: number;
   tempMin: number;
   avgHumidity: number;
+  humidity: number; // Alias for chart compatibility
   windSpeed: number;
   boundaryLayerHeight: number;
   precipitation: number;
 }
 
-export const DAILY_WEATHER_30_DAYS: DailyWeatherTrendItem[] = [
-  { date: 'Sep 22', tempMax: 31.2, tempMin: 22.4, avgHumidity: 76, windSpeed: 9.8, boundaryLayerHeight: 1120, precipitation: 2.4 },
-  { date: 'Sep 23', tempMax: 30.8, tempMin: 22.1, avgHumidity: 79, windSpeed: 10.2, boundaryLayerHeight: 1080, precipitation: 4.8 },
-  { date: 'Sep 24', tempMax: 29.5, tempMin: 21.8, avgHumidity: 84, windSpeed: 12.6, boundaryLayerHeight: 1240, precipitation: 14.2 },
-  { date: 'Sep 25', tempMax: 28.7, tempMin: 21.2, avgHumidity: 88, windSpeed: 14.1, boundaryLayerHeight: 1350, precipitation: 22.6 },
-  { date: 'Sep 26', tempMax: 29.4, tempMin: 21.0, avgHumidity: 85, windSpeed: 13.5, boundaryLayerHeight: 1290, precipitation: 18.0 },
-  { date: 'Sep 27', tempMax: 30.1, tempMin: 21.5, avgHumidity: 81, windSpeed: 11.2, boundaryLayerHeight: 1180, precipitation: 6.2 },
-  { date: 'Sep 28', tempMax: 31.0, tempMin: 21.8, avgHumidity: 75, windSpeed: 9.6, boundaryLayerHeight: 1050, precipitation: 0.0 },
-  { date: 'Sep 29', tempMax: 31.5, tempMin: 21.4, avgHumidity: 71, windSpeed: 8.8, boundaryLayerHeight: 980, precipitation: 0.0 },
-  { date: 'Sep 30', tempMax: 32.0, tempMin: 21.0, avgHumidity: 68, windSpeed: 8.2, boundaryLayerHeight: 920, precipitation: 0.0 },
-  { date: 'Oct 01', tempMax: 32.4, tempMin: 20.8, avgHumidity: 66, windSpeed: 7.9, boundaryLayerHeight: 890, precipitation: 0.0 },
-  { date: 'Oct 02', tempMax: 31.8, tempMin: 21.2, avgHumidity: 72, windSpeed: 9.5, boundaryLayerHeight: 960, precipitation: 1.5 },
-  { date: 'Oct 03', tempMax: 32.1, tempMin: 20.5, avgHumidity: 65, windSpeed: 8.1, boundaryLayerHeight: 880, precipitation: 0.0 },
-  { date: 'Oct 04', tempMax: 32.5, tempMin: 20.2, avgHumidity: 63, windSpeed: 7.6, boundaryLayerHeight: 840, precipitation: 0.0 },
-  { date: 'Oct 05', tempMax: 32.8, tempMin: 19.8, avgHumidity: 61, windSpeed: 7.2, boundaryLayerHeight: 810, precipitation: 0.0 },
-  { date: 'Oct 06', tempMax: 33.1, tempMin: 19.5, avgHumidity: 59, windSpeed: 6.8, boundaryLayerHeight: 780, precipitation: 0.0 },
-  { date: 'Oct 07', tempMax: 33.4, tempMin: 19.2, avgHumidity: 58, windSpeed: 6.5, boundaryLayerHeight: 750, precipitation: 0.0 },
-  { date: 'Oct 08', tempMax: 33.2, tempMin: 19.0, avgHumidity: 56, windSpeed: 6.1, boundaryLayerHeight: 710, precipitation: 0.0 },
-  { date: 'Oct 09', tempMax: 33.0, tempMin: 18.8, avgHumidity: 55, windSpeed: 5.8, boundaryLayerHeight: 680, precipitation: 0.0 },
-  { date: 'Oct 10', tempMax: 32.8, tempMin: 18.5, avgHumidity: 54, windSpeed: 5.4, boundaryLayerHeight: 640, precipitation: 0.0 },
-  { date: 'Oct 11', tempMax: 32.5, tempMin: 18.2, avgHumidity: 53, windSpeed: 5.1, boundaryLayerHeight: 620, precipitation: 0.0 },
-  { date: 'Oct 12', tempMax: 32.2, tempMin: 18.4, avgHumidity: 56, windSpeed: 5.9, boundaryLayerHeight: 660, precipitation: 0.0 },
-  { date: 'Oct 13', tempMax: 32.4, tempMin: 18.6, avgHumidity: 58, windSpeed: 6.4, boundaryLayerHeight: 710, precipitation: 0.0 },
-  { date: 'Oct 14', tempMax: 32.6, tempMin: 18.9, avgHumidity: 60, windSpeed: 6.8, boundaryLayerHeight: 740, precipitation: 0.0 },
-  { date: 'Oct 15', tempMax: 32.8, tempMin: 19.1, avgHumidity: 62, windSpeed: 7.1, boundaryLayerHeight: 760, precipitation: 0.0 },
-  { date: 'Oct 16', tempMax: 32.7, tempMin: 19.3, avgHumidity: 64, windSpeed: 7.4, boundaryLayerHeight: 790, precipitation: 0.0 },
-  { date: 'Oct 17', tempMax: 32.5, tempMin: 19.0, avgHumidity: 63, windSpeed: 7.8, boundaryLayerHeight: 820, precipitation: 0.0 },
-  { date: 'Oct 18', tempMax: 32.2, tempMin: 18.7, avgHumidity: 62, windSpeed: 8.0, boundaryLayerHeight: 840, precipitation: 0.0 },
-  { date: 'Oct 19', tempMax: 32.0, tempMin: 18.4, avgHumidity: 61, windSpeed: 8.2, boundaryLayerHeight: 860, precipitation: 0.0 },
-  { date: 'Oct 20', tempMax: 31.9, tempMin: 18.1, avgHumidity: 60, windSpeed: 8.5, boundaryLayerHeight: 880, precipitation: 0.0 },
-  { date: 'Oct 21', tempMax: 31.6, tempMin: 17.9, avgHumidity: 59, windSpeed: 8.8, boundaryLayerHeight: 910, precipitation: 0.0 },
+const BASE_WEATHER_PROFILES = [
+  { tempMax: 31.2, tempMin: 22.4, avgHumidity: 76, windSpeed: 9.8, boundaryLayerHeight: 1120, precipitation: 2.4 },
+  { tempMax: 30.8, tempMin: 22.1, avgHumidity: 79, windSpeed: 10.2, boundaryLayerHeight: 1080, precipitation: 4.8 },
+  { tempMax: 29.5, tempMin: 21.8, avgHumidity: 84, windSpeed: 12.6, boundaryLayerHeight: 1240, precipitation: 14.2 },
+  { tempMax: 28.7, tempMin: 21.2, avgHumidity: 88, windSpeed: 14.1, boundaryLayerHeight: 1350, precipitation: 22.6 },
+  { tempMax: 29.4, tempMin: 21.0, avgHumidity: 85, windSpeed: 13.5, boundaryLayerHeight: 1290, precipitation: 18.0 },
+  { tempMax: 30.1, tempMin: 21.5, avgHumidity: 81, windSpeed: 11.2, boundaryLayerHeight: 1180, precipitation: 6.2 },
+  { tempMax: 31.0, tempMin: 21.8, avgHumidity: 75, windSpeed: 9.6, boundaryLayerHeight: 1050, precipitation: 0.0 },
+  { tempMax: 31.5, tempMin: 21.4, avgHumidity: 71, windSpeed: 8.8, boundaryLayerHeight: 980, precipitation: 0.0 },
+  { tempMax: 32.0, tempMin: 21.0, avgHumidity: 68, windSpeed: 8.2, boundaryLayerHeight: 920, precipitation: 0.0 },
+  { tempMax: 32.4, tempMin: 20.8, avgHumidity: 66, windSpeed: 7.9, boundaryLayerHeight: 890, precipitation: 0.0 },
+  { tempMax: 31.8, tempMin: 21.2, avgHumidity: 72, windSpeed: 9.5, boundaryLayerHeight: 960, precipitation: 1.5 },
+  { tempMax: 32.1, tempMin: 20.5, avgHumidity: 65, windSpeed: 8.1, boundaryLayerHeight: 880, precipitation: 0.0 },
+  { tempMax: 32.5, tempMin: 20.2, avgHumidity: 63, windSpeed: 7.6, boundaryLayerHeight: 840, precipitation: 0.0 },
+  { tempMax: 32.8, tempMin: 19.8, avgHumidity: 61, windSpeed: 7.2, boundaryLayerHeight: 810, precipitation: 0.0 },
+  { tempMax: 33.1, tempMin: 19.5, avgHumidity: 59, windSpeed: 6.8, boundaryLayerHeight: 780, precipitation: 0.0 },
+  { tempMax: 33.4, tempMin: 19.2, avgHumidity: 58, windSpeed: 6.5, boundaryLayerHeight: 750, precipitation: 0.0 },
+  { tempMax: 33.2, tempMin: 19.0, avgHumidity: 56, windSpeed: 6.1, boundaryLayerHeight: 710, precipitation: 0.0 },
+  { tempMax: 33.0, tempMin: 18.8, avgHumidity: 55, windSpeed: 5.8, boundaryLayerHeight: 680, precipitation: 0.0 },
+  { tempMax: 32.8, tempMin: 18.5, avgHumidity: 54, windSpeed: 5.4, boundaryLayerHeight: 640, precipitation: 0.0 },
+  { tempMax: 32.5, tempMin: 18.2, avgHumidity: 53, windSpeed: 5.1, boundaryLayerHeight: 620, precipitation: 0.0 },
+  { tempMax: 32.2, tempMin: 18.4, avgHumidity: 56, windSpeed: 5.9, boundaryLayerHeight: 660, precipitation: 0.0 },
+  { tempMax: 32.4, tempMin: 18.6, avgHumidity: 58, windSpeed: 6.4, boundaryLayerHeight: 710, precipitation: 0.0 },
+  { tempMax: 32.6, tempMin: 18.9, avgHumidity: 60, windSpeed: 6.8, boundaryLayerHeight: 740, precipitation: 0.0 },
+  { tempMax: 32.8, tempMin: 19.1, avgHumidity: 62, windSpeed: 7.1, boundaryLayerHeight: 760, precipitation: 0.0 },
+  { tempMax: 32.7, tempMin: 19.3, avgHumidity: 64, windSpeed: 7.4, boundaryLayerHeight: 790, precipitation: 0.0 },
+  { tempMax: 32.5, tempMin: 19.0, avgHumidity: 63, windSpeed: 7.8, boundaryLayerHeight: 820, precipitation: 0.0 },
+  { tempMax: 32.2, tempMin: 18.7, avgHumidity: 62, windSpeed: 8.0, boundaryLayerHeight: 840, precipitation: 0.0 },
+  { tempMax: 32.0, tempMin: 18.4, avgHumidity: 61, windSpeed: 8.2, boundaryLayerHeight: 860, precipitation: 0.0 },
+  { tempMax: 31.9, tempMin: 18.1, avgHumidity: 60, windSpeed: 8.5, boundaryLayerHeight: 880, precipitation: 0.0 },
+  { tempMax: 31.6, tempMin: 17.9, avgHumidity: 59, windSpeed: 8.8, boundaryLayerHeight: 910, precipitation: 0.0 },
 ];
 
+export const generateRolling30DaysWeather = (): DailyWeatherTrendItem[] => {
+  const now = new Date();
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  
+  return BASE_WEATHER_PROFILES.map((item, idx) => {
+    const d = new Date(now);
+    d.setDate(now.getDate() - (29 - idx));
+    const dateStr = `${months[d.getMonth()]} ${String(d.getDate()).padStart(2, '0')}`;
+
+    return {
+      date: dateStr,
+      ...item,
+      humidity: item.avgHumidity,
+    };
+  });
+};
+
+export const DAILY_WEATHER_30_DAYS: DailyWeatherTrendItem[] = generateRolling30DaysWeather();
+
 export const LATEST_REAL_WEATHER: WeatherObservation = {
-  timestamp: '2026-10-21T14:30:00Z',
-  temperature: 31.6,
-  relativeHumidity: 59,
-  windSpeed: 8.8,
+  timestamp: new Date().toISOString(),
+  temperature: 24.5,
+  relativeHumidity: 62,
+  windSpeed: 8.2,
   windDirection: 245,
   boundaryLayerHeight: 910,
   precipitation: 0.0,

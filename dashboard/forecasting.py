@@ -24,6 +24,7 @@ from fastapi.responses import HTMLResponse
 from config.settings import settings
 
 router = APIRouter(prefix="/dashboard", tags=["forecasting_dashboard"])
+api_router = APIRouter(prefix="/api/v1", tags=["forecasting_api"])
 
 REPORTS_DIR = settings.BASE_DIR / "reports" / "models"
 
@@ -214,3 +215,53 @@ def export_forecasting_dashboard_html(output_path: Optional[Path] = None) -> Pat
 def get_forecasting_dashboard():
     """Serve the interactive forecasting dashboard web page."""
     return HTMLResponse(content=build_forecasting_dashboard_html())
+
+
+def _get_forecasting_payload() -> Dict[str, Any]:
+    """Return JSON payload of all evaluated forecasting models and features."""
+    metrics = load_model_metrics()
+    results_df = load_baseline_results()
+    feat_df = load_feature_summary()
+
+    models_list = []
+    if not results_df.empty:
+        for _, row in results_df.iterrows():
+            models_list.append({
+                "model_key": str(row.get("model_key", "")),
+                "label": str(row.get("label", "")),
+                "feature_set": str(row.get("feature_set", "")),
+                "num_features": int(row.get("num_features", 0)),
+                "cv_mae": round(float(row.get("cv_mae", 0.0)), 2),
+                "cv_rmse": round(float(row.get("cv_rmse", 0.0)), 2),
+                "cv_r2": round(float(row.get("cv_r2", 0.0)), 3),
+                "cv_mape": round(float(row.get("cv_mape", 0.0)), 1),
+                "folds_evaluated": int(row.get("folds_evaluated", 5)),
+            })
+
+    features_list = []
+    if not feat_df.empty:
+        for _, row in feat_df.iterrows():
+            features_list.append({
+                "feature": str(row.get("feature", "")),
+                "dtype": str(row.get("dtype", "")),
+                "min": round(float(row.get("min", 0.0)), 2) if pd.notna(row.get("min")) else 0.0,
+                "max": round(float(row.get("max", 0.0)), 2) if pd.notna(row.get("max")) else 0.0,
+            })
+
+    return {
+        "metrics": metrics,
+        "models": models_list,
+        "features": features_list,
+    }
+
+
+@router.get("/forecasting/data")
+def get_forecasting_data_dashboard():
+    """Return forecasting models data JSON."""
+    return _get_forecasting_payload()
+
+
+@api_router.get("/forecasting")
+def get_forecasting_data_api():
+    """API endpoint returning model leaderboard metrics."""
+    return _get_forecasting_payload()
